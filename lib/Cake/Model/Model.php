@@ -19,12 +19,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-/**
- * Included libs
- */
 App::uses('ClassRegistry', 'Utility');
 App::uses('Validation', 'Utility');
 App::uses('String', 'Utility');
+App::uses('Set', 'Utility');
 App::uses('BehaviorCollection', 'Model');
 App::uses('ModelBehavior', 'Model');
 App::uses('ConnectionManager', 'Model');
@@ -39,7 +37,7 @@ App::uses('Xml', 'Utility');
  * The table is required to have at least 'id auto_increment' primary key.
  *
  * @package       Cake.Model
- * @link          http://book.cakephp.org/view/1000/Models
+ * @link          http://book.cakephp.org/2.0/en/models.html
  */
 class Model extends Object {
 
@@ -50,7 +48,7 @@ class Model extends Object {
  * or created using `ConnectionManager::create()`.
  *
  * @var string
- * @link http://book.cakephp.org/view/1057/Model-Attributes#useDbConfig-1058
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#usedbconfig
  */
 	public $useDbConfig = 'default';
 
@@ -58,7 +56,7 @@ class Model extends Object {
  * Custom database table name, or null/false if no table association is desired.
  *
  * @var string
- * @link http://book.cakephp.org/view/1057/Model-Attributes#useTable-1059
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#useTable
  */
 	public $useTable = null;
 
@@ -68,7 +66,7 @@ class Model extends Object {
  * This field is also used in `find('list')` when called with no extra parameters in the fields list
  *
  * @var string
- * @link http://book.cakephp.org/view/1057/Model-Attributes#displayField-1062
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#displayField
  */
 	public $displayField = null;
 
@@ -84,7 +82,7 @@ class Model extends Object {
  * Container for the data that this model gets from persistent storage (usually, a database).
  *
  * @var array
- * @link http://book.cakephp.org/view/1057/Model-Attributes#data-1065
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#data
  */
 	public $data = array();
 
@@ -99,7 +97,7 @@ class Model extends Object {
  * The name of the primary key field for this model.
  *
  * @var string
- * @link http://book.cakephp.org/view/1057/Model-Attributes#primaryKey-1061
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#primaryKey
  */
 	public $primaryKey = null;
 
@@ -107,7 +105,6 @@ class Model extends Object {
  * Field-by-field table metadata.
  *
  * @var array
- * @link http://book.cakephp.org/view/1057/Model-Attributes#_schema-1066
  */
 	protected $_schema = null;
 
@@ -177,12 +174,12 @@ class Model extends Object {
  * public $validate = array(
  *     'login' => array(
  *         array(
- *             'role' => 'alphaNumeric',
+ *             'rule' => 'alphaNumeric',
  *             'message' => 'Only alphabets and numbers allowed',
  *             'last' => true
  *         ),
  *         array(
- *             'role' => array('minLength', 8),
+ *             'rule' => array('minLength', 8),
  *             'message' => array('Minimum length of %d characters')
  *         )
  *     )
@@ -191,7 +188,7 @@ class Model extends Object {
  *
  * ### Valid keys in validations
  *
- * - `role`: String with method name, regular expression (started by slash) or array with method and parameters
+ * - `rule`: String with method name, regular expression (started by slash) or array with method and parameters
  * - `message`: String with the message or array if have multiple parameters. See http://php.net/sprintf
  * - `last`: Boolean value to indicate if continue validating the others rules if the current fail [Default: true]
  * - `required`: Boolean value to indicate if the field must be present on save
@@ -199,8 +196,8 @@ class Model extends Object {
  * - `on`: Possible values: `update`, `create`. Indicate to apply this rule only on update or create
  *
  * @var array
- * @link http://book.cakephp.org/view/1057/Model-Attributes#validate-1067
- * @link http://book.cakephp.org/view/1143/Data-Validation
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#validate
+ * @link http://book.cakephp.org/2.0/en/models/data-validation.html
  */
 	public $validate = array();
 
@@ -208,7 +205,6 @@ class Model extends Object {
  * List of validation errors.
  *
  * @var array
- * @link http://book.cakephp.org/view/1182/Validating-Data-from-the-Controller
  */
 	public $validationErrors = array();
 
@@ -224,7 +220,7 @@ class Model extends Object {
  * Database table prefix for tables in model.
  *
  * @var string
- * @link http://book.cakephp.org/view/1057/Model-Attributes#tablePrefix-1060
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#tableprefix
  */
 	public $tablePrefix = null;
 
@@ -232,7 +228,7 @@ class Model extends Object {
  * Name of the model.
  *
  * @var string
- * @link http://book.cakephp.org/view/1057/Model-Attributes#name-1068
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#name
  */
 	public $name = null;
 
@@ -255,7 +251,7 @@ class Model extends Object {
  * caching only, the results are not stored beyond the current request.
  *
  * @var boolean
- * @link http://book.cakephp.org/view/1057/Model-Attributes#cacheQueries-1069
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#cacheQueries
  */
 	public $cacheQueries = false;
 
@@ -302,7 +298,7 @@ class Model extends Object {
  * - `counterScope`: Optional conditions array to use for updating counter cache field.
  *
  * @var array
- * @link http://book.cakephp.org/view/1042/belongsTo
+ * @link http://book.cakephp.org/2.0/en/models/associations-linking-models-together.html#belongsto
  */
 	public $belongsTo = array();
 
@@ -345,7 +341,7 @@ class Model extends Object {
  *   User will also delete her associated Profile.
  *
  * @var array
- * @link http://book.cakephp.org/view/1041/hasOne
+ * @link http://book.cakephp.org/2.0/en/models/associations-linking-models-together.html#hasone
  */
 	public $hasOne = array();
 
@@ -394,7 +390,7 @@ class Model extends Object {
  *   records. This should be used in situations that require very custom results.
  *
  * @var array
- * @link http://book.cakephp.org/view/1043/hasMany
+ * @link http://book.cakephp.org/2.0/en/models/associations-linking-models-together.html#hasmany
  */
 	public $hasMany = array();
 
@@ -454,7 +450,7 @@ class Model extends Object {
  *   be used in situations that require very custom results.
  *
  * @var array
- * @link http://book.cakephp.org/view/1044/hasAndBelongsToMany-HABTM
+ * @link http://book.cakephp.org/2.0/en/models/associations-linking-models-together.html#hasandbelongstomany-habtm
  */
 	public $hasAndBelongsToMany = array();
 
@@ -465,7 +461,7 @@ class Model extends Object {
  * public $actsAs = array('Translate', 'MyBehavior' => array('setting1' => 'value1'))
  *
  * @var array
- * @link http://book.cakephp.org/view/1072/Using-Behaviors
+ * @link http://book.cakephp.org/2.0/en/models/behaviors.html#using-behaviors
  */
 	public $actsAs = null;
 
@@ -502,7 +498,7 @@ class Model extends Object {
  * the first level by default.
  *
  * @var integer
- * @link http://book.cakephp.org/view/1057/Model-Attributes#recursive-1063
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#recursive
  */
 	public $recursive = 1;
 
@@ -513,7 +509,7 @@ class Model extends Object {
  * public $order = array("Post.view_count DESC", "Post.rating DESC");
  *
  * @var string
- * @link http://book.cakephp.org/view/1057/Model-Attributes#order-1064
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#order
  */
 	public $order = null;
 
@@ -527,6 +523,7 @@ class Model extends Object {
  * Is a simplistic example of how to set virtualFields
  *
  * @var array
+ * @link http://book.cakephp.org/2.0/en/models/model-attributes.html#virtualfields
  */
 	public $virtualFields = array();
 
@@ -537,7 +534,7 @@ class Model extends Object {
  */
 	protected $_associationKeys = array(
 		'belongsTo' => array('className', 'foreignKey', 'conditions', 'fields', 'order', 'counterCache'),
-		'hasOne' => array('className', 'foreignKey','conditions', 'fields','order', 'dependent'),
+		'hasOne' => array('className', 'foreignKey', 'conditions', 'fields', 'order', 'dependent'),
 		'hasMany' => array('className', 'foreignKey', 'conditions', 'fields', 'order', 'limit', 'offset', 'dependent', 'exclusive', 'finderQuery', 'counterQuery'),
 		'hasAndBelongsToMany' => array('className', 'joinTable', 'with', 'foreignKey', 'associationForeignKey', 'conditions', 'fields', 'order', 'limit', 'offset', 'unique', 'finderQuery', 'deleteQuery', 'insertQuery')
 	);
@@ -675,10 +672,7 @@ class Model extends Object {
 		}
 
 		if (is_subclass_of($this, 'AppModel')) {
-			$merge = array('findMethods');
-			if ($this->actsAs !== null || $this->actsAs !== false) {
-				$merge[] = 'actsAs';
-			}
+			$merge = array('actsAs', 'findMethods');
 			$parentClass = get_parent_class($this);
 			if ($parentClass !== 'AppModel') {
 				$this->_mergeVars($merge, $parentClass);
@@ -701,6 +695,11 @@ class Model extends Object {
 		} elseif ($this->table === false) {
 			$this->table = Inflector::tableize($this->name);
 		}
+
+		if ($this->tablePrefix === null) {
+			unset($this->tablePrefix);
+		}
+
 		$this->_createLinks();
 		$this->Behaviors->init($this->alias, $this->actsAs);
 	}
@@ -723,9 +722,9 @@ class Model extends Object {
 	}
 
 /**
- * Handles the lazy loading of model associations by lookin in the association arrays for the requested variable
+ * Handles the lazy loading of model associations by looking in the association arrays for the requested variable
  *
- * @param string $name variable tested for existance in class
+ * @param string $name variable tested for existence in class
  * @return boolean true if the variable exists (if is a not loaded model association it will be created), false otherwise
  */
 	public function __isset($name) {
@@ -734,6 +733,11 @@ class Model extends Object {
 		foreach ($this->_associations as $type) {
 			if (isset($name, $this->{$type}[$name])) {
 				$className = empty($this->{$type}[$name]['className']) ? $name : $this->{$type}[$name]['className'];
+				break;
+			}
+			elseif (isset($name, $this->__backAssociation[$type][$name])) {
+				$className = empty($this->__backAssociation[$type][$name]['className']) ?
+					$name : $this->__backAssociation[$type][$name]['className'];
 				break;
 			} else if ($type == 'hasAndBelongsToMany') {
 				foreach ($this->{$type} as $k => $relation) {
@@ -757,7 +761,7 @@ class Model extends Object {
 					}
 				}
 			}
-	    }
+		}
 
 		if (!$className) {
 			return false;
@@ -795,6 +799,13 @@ class Model extends Object {
 		if ($name === 'displayField') {
 			return $this->displayField = $this->hasField(array('title', 'name', $this->primaryKey));
 		}
+		if ($name === 'tablePrefix') {
+			$this->setDataSource();
+			if (property_exists($this, 'tablePrefix')) {
+				return $this->tablePrefix;
+			}
+			return $this->tablePrefix = null;
+		}
 		if (isset($this->{$name})) {
 			return $this->{$name};
 		}
@@ -817,7 +828,7 @@ class Model extends Object {
  * @param array $params Set of bindings (indexed by binding type)
  * @param boolean $reset Set to false to make the binding permanent
  * @return boolean Success
- * @link http://book.cakephp.org/view/1045/Creating-and-Destroying-Associations-on-the-Fly
+ * @link http://book.cakephp.org/2.0/en/models/associations-linking-models-together.html#creating-and-destroying-associations-on-the-fly
  */
 	public function bindModel($params, $reset = true) {
 		foreach ($params as $assoc => $model) {
@@ -861,7 +872,7 @@ class Model extends Object {
  * @param array $params Set of bindings to unbind (indexed by binding type)
  * @param boolean $reset  Set to false to make the unbinding permanent
  * @return boolean Success
- * @link http://book.cakephp.org/view/1045/Creating-and-Destroying-Associations-on-the-Fly
+ * @link http://book.cakephp.org/2.0/en/models/associations-linking-models-together.html#creating-and-destroying-associations-on-the-fly
  */
 	public function unbindModel($params, $reset = true) {
 		foreach ($params as $assoc => $models) {
@@ -1047,7 +1058,7 @@ class Model extends Object {
  * @param mixed $one Array or string of data
  * @param string $two Value string for the alternative indata method
  * @return array Data with all of $one's keys and values
- * @link http://book.cakephp.org/view/1031/Saving-Your-Data
+ * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html
  */
 	public function set($one, $two = null) {
 		if (!$one) {
@@ -1138,7 +1149,17 @@ class Model extends Object {
 			$timeFields = array('H' => 'hour', 'i' => 'min', 's' => 'sec');
 			$date = array();
 
-			if (isset($data['hour']) && isset($data['meridian']) && $data['hour'] != 12 && 'pm' == $data['meridian']) {
+			if (isset($data['meridian']) && empty($data['meridian'])) {
+				return null;
+			}
+
+			if (
+				isset($data['hour']) &&
+				isset($data['meridian']) &&
+				!empty($data['hour']) &&
+				$data['hour'] != 12 &&
+				'pm' == $data['meridian']
+			) {
 				$data['hour'] = $data['hour'] + 12;
 			}
 			if (isset($data['hour']) && isset($data['meridian']) && $data['hour'] == 12 && 'am' == $data['meridian']) {
@@ -1148,9 +1169,7 @@ class Model extends Object {
 				foreach ($timeFields as $key => $val) {
 					if (!isset($data[$val]) || $data[$val] === '0' || $data[$val] === '00') {
 						$data[$val] = '00';
-					} elseif ($data[$val] === '') {
-						$data[$val] = '';
-					} else {
+					} elseif ($data[$val] !== '') {
 						$data[$val] = sprintf('%02d', $data[$val]);
 					}
 					if (!empty($data[$val])) {
@@ -1179,12 +1198,14 @@ class Model extends Object {
 				}
 			}
 
-			$format = $this->getDataSource()->columns[$type]['format'];
-			$day = empty($date['Y']) ? null : $date['Y'] . '-' . $date['m'] . '-' . $date['d'] . ' ';
-			$hour = empty($date['H']) ? null : $date['H'] . ':' . $date['i'] . ':' . $date['s'];
-			$date = new DateTime($day . $hour);
 			if ($useNewDate && !empty($date)) {
-				return $date->format($format);
+				$format = $this->getDataSource()->columns[$type]['format'];
+				foreach (array('m', 'd', 'H', 'i', 's') as $index) {
+					if (isset($date[$index])) {
+						$date[$index] = sprintf('%02d', $date[$index]);
+					}
+				}
+				return str_replace(array_keys($date), array_values($date), $format);
 			}
 		}
 		return $data;
@@ -1326,7 +1347,7 @@ class Model extends Object {
 		}
 		if (strpos($field, '.') !== false) {
 			list($model, $field) = explode('.', $field);
-			if (isset($this->virtualFields[$field])) {
+			if ($model == $this->alias && isset($this->virtualFields[$field])) {
 				return true;
 			}
 		}
@@ -1363,7 +1384,7 @@ class Model extends Object {
  *   schema data defaults are not merged.
  * @param boolean $filterKey If true, overwrites any primary key input with an empty value
  * @return array The current Model::data; after merging $data and/or defaults from database
- * @link http://book.cakephp.org/view/1031/Saving-Your-Data
+ * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html#model-create-array-data-array
  */
 	public function create($data = array(), $filterKey = false) {
 		$defaults = array();
@@ -1390,10 +1411,10 @@ class Model extends Object {
  * Returns a list of fields from the database, and sets the current model
  * data (Model::$data) with the record found.
  *
- * @param mixed $fields String of single fieldname, or an array of fieldnames.
+ * @param mixed $fields String of single field name, or an array of field names.
  * @param mixed $id The ID of the record to read
  * @return array Array of database fields, or false if not found
- * @link http://book.cakephp.org/view/1017/Retrieving-Your-Data#read-1029
+ * @link http://book.cakephp.org/2.0/en/models/retrieving-your-data.html#model-read
  */
 	public function read($fields = null, $id = null) {
 		$this->validationErrors = array();
@@ -1427,7 +1448,7 @@ class Model extends Object {
  * @param array $conditions SQL conditions (defaults to NULL)
  * @param string $order SQL ORDER BY fragment
  * @return string field contents, or false if not found
- * @link http://book.cakephp.org/view/1017/Retrieving-Your-Data#field-1028
+ * @link http://book.cakephp.org/2.0/en/models/retrieving-your-data.html#model-field
  */
 	public function field($name, $conditions = null, $order = null) {
 		if ($conditions === null && $this->id !== false) {
@@ -1467,7 +1488,7 @@ class Model extends Object {
  * @param array $validate See $options param in Model::save(). Does not respect 'fieldList' key if passed
  * @return boolean See Model::save()
  * @see Model::save()
- * @link http://book.cakephp.org/view/1031/Saving-Your-Data
+ * @link http://book.cakephp.org/2.0/en/models/retrieving-your-data.html#model-read
  */
 	public function saveField($name, $value, $validate = false) {
 		$id = $this->id;
@@ -1491,7 +1512,7 @@ class Model extends Object {
  *   If an array, allows control of validate, callbacks, and fieldList
  * @param array $fieldList List of fields to allow to be written
  * @return mixed On success Model::$data if its not empty or true, false on failure
- * @link http://book.cakephp.org/view/1031/Saving-Your-Data
+ * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html
  */
 	public function save($data = null, $validate = true, $fieldList = array()) {
 		$defaults = array('validate' => true, 'fieldList' => array(), 'callbacks' => true);
@@ -1845,7 +1866,7 @@ class Model extends Object {
 	}
 
 /**
- * Backwards compatible passtrough method for:
+ * Backwards compatible passthrough method for:
  * saveMany(), validateMany(), saveAssociated() and validateAssociated()
  *
  * Saves multiple individual records for a single model; Also works with a single record, as well as
@@ -1866,8 +1887,8 @@ class Model extends Object {
  * @return mixed If atomic: True on success, or false on failure.
  *    Otherwise: array similar to the $data array passed, but values are set to true/false
  *    depending on whether each record saved successfully.
- * @link http://book.cakephp.org/view/1032/Saving-Related-Model-Data-hasOne-hasMany-belongsTo
- * @link http://book.cakephp.org/view/1031/Saving-Your-Data
+ * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html#model-saveassociated-array-data-null-array-options-array
+ * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html#model-saveall-array-data-null-array-options-array
  */
 	public function saveAll($data = null, $options = array()) {
 		$options = array_merge(array('validate' => 'first'), $options);
@@ -1903,6 +1924,7 @@ class Model extends Object {
  * @return mixed If atomic: True on success, or false on failure.
  *    Otherwise: array similar to the $data array passed, but values are set to true/false
  *    depending on whether each record saved successfully.
+ * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html#model-savemany-array-data-null-array-options-array
  */
 	public function saveMany($data = null, $options = array()) {
 		if (empty($data)) {
@@ -2007,6 +2029,7 @@ class Model extends Object {
  * @return mixed If atomic: True on success, or false on failure.
  *    Otherwise: array similar to the $data array passed, but values are set to true/false
  *    depending on whether each record saved successfully.
+ * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html#model-saveassociated-array-data-null-array-options-array
  */
 	public function saveAssociated($data = null, $options = array()) {
 		if (empty($data)) {
@@ -2130,7 +2153,7 @@ class Model extends Object {
 				if (in_array($associations[$association], array('belongsTo', 'hasOne'))) {
 					$validates = $this->{$association}->create($values) && $this->{$association}->validates($options);
 					$return[$association][] = $validates;
-				} elseif($associations[$association] === 'hasMany') {
+				} elseif ($associations[$association] === 'hasMany') {
 					$validates = $this->{$association}->validateMany($values, $options);
 					$return[$association] = $validates;
 				}
@@ -2160,7 +2183,7 @@ class Model extends Object {
  *    Fields are treated as SQL snippets, to insert literal values manually escape your data.
  * @param mixed $conditions Conditions to match, true for all records
  * @return boolean True on success, false on failure
- * @link http://book.cakephp.org/view/1031/Saving-Your-Data
+ * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html#model-updateall-array-fields-array-conditions
  */
 	public function updateAll($fields, $conditions = true) {
 		return $this->getDataSource()->update($this, $fields, null, $conditions);
@@ -2172,7 +2195,7 @@ class Model extends Object {
  * @param mixed $id ID of record to delete
  * @param boolean $cascade Set to true to delete records that depend on this record
  * @return boolean True on success
- * @link http://book.cakephp.org/view/1036/delete
+ * @link http://book.cakephp.org/2.0/en/models/deleting-data.html
  */
 	public function delete($id = null, $cascade = true) {
 		if (!empty($id)) {
@@ -2238,26 +2261,34 @@ class Model extends Object {
 			$savedAssociatons = $this->__backAssociation;
 			$this->__backAssociation = array();
 		}
-		foreach (array_merge($this->hasMany, $this->hasOne) as $assoc => $data) {
-			if ($data['dependent'] === true && $cascade === true) {
+		if ($cascade === true) {
+			foreach (array_merge($this->hasMany, $this->hasOne) as $assoc => $data) {
+				if ($data['dependent'] === true) {
 
-				$model = $this->{$assoc};
-				$conditions = array($model->escapeField($data['foreignKey']) => $id);
-				if ($data['conditions']) {
-					$conditions = array_merge((array)$data['conditions'], $conditions);
-				}
-				$model->recursive = -1;
+					$model = $this->{$assoc};
 
-				if (isset($data['exclusive']) && $data['exclusive']) {
-					$model->deleteAll($conditions);
-				} else {
-					$records = $model->find('all', array(
-						'conditions' => $conditions, 'fields' => $model->primaryKey
-					));
+					if ($data['foreignKey'] === false && $data['conditions'] && in_array($this->name, $model->getAssociated('belongsTo'))) {
+						$model->recursive = 0;
+						$conditions = array($this->escapeField(null, $this->name) => $id);
+					} else {
+						$model->recursive = -1;
+						$conditions = array($model->escapeField($data['foreignKey']) => $id);
+						if ($data['conditions']) {
+							$conditions = array_merge((array)$data['conditions'], $conditions);
+						}
+					}
 
-					if (!empty($records)) {
-						foreach ($records as $record) {
-							$model->delete($record[$model->alias][$model->primaryKey]);
+					if (isset($data['exclusive']) && $data['exclusive']) {
+						$model->deleteAll($conditions);
+					} else {
+						$records = $model->find('all', array(
+							'conditions' => $conditions, 'fields' => $model->primaryKey
+						));
+
+						if (!empty($records)) {
+							foreach ($records as $record) {
+								$model->delete($record[$model->alias][$model->primaryKey]);
+							}
 						}
 					}
 				}
@@ -2278,7 +2309,7 @@ class Model extends Object {
 		foreach ($this->hasAndBelongsToMany as $assoc => $data) {
 			list($plugin, $joinModel) = pluginSplit($data['with']);
 			$records = $this->{$joinModel}->find('all', array(
-				'conditions' => array_merge(array($this->{$joinModel}->escapeField($data['foreignKey']) => $id)),
+				'conditions' => array($this->{$joinModel}->escapeField($data['foreignKey']) => $id),
 				'fields' => $this->{$joinModel}->primaryKey,
 				'recursive' => -1,
 				'callbacks' => false
@@ -2298,7 +2329,7 @@ class Model extends Object {
  * @param boolean $cascade Set to true to delete records that depend on this record
  * @param boolean $callbacks Run callbacks
  * @return boolean True on success, false on failure
- * @link http://book.cakephp.org/view/1038/deleteAll
+ * @link http://book.cakephp.org/2.0/en/models/deleting-data.html#deleteall
  */
 	public function deleteAll($conditions, $cascade = true, $callbacks = false) {
 		if (empty($conditions)) {
@@ -2391,7 +2422,7 @@ class Model extends Object {
  * Queries the datasource and returns a result set array.
  *
  * Also used to perform notation finds, where the first argument is type of find operation to perform
- * (all / first / count / neighbors / list / threaded ),
+ * (all / first / count / neighbors / list / threaded),
  * second parameter options for finding ( indexed array, including: 'conditions', 'limit',
  * 'recursive', 'page', 'fields', 'offset', 'order')
  *
@@ -2438,7 +2469,7 @@ class Model extends Object {
  * @param string $type Type of find operation (all / first / count / neighbors / list / threaded)
  * @param array $query Option fields (conditions / fields / joins / limit / offset / order / page / group / callbacks)
  * @return array Array of records
- * @link http://book.cakephp.org/view/1018/find
+ * @link http://book.cakephp.org/2.0/en/models/deleting-data.html#deleteall
  */
 	public function find($type = 'first', $query = array()) {
 		$this->findQueryType = $type;
@@ -2836,7 +2867,7 @@ class Model extends Object {
  *
  * @param string $sql,... SQL statement
  * @return array Resultset
- * @link http://book.cakephp.org/view/1027/query
+ * @link http://book.cakephp.org/2.0/en/models/retrieving-your-data.html#model-query
  */
 	public function query($sql) {
 		$params = func_get_args();
@@ -2852,7 +2883,6 @@ class Model extends Object {
  *
  * @param string $options An optional array of custom options to be made available in the beforeValidate callback
  * @return boolean True if there are no errors
- * @link http://book.cakephp.org/view/1182/Validating-Data-from-the-Controller
  */
 	public function validates($options = array()) {
 		$errors = $this->invalidFields($options);
@@ -2871,7 +2901,6 @@ class Model extends Object {
  * @param string $options An optional array of custom options to be made available in the beforeValidate callback
  * @return array Array of invalid fields
  * @see Model::validates()
- * @link http://book.cakephp.org/view/1182/Validating-Data-from-the-Controller
  */
 	public function invalidFields($options = array()) {
 		if (
@@ -3028,7 +3057,7 @@ class Model extends Object {
  * Runs validation for hasAndBelongsToMany associations that have 'with' keys
  * set. And data in the set() data set.
  *
- * @param array $options Array of options to use on Valdation of with models
+ * @param array $options Array of options to use on Validation of with models
  * @return boolean Failure of validation on with models.
  * @see Model::validates()
  */
@@ -3060,6 +3089,7 @@ class Model extends Object {
 		}
 		return $valid;
 	}
+
 /**
  * Marks a field as invalid, optionally setting the name of validation
  * rule (in case of multiple validation for field) that was broken.
@@ -3139,11 +3169,7 @@ class Model extends Object {
 			return false;
 		}
 
-		foreach ($this->id as $id) {
-			return $id;
-		}
-
-		return false;
+		return current($this->id);
 	}
 
 /**

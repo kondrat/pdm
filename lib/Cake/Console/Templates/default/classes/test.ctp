@@ -13,7 +13,7 @@
  *
  * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
- * @package       Cake.Console.Templates.default.actions
+ * @package       Cake.Console.Templates.default.classes
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -24,7 +24,7 @@ App::uses('<?php echo $fullClassName; ?>', '<?php echo $realType; ?>');
 
 <?php if ($mock and strtolower($type) == 'controller'): ?>
 /**
- * Test<?php echo $fullClassName; ?> 
+ * Test<?php echo $fullClassName; ?>
  *
  */
 class Test<?php echo $fullClassName; ?> extends <?php echo $fullClassName; ?> {
@@ -81,7 +81,6 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
  */
 	public function tearDown() {
 		unset($this-><?php echo $className;?>);
-		ClassRegistry::flush();
 
 		parent::tearDown();
 	}

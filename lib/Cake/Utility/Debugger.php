@@ -19,10 +19,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-/**
- * Included libraries.
- *
- */
 App::uses('CakeLog', 'Log');
 App::uses('String', 'Utility');
 
@@ -32,7 +28,7 @@ App::uses('String', 'Utility');
  * Debugger overrides PHP's default error handling to provide stack traces and enhanced logging
  *
  * @package       Cake.Utility
- * @link          http://book.cakephp.org/view/1191/Using-the-Debugger-Class
+ * @link          http://book.cakephp.org/2.0/en/development/debugging.html#debugger-class
  */
 class Debugger {
 
@@ -175,7 +171,7 @@ class Debugger {
  * @param mixed $var the variable to dump
  * @return void
  * @see Debugger::exportVar()
- * @link http://book.cakephp.org/view/1191/Using-the-Debugger-Class
+ * @link http://book.cakephp.org/2.0/en/development/debugging.html#Debugger::dump
  */
 	public static function dump($var) {
 		pr(self::exportVar($var));
@@ -188,7 +184,7 @@ class Debugger {
  * @param mixed $var Variable or content to log
  * @param integer $level type of log to use. Defaults to LOG_DEBUG
  * @return void
- * @link http://book.cakephp.org/view/1191/Using-the-Debugger-Class
+ * @link http://book.cakephp.org/2.0/en/development/debugging.html#Debugger::log
  */
 	public static function log($var, $level = LOG_DEBUG) {
 		$source = self::trace(array('start' => 1)) . "\n";
@@ -204,7 +200,7 @@ class Debugger {
  * @param integer $line Line that triggered the error
  * @param array $context Context
  * @return boolean true if error was handled
- * @deprecated This function is supersceeded by Debugger::outputError()
+ * @deprecated This function is superseded by Debugger::outputError()
  */
 	public static function showError($code, $description, $file = null, $line = null, $context = null) {
 		$_this = Debugger::getInstance();
@@ -275,19 +271,19 @@ class Debugger {
  *
  * @param array $options Format for outputting stack trace
  * @return mixed Formatted stack trace
- * @link http://book.cakephp.org/view/1191/Using-the-Debugger-Class
+ * @link http://book.cakephp.org/2.0/en/development/debugging.html#Debugger::trace
  */
 	public static function trace($options = array()) {
 		$_this = Debugger::getInstance();
 		$defaults = array(
-			'depth'   => 999,
-			'format'  => $_this->_outputFormat,
-			'args'    => false,
-			'start'   => 0,
-			'scope'   => null,
-			'exclude' => null
+			'depth'		=> 999,
+			'format'	=> $_this->_outputFormat,
+			'args'		=> false,
+			'start'		=> 0,
+			'scope'		=> null,
+			'exclude'	=> array('call_user_func_array', 'trigger_error')
 		);
-		$options += $defaults;
+		$options = Set::merge($defaults, $options);
 
 		$backtrace = debug_backtrace();
 		$count = count($backtrace);
@@ -302,13 +298,15 @@ class Debugger {
 
 		for ($i = $options['start']; $i < $count && $i < $options['depth']; $i++) {
 			$trace = array_merge(array('file' => '[internal]', 'line' => '??'), $backtrace[$i]);
+			$signature = $reference = '[main]';
 
 			if (isset($backtrace[$i + 1])) {
 				$next = array_merge($_trace, $backtrace[$i + 1]);
-				$reference = $next['function'];
+				$signature = $reference = $next['function'];
 
 				if (!empty($next['class'])) {
-					$reference = $next['class'] . '::' . $reference . '(';
+					$signature = $next['class'] . '::' . $next['function'];
+					$reference = $signature . '(';
 					if ($options['args'] && isset($next['args'])) {
 						$args = array();
 						foreach ($next['args'] as $arg) {
@@ -318,10 +316,8 @@ class Debugger {
 					}
 					$reference .= ')';
 				}
-			} else {
-				$reference = '[main]';
 			}
-			if (in_array($reference, array('call_user_func_array', 'trigger_error'))) {
+			if (in_array($signature, $options['exclude'])) {
 				continue;
 			}
 			if ($options['format'] == 'points' && $trace['file'] != '[internal]') {
@@ -390,7 +386,7 @@ class Debugger {
  * @param integer $context Number of lines of context to extract above and below $line
  * @return array Set of lines highlighted
  * @see http://php.net/highlight_string
- * @link http://book.cakephp.org/view/1191/Using-the-Debugger-Class
+ * @link http://book.cakephp.org/2.0/en/development/debugging.html#Debugger::excerpt
  */
 	public static function excerpt($file, $line, $context = 2) {
 		$lines = array();
@@ -436,7 +432,7 @@ class Debugger {
  * @param string $var Variable to convert
  * @param integer $recursion
  * @return string Variable as a formatted string
- * @link http://book.cakephp.org/view/1191/Using-the-Debugger-Class
+ * @link http://book.cakephp.org/2.0/en/development/debugging.html#Debugger::exportVar
  */
 	public static function exportVar($var, $recursion = 0) {
 		switch (strtolower(gettype($var))) {
@@ -457,13 +453,13 @@ class Debugger {
 				return get_class($var) . "\n" . self::_object($var);
 			case 'array':
 				$var = array_merge($var,  array_intersect_key(array(
-					'password' => '*****',
-					'login'  => '*****',
-					'host' => '*****',
-					'database' => '*****',
-					'port' => '*****',
-					'prefix' => '*****',
-					'schema' => '*****'
+					'password'	=> '*****',
+					'login'		=> '*****',
+					'host'		=> '*****',
+					'database'	=> '*****',
+					'port'		=> '*****',
+					'prefix'	=> '*****',
+					'schema'	=> '*****'
 				), $var));
 
 				$out = "array(";
@@ -547,8 +543,8 @@ class Debugger {
  *
  * `Debugger::addFormat('custom', $data);`
  *
- * Where $data is an array of strings that use String::insert() variable 
- * replacement.  The template vars should be in a `{:id}` style.  
+ * Where $data is an array of strings that use String::insert() variable
+ * replacement.  The template vars should be in a `{:id}` style.
  * An error formatter can have the following keys:
  *
  * - 'error' - Used for the container for the error message. Gets the following template
@@ -557,11 +553,11 @@ class Debugger {
  *   the contents of the other template keys.
  * - 'trace' - The container for a stack trace. Gets the following template
  *   variables: `trace`
- * - 'context' - The container element for the context variables. 
+ * - 'context' - The container element for the context variables.
  *   Gets the following templates: `id`, `context`
  * - 'links' - An array of HTML links that are used for creating links to other resources.
  *   Typically this is used to create javascript links to open other sections.
- *   Link keys, are: `code`, `context`, `help`.  See the js output format for an 
+ *   Link keys, are: `code`, `context`, `help`.  See the js output format for an
  *   example.
  * - 'traceLine' - Used for creating lines in the stacktrace. Gets the following
  *   template variables: `reference`, `path`, `line`
@@ -599,14 +595,14 @@ class Debugger {
 	}
 
 /**
- * Switches output format, updates format strings. 
+ * Switches output format, updates format strings.
  * Can be used to switch the active output format:
  *
  * @param string $format Format to use, including 'js' for JavaScript-enhanced HTML, 'html' for
  *    straight HTML output, or 'txt' for unformatted text.
  * @param array $strings Template strings to be used for the output format.
  * @return string
- * @deprecated Use Debugger::outputFormat() and  Debugger::addFormat(). Will be removed 
+ * @deprecated Use Debugger::outputAs() and  Debugger::addFormat(). Will be removed
  *   in 3.0
  */
 	public function output($format = null, $strings = array()) {

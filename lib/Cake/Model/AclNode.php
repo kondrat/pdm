@@ -16,14 +16,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-/**
- * Load Model and AppModel
- */
 App::uses('AppModel', 'Model');
 
 /**
  * ACL Node
- *
  *
  * @package       Cake.Model
  */
@@ -41,7 +37,7 @@ class AclNode extends AppModel {
  *
  * @var array
  */
-	public $actsAs = array('Tree' => array('nested'));
+	public $actsAs = array('Tree' => array('type' => 'nested'));
 
 /**
  * Constructor
@@ -85,7 +81,7 @@ class AclNode extends AppModel {
 					$db->name("{$type}.rght") . ' >= ' . $db->name("{$type}0.rght")),
 				'fields' => array('id', 'parent_id', 'model', 'foreign_key', 'alias'),
 				'joins' => array(array(
-					'table' => $db->fullTableName($this),
+					'table' => $table,
 					'alias' => "{$type}0",
 					'type' => 'LEFT',
 					'conditions' => array("{$type}0.alias" => $start)
@@ -97,9 +93,9 @@ class AclNode extends AppModel {
 				$j = $i - 1;
 
 				$queryData['joins'][] = array(
-					'table' => $db->fullTableName($this),
+					'table' => $table,
 					'alias' => "{$type}{$i}",
-					'type'  => 'LEFT',
+					'type' => 'LEFT',
 					'conditions' => array(
 						$db->name("{$type}{$i}.lft") . ' > ' . $db->name("{$type}{$j}.lft"),
 						$db->name("{$type}{$i}.rght") . ' < ' . $db->name("{$type}{$j}.rght"),
@@ -163,7 +159,7 @@ class AclNode extends AppModel {
 				'conditions' => $ref,
 				'fields' => array('id', 'parent_id', 'model', 'foreign_key', 'alias'),
 				'joins' => array(array(
-					'table' => $db->fullTableName($this),
+					'table' => $table,
 					'alias' => "{$type}0",
 					'type' => 'LEFT',
 					'conditions' => array(

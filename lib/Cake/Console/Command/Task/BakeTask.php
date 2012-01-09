@@ -16,13 +16,14 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('Shell', 'Console');
+App::uses('AppShell', 'Console/Command');
+
 /**
  * Base class for Bake Tasks.
  *
  * @package       Cake.Console.Command.Task
  */
-class BakeTask extends Shell {
+class BakeTask extends AppShell {
 
 /**
  * Name of plugin
@@ -46,12 +47,13 @@ class BakeTask extends Shell {
 	public $interactive = false;
 
 /**
- * Disable caching for baking.
+ * Disable caching and enable debug for baking.
  * This forces the most current database schema to be used.
  *
  * @return void
  */
 	function startup() {
+		Configure::write('debug', 2);
 		Configure::write('Cache.disable', 1);
 		parent::startup();
 	}
@@ -77,7 +79,7 @@ class BakeTask extends Shell {
  * @return void
  */
 	public function execute() {
-		foreach($this->args as $i => $arg) {
+		foreach ($this->args as $i => $arg) {
 			if (strpos($arg, '.')) {
 				list($this->params['plugin'], $this->args[$i]) = pluginSplit($arg);
 				break;

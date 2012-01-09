@@ -23,7 +23,7 @@ App::uses('I18n', 'I18n');
  * Translate behavior
  *
  * @package       Cake.Model.Behavior
- * @link http://book.cakephp.org/view/1328/Translate
+ * @link http://book.cakephp.org/2.0/en/core-libraries/behaviors/translate.html
  */
 class TranslateBehavior extends ModelBehavior {
 
@@ -38,7 +38,7 @@ class TranslateBehavior extends ModelBehavior {
  * Callback
  *
  * $config for TranslateBehavior should be
- * array( 'fields' => array('field_one',
+ * array('fields' => array('field_one',
  * 'field_two' => 'FieldAssoc', 'field_three'))
  *
  * With above example only one permanent hasMany will be joined (for field_two
@@ -99,17 +99,16 @@ class TranslateBehavior extends ModelBehavior {
 		} else {
 			$tablePrefix = $db->config['prefix'];
 		}
+		$joinTable = new StdClass();
+		$joinTable->tablePrefix = $tablePrefix;
+		$joinTable->table = $RuntimeModel->table;
 
-		if ($tablePrefix == $db->config['prefix']) {
-			$tablePrefix = null;
-		}
-
-		if (is_string($query['fields']) && 'COUNT(*) AS '.$db->name('count') == $query['fields']) {
-			$query['fields'] = 'COUNT(DISTINCT('.$db->name($model->alias . '.' . $model->primaryKey) . ')) ' . $db->alias . 'count';
+		if (is_string($query['fields']) && 'COUNT(*) AS ' . $db->name('count') == $query['fields']) {
+			$query['fields'] = 'COUNT(DISTINCT(' . $db->name($model->alias . '.' . $model->primaryKey) . ')) ' . $db->alias . 'count';
 			$query['joins'][] = array(
 				'type' => 'INNER',
 				'alias' => $RuntimeModel->alias,
-				'table' => $db->fullTableName($tablePrefix . $RuntimeModel->useTable),
+				'table' => $joinTable,
 				'conditions' => array(
 					$model->alias . '.' . $model->primaryKey => $db->identifier($RuntimeModel->alias.'.foreign_key'),
 					$RuntimeModel->alias.'.model' => $model->name,
@@ -127,7 +126,7 @@ class TranslateBehavior extends ModelBehavior {
 			foreach ($fields as $key => $value) {
 				$field = (is_numeric($key)) ? $value : $key;
 
-				if (in_array($model->alias.'.*', $query['fields']) || in_array($model->alias.'.'.$field, $query['fields']) || in_array($field, $query['fields'])) {
+				if (in_array($model->alias.'.*', $query['fields']) || in_array($model->alias.'.' . $field, $query['fields']) || in_array($field, $query['fields'])) {
 					$addFields[] = $field;
 				}
 			}
@@ -138,7 +137,7 @@ class TranslateBehavior extends ModelBehavior {
 			foreach ($addFields as $_f => $field) {
 				$aliasField = is_numeric($_f) ? $field : $_f;
 
-				foreach (array($aliasField, $model->alias.'.'.$aliasField) as $_field) {
+				foreach (array($aliasField, $model->alias . '.' . $aliasField) as $_field) {
 					$key = array_search($_field, (array)$query['fields']);
 
 					if ($key !== false) {
@@ -148,43 +147,38 @@ class TranslateBehavior extends ModelBehavior {
 
 				if (is_array($locale)) {
 					foreach ($locale as $_locale) {
-						$model->virtualFields['i18n_'.$field.'_'.$_locale] = 'I18n__'.$field.'__'.$_locale.'.content';
+						$model->virtualFields['i18n_' . $field . '_' . $_locale] = 'I18n__' . $field . '__' . $_locale . '.content';
 						if (!empty($query['fields'])) {
-							$query['fields'][] = 'i18n_'.$field.'_'.$_locale;
+							$query['fields'][] = 'i18n_' . $field . '_' . $_locale;
 						}
 						$query['joins'][] = array(
 							'type' => 'LEFT',
-							'alias' => 'I18n__'.$field.'__'.$_locale,
-							'table' => $db->fullTableName($tablePrefix . $RuntimeModel->useTable),
+							'alias' => 'I18n__' . $field . '__' . $_locale,
+							'table' => $joinTable,
 							'conditions' => array(
 								$model->alias . '.' . $model->primaryKey => $db->identifier("I18n__{$field}__{$_locale}.foreign_key"),
-								'I18n__'.$field.'__'.$_locale.'.model' => $model->name,
-								'I18n__'.$field.'__'.$_locale.'.'.$RuntimeModel->displayField => $aliasField,
-								'I18n__'.$field.'__'.$_locale.'.locale' => $_locale
+								'I18n__' . $field . '__' . $_locale . '.model' => $model->name,
+								'I18n__' . $field . '__' . $_locale . '.' . $RuntimeModel->displayField => $aliasField,
+								'I18n__' . $field . '__' . $_locale . '.locale' => $_locale
 							)
 						);
 					}
 				} else {
-					$model->virtualFields['i18n_'.$field] = 'I18n__'.$field.'.content';
+					$model->virtualFields['i18n_' . $field] = 'I18n__' . $field . '.content';
 					if (!empty($query['fields'])) {
-						$query['fields'][] = 'i18n_'.$field;
+						$query['fields'][] = 'i18n_' . $field;
 					}
 					$query['joins'][] = array(
-						'type' => 'LEFT',
-						'alias' => 'I18n__'.$field,
-						'table' => $db->fullTableName($tablePrefix . $RuntimeModel->useTable),
+						'type' => 'INNER',
+						'alias' => 'I18n__' . $field,
+						'table' => $joinTable,
 						'conditions' => array(
 							$model->alias . '.' . $model->primaryKey => $db->identifier("I18n__{$field}.foreign_key"),
-							'I18n__'.$field.'.model' => $model->name,
-							'I18n__'.$field.'.'.$RuntimeModel->displayField => $aliasField
+							'I18n__' . $field . '.model' => $model->name,
+							'I18n__' . $field . '.' . $RuntimeModel->displayField => $aliasField,
+							'I18n__' . $field . '.locale' => $locale
 						)
 					);
-
-					if (is_string($query['conditions'])) {
-						$query['conditions'] = $db->conditions($query['conditions'], true, false, $model) . ' AND '.$db->name('I18n__'.$field.'.locale').' = \''.$locale.'\'';
-					} else {
-						$query['conditions'][$db->name("I18n__{$field}.locale")] = $locale;
-					}
 				}
 			}
 		}
@@ -217,11 +211,11 @@ class TranslateBehavior extends ModelBehavior {
 
 				if (is_array($locale)) {
 					foreach ($locale as $_locale) {
-						if (!isset($row[$model->alias][$aliasField]) && !empty($row[$model->alias]['i18n_'.$field.'_'.$_locale])) {
-							$row[$model->alias][$aliasField] = $row[$model->alias]['i18n_'.$field.'_'.$_locale];
+						if (!isset($row[$model->alias][$aliasField]) && !empty($row[$model->alias]['i18n_' . $field . '_' . $_locale])) {
+							$row[$model->alias][$aliasField] = $row[$model->alias]['i18n_' . $field . '_' . $_locale];
 							$row[$model->alias]['locale'] = $_locale;
 						}
-						unset($row[$model->alias]['i18n_'.$field.'_'.$_locale]);
+						unset($row[$model->alias]['i18n_' . $field . '_' . $_locale]);
 					}
 
 					if (!isset($row[$model->alias][$aliasField])) {
@@ -426,7 +420,7 @@ class TranslateBehavior extends ModelBehavior {
 				foreach (array('hasOne', 'hasMany', 'belongsTo', 'hasAndBelongsToMany') as $type) {
 					if (isset($model->{$type}[$association]) || isset($model->__backAssociation[$type][$association])) {
 						trigger_error(
-							__d('cake_dev', 'Association %s is already binded to model %s', $association, $model->alias),
+							__d('cake_dev', 'Association %s is already bound to model %s', $association, $model->alias),
 							E_USER_ERROR
 						);
 						return false;
