@@ -35,7 +35,12 @@ class Item extends AppModel {
 			'finderQuery' => '',
 			'deleteQuery' => '',
 			'insertQuery' => ''
-		)
+		),
+                'Projects' => array(
+                        'classname' => 'Project',
+                        'foreignKey' => 'item_id',
+                        'associationForeignKey' => 'project_id'
+                )
 	);
 
 }
