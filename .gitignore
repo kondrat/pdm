@@ -1,6 +1,8 @@
-/app/Config
+/app/Config/core.php
+/app/Config/database.php
 /app/tmp
-/plugins
-/vendors
+!empty
+!.gitignore
+*~
 .DS_Store
 tags
