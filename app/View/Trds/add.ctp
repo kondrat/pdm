@@ -1,12 +1,12 @@
-<div class="Projects form">
-<?php echo $this->Form->create('Project');?>
+<div class="Trds form">
+<?php echo $this->Form->create('Trd');?>
 	<fieldset>
-		<legend><?php echo __('Add Project'); ?></legend>
+		<legend><?php echo __('Add Trd'); ?></legend>
 	<?php
-		echo $this->Form->input('projectname');
+		echo $this->Form->input('parentId');
 	?>
         <?php 
-                echo $this->Form->input('description');
+                echo $this->Form->input('name');
         ?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
@@ -15,6 +15,6 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Projects'), array('action' => 'index'));?></li>
+		<li><?php echo $this->Html->link(__('List Trds'), array('action' => 'index'));?></li>
 	</ul>
 </div>
