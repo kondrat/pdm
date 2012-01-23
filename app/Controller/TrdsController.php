@@ -11,7 +11,7 @@ class TrdsController extends AppController {
 
     public $name = 'Trds';
 
-    public $countRec = 0;
+    public $countRec = -1;
 
 
     public function index() {
@@ -30,28 +30,37 @@ class TrdsController extends AppController {
     
 
     protected function getTree($parentId=NULL) {
-
+        
+       $this->countRec++;
+             
 //        for ($i = 0; $i <= 10; $i++) {          
 //        }
-        
+        echo 'parent id: '.$parentId.'<br />'.$this->countRec.'<br />';
         $thread = $this->Trd->children($parentId, TRUE);
 
         foreach ($thread as $k => $v) {
             
-            
+            if($this->countRec <= 1){
                 
                 $chilDr = $this->getTree($v['Trd']['id']);
                 
                 if ($chilDr != array()) {                    
-                    $thread[$k]['chiLDR'] = $chilDr;                  
+                    $thread[$k]['chiLDR'] = $chilDr;
+                    $this->countRec = -1;
+                    
                 }
                 
-            
+            } else {
+                
+                $this->countRec = -1;
+                return $thread;
+            }
             
         }
 
-
+        //$this->countRec = 0;
         return $thread;
+
     }
 
     /**
