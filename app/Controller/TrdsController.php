@@ -11,13 +11,47 @@ class TrdsController extends AppController {
 
     public $name = 'Trds';
 
-    function index() {
+    public $countRec = 0;
+
+
+    public function index() {
         $data = $this->Trd->generateTreeList(null, "{n}.Trd.id", null, '...');
-        $thread = $allChildren = $this->Trd->children(10); 
-        debug($thread);
+        //$thread  = $this->Trd->children(1,TRUE); 
+        //$data = $this->Trd->find('threaded');
+        //debug($thread);
         debug($data);
+        $a = $this->getTree(1);
+        debug($a);
+        $this->set('a',$a);
         $this->set('trds', $data);
+        
         //die;
+    }
+    
+
+    protected function getTree($parentId=NULL) {
+
+//        for ($i = 0; $i <= 10; $i++) {          
+//        }
+        
+        $thread = $this->Trd->children($parentId, TRUE);
+
+        foreach ($thread as $k => $v) {
+            
+            
+                
+                $chilDr = $this->getTree($v['Trd']['id']);
+                
+                if ($chilDr != array()) {                    
+                    $thread[$k]['chiLDR'] = $chilDr;                  
+                }
+                
+            
+            
+        }
+
+
+        return $thread;
     }
 
     /**
@@ -25,7 +59,7 @@ class TrdsController extends AppController {
      * 
      * @return void
      */
-    function add() {
+    public function add() {
         
         if ($this->request->is('post')) {
             // @todo check if it bug or not. Should be converted automatecly 
