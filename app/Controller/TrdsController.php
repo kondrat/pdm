@@ -11,19 +11,19 @@ class TrdsController extends AppController {
 
     public $name = 'Trds';
 
-    public $countRec = -1;
+    public $countRec = 0;
 
 
     public function index() {
-        $data = $this->Trd->generateTreeList(null, "{n}.Trd.id", null, '...');
+        $trds = $this->Trd->generateTreeList(null, "{n}.Trd.id", null, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
         //$thread  = $this->Trd->children(1,TRUE); 
         //$data = $this->Trd->find('threaded');
         //debug($thread);
-        debug($data);
-        $a = $this->getTree(1);
-        debug($a);
+        //debug($data);
+        $a = $this->getTree(0);
+        //debug($a);
         $this->set('a',$a);
-        $this->set('trds', $data);
+        $this->set('trds', $trds);
         
         //die;
     }
@@ -31,34 +31,29 @@ class TrdsController extends AppController {
 
     protected function getTree($parentId=NULL) {
         
-       $this->countRec++;
+       
              
 //        for ($i = 0; $i <= 10; $i++) {          
 //        }
-        echo 'parent id: '.$parentId.'<br />'.$this->countRec.'<br />';
+        
         $thread = $this->Trd->children($parentId, TRUE);
 
         foreach ($thread as $k => $v) {
             
-            if($this->countRec <= 1){
+            
                 
                 $chilDr = $this->getTree($v['Trd']['id']);
                 
-                if ($chilDr != array()) {                    
+                  if($chilDr != array()){                 
                     $thread[$k]['chiLDR'] = $chilDr;
-                    $this->countRec = -1;
-                    
-                }
-                
-            } else {
-                
-                $this->countRec = -1;
-                return $thread;
-            }
+                  }
+                   
+               
+
             
         }
 
-        //$this->countRec = 0;
+        $this->countRec++;
         return $thread;
 
     }
@@ -68,12 +63,18 @@ class TrdsController extends AppController {
      * 
      * @return void
      */
-    public function add() {
-        
+    public function add($id = null) {
+        if($id == null){
+            $id = 1;
+        }
+        $this->Trd->id = $id;
+        if (!$this->Trd->exists()) {
+            throw new NotFoundException(__('Invalid Trd.'));
+        }
         if ($this->request->is('post')) {
             // @todo check if it bug or not. Should be converted automatecly 
             $this->request->data['Trd']['parent_id'] = $this->request->data['Trd']['parentId'];
-   
+
             $this->Trd->create();
             if ($this->Trd->save($this->request->data)) {
                 $this->Session->setFlash(__('The Trd has been saved'));
@@ -82,14 +83,58 @@ class TrdsController extends AppController {
                 $this->Session->setFlash(__('The Trd could not be saved. Please, try again.'));
             }
         }
-        
-        $parentIds = $this->Trd->generateTreeList(null, "{n}.Trd.id", null, '...');
+        $this->set('parentId',$id);
+        $parentIds = $this->Trd->generateTreeList(null, "{n}.Trd.id", null, '---');
         //$parentIds = $this->Trd->find('list');
         $this->set(compact('parentIds'));
-        
-        
     }
-
+/**
+ * edit method
+ *
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		$this->Trd->id = $id;
+		if (!$this->Trd->exists()) {
+			throw new NotFoundException(__('Invalid Trd'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->Trd->save($this->request->data)) {
+				$this->Session->setFlash(__('The Trd has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The Trd could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Trd->read(null, $id);
+		}
+                
+                
+		$parentIds = $this->Trd->generateTreeList(null, "{n}.Trd.id", null, '---');
+		$this->set(compact('parentIds'));
+	}
+/**
+ * delete method
+ *
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		if (!$this->request->is('post')) {
+			throw new MethodNotAllowedException();
+		}
+		$this->Trd->id = $id;
+		if (!$this->Trd->exists()) {
+			throw new NotFoundException(__('Invalid trd'));
+		}
+		if ($this->Trd->delete()) {
+			$this->Session->setFlash(__('Trd deleted'));
+			$this->redirect(array('action'=>'index'));
+		}
+		$this->Session->setFlash(__('Trd was not deleted'));
+		$this->redirect(array('action' => 'index'));
+	}
 }
 
 ?>

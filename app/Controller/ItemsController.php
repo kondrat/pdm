@@ -40,7 +40,7 @@ class ItemsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
                         
-                        $this->data["Item"]["type"] = "assy";
+                        $this->request->data["Item"]["type"] = "assy";
                     
 			$this->Item->create();
 			if ($this->Item->save($this->request->data)) {

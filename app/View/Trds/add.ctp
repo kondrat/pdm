@@ -3,7 +3,7 @@
 	<fieldset>
 		<legend><?php echo __('Add Trd'); ?></legend>
 	<?php
-		echo $this->Form->input('parentId');
+		echo $this->Form->input('parentId',array('default'=>$parentId));
 	?>
         <?php 
                 echo $this->Form->input('name');

@@ -11,10 +11,10 @@
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-
+                echo $this->Html->css('pdm-trd');
 		echo $this->Html->css('screen');
                 echo $this->Html->css('print');
-                //echo $this->Html->css('screen');
+                
 
 		echo $scripts_for_layout;
 	?>
