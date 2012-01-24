@@ -1,6 +1,8 @@
 <?php
 
 App::uses('AppController', 'Controller');
+//App::import('Utility', 'Set');
+
 
 /**
  * Trds Controller
@@ -17,9 +19,10 @@ class TrdsController extends AppController {
     public function index() {
         $trds = $this->Trd->generateTreeList(null, "{n}.Trd.id", null, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
         //$thread  = $this->Trd->children(1,TRUE); 
-        //$data = $this->Trd->find('threaded');
-        //debug($thread);
-        //debug($data);
+        $nest = $this->Trd->find('all');
+
+        $nest = Set::nest($nest,array('root' => '1'));
+        debug($nest);
         $a = $this->getTree(0);
         //debug($a);
         $this->set('a',$a);

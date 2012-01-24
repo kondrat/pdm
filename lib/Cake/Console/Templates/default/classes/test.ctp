@@ -18,7 +18,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 echo "<?php\n";
-echo "/* ". $className ." Test cases generated on: " . date('Y-m-d H:i:s') . " : ". time() . "*/\n";
 ?>
 App::uses('<?php echo $fullClassName; ?>', '<?php echo $realType; ?>');
 
@@ -87,13 +86,12 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
 
 <?php foreach ($methods as $method): ?>
 /**
- * test<?php echo Inflector::classify($method); ?> method
+ * test<?php echo Inflector::camelize($method); ?> method
  *
  * @return void
  */
-	public function test<?php echo Inflector::classify($method); ?>() {
+	public function test<?php echo Inflector::camelize($method); ?>() {
 
 	}
-
 <?php endforeach;?>
 }
