@@ -22,7 +22,7 @@ class TrdsController extends AppController {
         $nest = $this->Trd->find('all');
 
         $nest = Set::nest($nest,array('root' => '1'));
-        debug($nest);
+        //debug($nest);
         $a = $this->getTree(0);
         //debug($a);
         $this->set('a',$a);
