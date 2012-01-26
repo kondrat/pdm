@@ -1,9 +1,9 @@
 <?php
 App::uses('AppController', 'Controller');
 /**
- * Parts Controller
+ * ItemTypes Controller
  *
- * @property Part $Part
+ * @property ItemType $ItemType
  */
 class ItemTypesController extends AppController {
 
@@ -15,7 +15,7 @@ class ItemTypesController extends AppController {
  */
 	public function index() {
 		$this->ItemType->recursive = 0;
-		$this->set('parts', $this->paginate());
+		$this->set('itemtypes', $this->paginate());
 	}
 
 /**
@@ -27,9 +27,9 @@ class ItemTypesController extends AppController {
 	public function view($id = null) {
 		$this->ItemType->id = $id;
 		if (!$this->ItemType->exists()) {
-			throw new NotFoundException(__('Invalid part'));
+			throw new NotFoundException(__('Invalid ItemType'));
 		}
-		$this->set('part', $this->ItemType->read(null, $id));
+		$this->set('itemtypes', $this->ItemType->read(null, $id));
 	}
 
 /**
@@ -41,10 +41,10 @@ class ItemTypesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->ItemType->create();
 			if ($this->ItemType->save($this->request->data)) {
-				$this->Session->setFlash(__('The part has been saved'));
+				$this->Session->setFlash(__('The ItemType has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The part could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The ItemType could not be saved. Please, try again.'));
 			}
 		}
 	}
@@ -58,14 +58,15 @@ class ItemTypesController extends AppController {
 	public function edit($id = null) {
 		$this->ItemType->id = $id;
 		if (!$this->ItemType->exists()) {
-			throw new NotFoundException(__('Invalid part'));
+			throw new NotFoundException(__('Invalid ItemType'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->ItemType->save($this->request->data)) {
-				$this->Session->setFlash(__('The part has been saved'));
+                            debug($this->data);
+				$this->Session->setFlash(__('The ItemType has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The part could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The ItemType could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->ItemType->read(null, $id);
@@ -84,13 +85,13 @@ class ItemTypesController extends AppController {
 		}
 		$this->ItemType->id = $id;
 		if (!$this->ItemType->exists()) {
-			throw new NotFoundException(__('Invalid part'));
+			throw new NotFoundException(__('Invalid ItemType'));
 		}
 		if ($this->ItemType->delete()) {
-			$this->Session->setFlash(__('Part deleted'));
+			$this->Session->setFlash(__('ItemType deleted'));
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('Part was not deleted'));
+		$this->Session->setFlash(__('ItemType was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
 }

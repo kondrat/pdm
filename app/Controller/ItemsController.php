@@ -38,18 +38,26 @@ class ItemsController extends AppController {
  * @return void
  */
 	public function add() {
+            
 		if ($this->request->is('post')) {
                         
-                        $this->request->data["Item"]["type"] = "assy";
-                    
+                        
+                        $this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
+                        $this->request->data["Trd"]["id"] = $this->request->data['Item']['Trd'];
+                                
 			$this->Item->create();
-			if ($this->Item->save($this->request->data)) {
+			if ($this->Item->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The item has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The item could not be saved. Please, try again.'));
 			}
 		}
+                
+                $trds = $this->Item->Trd->generateTreeList(null, "{n}.Trd.id", null, '---');
+                $this->set(compact('trds'));
+                $itemTypes = $this->Item->ItemType->find('list');
+                $this->set(compact('itemTypes'));
 		$subItems = $this->Item->find('list');
 		$this->set(compact('subItems'));
 	}
@@ -66,8 +74,12 @@ class ItemsController extends AppController {
 			throw new NotFoundException(__('Invalid item'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Item->save($this->request->data)) {
-				$this->Session->setFlash(__('The item has been saved'));
+                    
+                    $this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
+                    $this->request->data["Trd"]["id"] = $this->request->data['Item']['Trd'];
+                    
+			if ($this->Item->saveAssociated($this->request->data)) {
+				$this->Session->setFlash(__('The item has been saved'), "default", array('class'=>'success message'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The item could not be saved. Please, try again.'));
@@ -75,6 +87,11 @@ class ItemsController extends AppController {
 		} else {
 			$this->request->data = $this->Item->read(null, $id);
 		}
+                
+                $trds = $this->Item->Trd->generateTreeList(null, "{n}.Trd.id", null, '---');
+                $this->set(compact('trds'));                
+                $itemTypes = $this->Item->ItemType->find('list');
+                $this->set(compact('itemTypes'));
 		$subItems = $this->Item->SubItem->find('list');
 		$this->set(compact('subItems'));
 	}

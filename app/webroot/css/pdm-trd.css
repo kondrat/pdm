@@ -104,3 +104,6 @@ td a.trd-list{
     text-decoration: none;
 }
 
+.input label{
+    margin-right: 5px;
+}

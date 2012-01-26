@@ -1,10 +1,16 @@
 <div class="items index">
 	<h2><?php echo __('Items');?></h2>
+        <div class="actions">
+            <ul>
+		<li><?php echo $this->Html->link(__('New Item'), array('action' => 'add')); ?></li>
+            </ul>
+        </div>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('drwnbr');?></th>
 			<th><?php echo $this->Paginator->sort('name');?></th>
-			<th><?php echo $this->Paginator->sort('type');?></th>
+			<th><?php echo $this->Paginator->sort('ItemType.name');?></th>
+                        <th><?php echo $this->Paginator->sort('Trd.name');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
@@ -13,7 +19,8 @@
 	<tr>
 		<td><?php echo h($item['Item']['drwnbr']); ?>&nbsp;</td>
 		<td><?php echo h($item['Item']['name']); ?>&nbsp;</td>
-		<td><?php echo h($item['Item']['items_type_id']); ?>&nbsp;</td>
+		<td><?php echo h($item['ItemType']['name']); ?>&nbsp;</td>
+                <td><?php echo h($item['Trd']['name']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $item['Item']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $item['Item']['id'])); ?>
@@ -36,12 +43,4 @@
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Item'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Sub Items'), array('controller' => 'sub_items', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Sub Item'), array('controller' => 'sub_items', 'action' => 'add')); ?> </li>
-	</ul>
 </div>
