@@ -6,8 +6,13 @@ App::uses('AppModel', 'Model');
  */
 class ItemType extends AppModel {
      public $hasMany = array(
-        'ItemType' => array(
-            'className'  => 'ItemType',
+        'Item' => array(
+            'className'  => 'Item',
+            'conditions' => array(),
+            'order'      => ''
+        ),
+        'Itd' => array(
+            'className'  => 'Trd',
             'conditions' => array(),
             'order'      => ''
         )

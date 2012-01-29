@@ -1,0 +1,20 @@
+/* 
+    Document   : pdm-lt
+    Created on : 29.01.2012, 11:00:25
+    Author     : Kondrat
+    Description:
+        lt - layouts classes
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.lt-headerLink{
+    color: white;
+    text-decoration: none;
+}
+.lt-headerLink:hover{
+    color: yellow;
+}

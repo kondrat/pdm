@@ -1,9 +1,9 @@
 <div class="items view">
 <h2><?php  echo __('Item');?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
+		<dt><?php echo __('Trd name'); ?></dt>
 		<dd>
-			<?php echo h($item['Item']['id']); ?>
+			<?php echo h($item['Trd']['name']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Name'); ?></dt>
@@ -11,14 +11,14 @@
 			<?php echo h($item['Item']['name']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Created'); ?></dt>
+		<dt><?php echo __('Drawing number'); ?></dt>
 		<dd>
-			<?php echo h($item['Item']['created']); ?>
+			<?php echo h($item['Item']['drwnbr']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Modified'); ?></dt>
+		<dt><?php echo __('Item type'); ?></dt>
 		<dd>
-			<?php echo h($item['Item']['modified']); ?>
+			<?php echo h($item['ItemType']['name']); ?>
 			&nbsp;
 		</dd>
 	</dl>

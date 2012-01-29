@@ -11,11 +11,22 @@
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-                echo $this->Html->css('pdm-trd');
-		echo $this->Html->css('screen');
-                echo $this->Html->css('print');
-                
+                echo $this->Html->css(
+                        array(
+                            'pdm-lt',
+                            'pdm-trd',
+                            'pdm-item',
+                            'cake.generic.css',
+//                            'pdm-trd',
+//                            'screen',
+//                            'print'
+                            ));
 
+                
+                echo $this->Html->script(array(
+                    'jq/jquery-1.7.1.min',
+                    'dev/pdm-items'
+                ));
 		echo $scripts_for_layout;
 	?>
 </head>
@@ -23,7 +34,7 @@
 	<div class="container">
 		<div id="header">
 			<h3>
-                            <?php echo $this->Html->link( __('Header here'),'/'); ?>
+                            <?php echo $this->Html->link( __('Header'),'/', array('class'=>'lt-headerLink')); ?>
                         </h3>
 		</div>
 		<div id="content">
@@ -36,7 +47,7 @@
 		<div id="footer">
 			<?php echo $this->Html->link(
 					$this->Html->image('cake.power.gif', array('alt'=> $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
+					'/',
 					array('target' => '_blank', 'escape' => false)
 				);
 			?>

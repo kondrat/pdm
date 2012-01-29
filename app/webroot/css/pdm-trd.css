@@ -11,6 +11,20 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 /** Notices and Errors **/
+.trd-trdTypeName{
+    margin-left: 5px;
+    font-style: italic;
+    color: gray;
+    font-weight: normal;
+    font-size: smaller;
+}
+.trd-trdType{
+    
+}
+.trd-trdTypeAssy{
+    color: brown;
+}
+
 .message {
 	clear: both;
 	color: #fff;
