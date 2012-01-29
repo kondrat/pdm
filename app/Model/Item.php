@@ -45,13 +45,10 @@ class Item extends AppModel {
         )
     );
     public $belongsTo = array(
-        'ItemType' => array(
-            'className' => 'ItemType',
-            'foreignKey' => 'item_type_id'
-        ),
-        'Trd' => array(
-            'className' => 'Trd',
-            'foreignKey' => 'trd_id'
+
+        'Tray' => array(
+            'className' => 'Tray',
+            'foreignKey' => 'tray_id'
         )
     );
 

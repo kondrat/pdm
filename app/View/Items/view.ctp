@@ -1,9 +1,9 @@
 <div class="items view">
 <h2><?php  echo __('Item');?></h2>
 	<dl>
-		<dt><?php echo __('Trd name'); ?></dt>
+		<dt><?php echo __('tray name'); ?></dt>
 		<dd>
-			<?php echo h($item['Trd']['name']); ?>
+			<?php echo h($item['Tray']['name']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Name'); ?></dt>

@@ -1,5 +1,5 @@
 /* 
-    Document   : pdm-trd
+    Document   : pdm-tray
     Created on : 24.01.2012, 14:44:49
     Author     : Kondrat
     Description:
@@ -11,17 +11,17 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 /** Notices and Errors **/
-.trd-trdTypeName{
+.tray-trayTypeName{
     margin-left: 5px;
     font-style: italic;
     color: gray;
     font-weight: normal;
     font-size: smaller;
 }
-.trd-trdType{
+.tray-trayType{
     
 }
-.trd-trdTypeAssy{
+.tray-trayTypeAssy{
     color: brown;
 }
 
@@ -114,7 +114,7 @@ p.error em {
 .success {
 	color: #fff;
 }
-td a.trd-list{
+td a.tray-list{
     text-decoration: none;
 }
 

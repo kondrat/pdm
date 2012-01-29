@@ -41,7 +41,7 @@ class ItemTypesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->ItemType->create();
 			if ($this->ItemType->save($this->request->data)) {
-				$this->Session->setFlash(__('The ItemType has been saved'));
+				$this->Session->setFlash(__('The ItemType has been saved'),'default',array('class'=>'success message'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The ItemType could not be saved. Please, try again.'));
@@ -62,7 +62,7 @@ class ItemTypesController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->ItemType->save($this->request->data)) {
-                            debug($this->data);
+                            //debug($this->data);
 				$this->Session->setFlash(__('The ItemType has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {

@@ -3,11 +3,11 @@
 	<fieldset>
 		<legend><?php echo __('Edit Item'); ?></legend>
 	<?php
-                echo $this->Form->input('Trd');
+                echo $this->Form->input('tray');
 		echo $this->Form->input('id');
                 echo $this->Form->input('drwnbr');
 		echo $this->Form->input('name');
-                echo $this->Form->input('ItemType');
+                
 		echo $this->Form->input('SubItem');
 	?>
 	</fieldset>

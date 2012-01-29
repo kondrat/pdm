@@ -14,10 +14,10 @@
                 echo $this->Html->css(
                         array(
                             'pdm-lt',
-                            'pdm-trd',
+                            'pdm-tray',
                             'pdm-item',
                             'cake.generic.css',
-//                            'pdm-trd',
+//                            'pdm-tray',
 //                            'screen',
 //                            'print'
                             ));

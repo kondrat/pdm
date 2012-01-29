@@ -1,7 +1,7 @@
-<div class="Trds form">
-    <?php echo $this->Form->create('Trd'); ?>
+<div class="trays form">
+    <?php echo $this->Form->create('Tray'); ?>
     <fieldset>
-        <legend><?php echo __('Add Trd'); ?></legend>
+        <legend><?php echo __('Add Tray'); ?></legend>
         <?php
         echo $this->Form->input('parentId', array('default' => $parentId));
         ?>
@@ -18,6 +18,6 @@
     <h3><?php echo __('Actions'); ?></h3>
     <ul>
 
-        <li><?php echo $this->Html->link(__('List Trds'), array('action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link(__('List Trays'), array('action' => 'index')); ?></li>
     </ul>
 </div>

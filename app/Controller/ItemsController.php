@@ -44,7 +44,7 @@ class ItemsController extends AppController {
 
 
             $this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
-            $this->request->data["Trd"]["id"] = $this->request->data['Item']['Trd'];
+            $this->request->data["tray"]["id"] = $this->request->data['Item']['Tray'];
 
             $this->Item->create();
             if ($this->Item->saveAssociated($this->request->data)) {
@@ -55,10 +55,9 @@ class ItemsController extends AppController {
             }
         }
 
-        $trds = $this->Item->Trd->generateTreeList(null, "{n}.Trd.id", null, '---');
-        $this->set(compact('trds'));
-        $itemTypes = $this->Item->ItemType->find('list');
-        $this->set(compact('itemTypes'));
+        $trays = $this->Item->Tray->generateTreeList(null, null, null, '---');
+        $this->set(compact('trays'));
+
         $subItems = $this->Item->find('list');
         $this->set(compact('subItems'));
     }
@@ -77,7 +76,7 @@ class ItemsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
 
             $this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
-            $this->request->data["Trd"]["id"] = $this->request->data['Item']['Trd'];
+            $this->request->data["tray"]["id"] = $this->request->data['Item']['Tray'];
 
             if ($this->Item->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__('The item has been saved'), "default", array('class' => 'success message'));
@@ -89,10 +88,9 @@ class ItemsController extends AppController {
             $this->request->data = $this->Item->read(null, $id);
         }
 
-        $trds = $this->Item->Trd->generateTreeList(null, "{n}.Trd.id", null, '---');
-        $this->set(compact('trds'));
-        $itemTypes = $this->Item->ItemType->find('list');
-        $this->set(compact('itemTypes'));
+        $trays = $this->Item->Tray->generateTreeList(null, null, null, '---');
+        $this->set(compact('trays'));
+
         $subItems = $this->Item->SubItem->find('list');
         $this->set(compact('subItems'));
     }

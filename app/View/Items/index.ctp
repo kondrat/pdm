@@ -9,8 +9,8 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('drwnbr');?></th>
 			<th><?php echo $this->Paginator->sort('name');?></th>
-			<th><?php echo $this->Paginator->sort('ItemType.name');?></th>
-                        <th><?php echo $this->Paginator->sort('Trd.name');?></th>
+			
+                        <th><?php echo $this->Paginator->sort('tray.name');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
@@ -19,8 +19,8 @@
 	<tr>
 		<td><?php echo h($item['Item']['drwnbr']); ?>&nbsp;</td>
 		<td><?php echo h($item['Item']['name']); ?>&nbsp;</td>
-		<td><?php echo h($item['ItemType']['name']); ?>&nbsp;</td>
-                <td><?php echo h($item['Trd']['name']); ?>&nbsp;</td>
+		
+                <td><?php echo h($item['Tray']['name']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $item['Item']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $item['Item']['id'])); ?>

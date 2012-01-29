@@ -4,9 +4,16 @@ App::uses('AppModel', 'Model');
  * Project Model
  *
  */
-class Trd extends AppModel {
-    public $name = 'Trd';
+class Tray extends AppModel {
+    public $name = 'Tray';
     public $actsAs = array('Tree');
+    
+    public $validate = array(
+        'name' => 'alphaNumeric',
+        'drw_letter' => 'alphaNumeric'
+    );
+    
+    
     public $hasMany = array(
 
     );
