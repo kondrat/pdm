@@ -71,13 +71,21 @@
             .'<span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
             break;        
         
+         case 1:
         
+             echo 'not a ATA';
+            break;        
         
         
         
         
         default :
-            echo 'nu vot';
+             echo 
+              $trayArray['prjType'].
+              $trayArray['ata'] .
+              $trayArray['subAta'] .            
+              $trayArray['subAtaTwo'] 
+            .'<span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
             break;
     }
     ?>
