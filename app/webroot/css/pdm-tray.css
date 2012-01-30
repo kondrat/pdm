@@ -24,6 +24,12 @@
 .tray-trayTypeAssy{
     color: brown;
 }
+.tray-ataCodeInput{
+    vertical-align: middle;
+    margin: 0 5px 0 0;
+}
+
+
 
 .message {
 	clear: both;

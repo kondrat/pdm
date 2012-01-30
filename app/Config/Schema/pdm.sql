@@ -1,9 +1,9 @@
 # --------------------------------------------------------
 # Host:                         127.0.0.1
-# Server version:               5.1.54-1ubuntu4
-# Server OS:                    debian-linux-gnu
+# Server version:               5.1.40-community
+# Server OS:                    Win32
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-01-29 23:08:59
+# Date/time:                    2012-01-30 17:55:55
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -107,8 +107,8 @@ CREATE TABLE IF NOT EXISTS `item_types` (
 DELETE FROM `item_types`;
 /*!40000 ALTER TABLE `item_types` DISABLE KEYS */;
 INSERT INTO `item_types` (`id`, `name`, `created`, `modified`) VALUES
-	(1, 'Assy', '2012-01-26 10:32:48', '2012-01-29 22:46:32'),
-	(2, 'Part', '2012-01-26 10:33:00', '2012-01-29 22:33:17'),
+	(1, 'Assy', '2012-01-26 10:32:48', '2012-01-30 13:54:43'),
+	(2, 'Part', '2012-01-26 10:33:00', '2012-01-30 13:55:21'),
 	(3, 'Std', '2012-01-26 10:33:20', '2012-01-29 22:34:38'),
 	(6, 'EQpart', '2012-01-29 11:43:06', '2012-01-29 21:25:03'),
 	(10, NULL, '2012-01-29 21:46:39', '2012-01-29 21:46:39'),
@@ -180,9 +180,9 @@ DELETE FROM `trays`;
 /*!40000 ALTER TABLE `trays` DISABLE KEYS */;
 INSERT INTO `trays` (`id`, `parent_id`, `lft`, `rght`, `name`, `item_type_id`, `drw_letter`, `created`, `modified`) VALUES
 	(1, NULL, 1, 44, 'Root Trd', 0, NULL, NULL, NULL),
-	(2, 1, 2, 39, 'Rifles', 1, 'R', NULL, '2012-01-29 22:42:32'),
-	(3, 2, 3, 12, 'Barrels', 1, '', NULL, '2012-01-29 22:46:32'),
-	(5, 3, 4, 9, 'Muzzle breaks', 1, NULL, NULL, NULL),
+	(2, 1, 2, 39, 'Rifles', 2, 'R', NULL, '2012-01-30 13:54:13'),
+	(3, 2, 3, 12, 'Barrels', 1, '1', NULL, '2012-01-30 13:53:41'),
+	(5, 3, 6, 11, 'Muzzle breaks', 1, '2', NULL, '2012-01-30 13:54:43'),
 	(6, 2, 13, 34, 'Actions', 1, NULL, NULL, NULL),
 	(7, 6, 14, 21, 'Resivers', 1, NULL, NULL, NULL),
 	(8, 6, 22, 33, 'Bolts', 1, '', NULL, '2012-01-29 22:31:35'),
@@ -192,13 +192,13 @@ INSERT INTO `trays` (`id`, `parent_id`, `lft`, `rght`, `name`, `item_type_id`, `
 	(29, 8, 23, 24, 'Bolt', 2, NULL, NULL, NULL),
 	(30, 8, 25, 26, 'Bolt sleeve', 2, NULL, NULL, NULL),
 	(32, 8, 27, 28, 'Bolt clamp', 2, '', NULL, '2012-01-29 22:33:17'),
-	(27, 3, 10, 11, 'Barrels', 2, NULL, NULL, NULL),
+	(27, 3, 4, 5, 'Barrels', 2, '1', NULL, '2012-01-30 13:53:52'),
 	(36, 7, 15, 16, 'Handle limit', 2, NULL, NULL, NULL),
 	(34, 8, 31, 32, 'Bolt stop', 2, '', NULL, '2012-01-29 22:33:07'),
 	(33, 8, 29, 30, 'Firing Pin', 2, '', NULL, '2012-01-29 22:32:59'),
 	(39, 7, 17, 18, 'Thread insert', 2, NULL, NULL, NULL),
-	(38, 5, 7, 8, 'Nut', 2, NULL, NULL, NULL),
-	(37, 5, 5, 6, 'Muzzle break', 2, NULL, NULL, NULL),
+	(38, 5, 9, 10, 'Nut', 2, '2', NULL, '2012-01-30 13:55:21'),
+	(37, 5, 7, 8, 'Muzzle break', 2, '1', NULL, '2012-01-30 13:55:14'),
 	(40, 7, 19, 20, 'Resivers', 2, NULL, NULL, NULL),
 	(44, 2, 37, 38, 'biPods', 3, '', NULL, '2012-01-29 22:34:38');
 /*!40000 ALTER TABLE `trays` ENABLE KEYS */;

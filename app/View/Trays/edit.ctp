@@ -8,11 +8,12 @@
         echo $this->Form->input('parentId',array('default' => $this->request->data['Tray']['parent_id']));
         ?>
         
-        <div><?php echo __('Drw number');?></div>
+        
+        <div><?php echo $this->element('Trays/drw_number',$trayArray);?></div>
         
         <?php
         echo $this->Form->input('ItemType');
-        echo $this->Form->input('drw_letter');
+        //echo $this->Form->input('drw_letter');
         ?>
     </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>
