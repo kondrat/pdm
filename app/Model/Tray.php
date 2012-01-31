@@ -9,8 +9,8 @@ class Tray extends AppModel {
     public $actsAs = array('Tree');
     
     public $validate = array(
-        //'name' => 'alphaNumeric',
-        //'drw_letter' => 'alphaNumeric'
+        'name' => 'alphaNumeric',
+        //'ata_code' => 'alphaNumeric'
     );
     
     

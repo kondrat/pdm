@@ -35,7 +35,9 @@
     color: blue;
     font-size: 140%;
 }
-
+.tray-ataCode{
+    color: red;
+}
 .message {
 	clear: both;
 	color: #fff;

@@ -2,7 +2,7 @@
     <p><?php echo __('ATA code:'); ?></p>
     <?php //debug($trayArray);?>
     <?php //debug($addEdit);?>
-    <b><?php
+    <?php
     
     //@todo to del
     foreach ($trayArray as $k=>$v){
@@ -19,7 +19,10 @@
     switch ($swithCase) {
         
         case 5:
-            echo '<span class="tray-prjCode">X</span>' . ' ' . $trayArray['ata'] . ' ' . $trayArray['subAta'] . ' <span class="tray-ataCodeInput">' .
+            echo '<span class="tray-prjCode">X</span>'.' <span class="tray-ataCode">'
+                .$trayArray['ata'] . ' ' 
+                .$trayArray['subAta'] .
+                '</span> <span class="tray-ataCodeInput">'.
             $this->Form->input('ata_code', array(
                 'options' => array('0','1', '2', '3', '4', '5', '6', '7', '8', '9'),
                 'default' => $trayArray['subAtaTwo'],
@@ -32,7 +35,10 @@
         
         case 4:
             
-            echo '<span class="tray-prjCode">X</span>' . ' ' . $trayArray['ata'] . ' <span class="tray-ataCodeInput">' . 
+            echo '<span class="tray-prjCode">X</span>'
+                .' <span class="tray-ataCode">'
+                . $trayArray['ata'] 
+                .'</span> <span class="tray-ataCodeInput">' . 
             $this->Form->input('ata_code', array(
                 'options' => array('0','1', '2', '3', '4', '5', '6', '7', '8', '9'),
                 'default' => $trayArray['subAta'],
@@ -46,7 +52,7 @@
             break;
            
          case 3:
-            echo '<span class="tray-prjCode">X</span>' . ' <span class="tray-ataCodeInput">' .
+            echo '<span class="tray-prjCode">X</span> <span class="tray-ataCodeInput">'.
              
              $this->Form->input('ata_code', array(
                 'options' => array('0','1', '2', '3', '4', '5', '6', '7', '8', '9'),
@@ -55,18 +61,18 @@
                 'div' => false
                     )
             )
-            .'</span> '.
+            .'</span> <span class="tray-ataCode">'.
               $trayArray['subAta'] . ' '.            
               $trayArray['subAtaTwo']
-              .'<span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
+              .'</span><span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
             break;             
         
          case 2:       
-              '<span class="tray-prjCode">X</span>' .
+              '<span class="tray-prjCode">X</span><span class="tray-ataCode">'.
               $trayArray['ata'] .
               $trayArray['subAta'] . ' '.            
               $trayArray['subAtaTwo'] 
-            .'<span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
+            .'</span><span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
             break;        
         
          case 1:
@@ -88,5 +94,5 @@
     }
     ?>
 
-    </b>
+    
 </div>
