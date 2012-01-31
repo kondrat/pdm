@@ -21,6 +21,10 @@ class Tray extends AppModel {
         'ItemType' => array(
             'className' => 'ItemType',
             'foreignKey' => 'item_type_id'
+        ),
+        'Project' => array(
+            'className' => 'Project',
+            'foreignKey' => 'project_id'
         )
     );
 }

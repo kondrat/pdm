@@ -4,12 +4,12 @@
         <legend><?php echo __('Edit Tray'); ?></legend>
         <?php
         echo $this->Form->input('id');
-        echo $this->Form->input('name', array('label' => __('Tray name')));
         echo $this->Form->input('parentId',array('default' => $this->request->data['Tray']['parent_id']));
+        echo $this->Form->input('name', array('label' => __('Tray name')));       
         ?>
         
         
-        <div><?php echo $this->element('Trays/drw_number',$trayArray);?></div>
+        <div><?php echo $this->element('Trays/ata_code',array('trayArray' => $trayArray, 'addEdit' => 'edit'));?></div>
         
         <?php
         echo $this->Form->input('ItemType');

@@ -28,8 +28,13 @@
     vertical-align: middle;
     margin: 0 5px 0 0;
 }
-
-
+.tray-ataCodeInput select{
+    font-size: 100%;
+}
+.tray-prjCode{
+    color: blue;
+    font-size: 140%;
+}
 
 .message {
 	clear: both;

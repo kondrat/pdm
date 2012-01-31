@@ -7,8 +7,13 @@ App::uses('AppModel', 'Model');
 class Project extends AppModel {
     public $name = 'Project';
     public $hasMany = array(
-        'ProjectPlans' => array(
+        'ProjectPlan' => array(
             'className' => 'ProjectPlan',
             'foreignKey' => 'project_id'
-        ));    
+        ),
+        'Tray' => array(
+            'className' => 'Tray',
+            'foreignKey' => 'project_id'
+        )        
+        );    
 }

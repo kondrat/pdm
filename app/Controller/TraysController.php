@@ -82,10 +82,17 @@ class TraysController extends AppController {
             $this->request->data['ItemType']['id'] = $this->request->data['Tray']['ItemType'];
             $this->Tray->create();
             if ($this->Tray->saveAssociated($this->request->data)) {
+               //ata cache making 
+               $newTrayParents =  $this->Tray->getPath($this->Tray->id);
+               $newTrayAta = $this->Ata->getAta($newTrayParents);
+               $newTrayAtaCache = $newTrayAta['ata'].$newTrayAta['subAta'].$newTrayAta['subAtaTwo'];
+               $this->Tray->saveField('ata_cache',$newTrayAtaCache);
+               
                 $this->Session->setFlash(__('The tray has been saved'), 'default', array('class' => 'success message'));
                 $this->redirect(array('action' => 'index'));
+                
             } else {
-                $this->Session->setFlash(__('The tray could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The tray could not be saved. Please, try again.'), 'default', array('class' => 'error message'));
             }
         }
         $this->set('parentId', $id);
@@ -98,7 +105,10 @@ class TraysController extends AppController {
 
         $parents = $this->Tray->getPath($id);
         $this->set('parents', $parents);
-        $parentCount = (count($parents));
+
+        //geting data by using component 'ATA'
+        $trayArray = $this->Ata->getAta($parents);
+        $this->set('trayArray',$trayArray);
     }
 
     /**
