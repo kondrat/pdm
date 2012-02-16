@@ -12,7 +12,7 @@
             foreach ($nest as $v1) {
 
                 if ($k == $v1['Tray']['id']) {
-                    $tray = $tray . '<span class="tray-trayTypeName">' . $v1['ItemType']['name'] . '</span>';
+                    $tray = $tray . '<span class="tray-trayTypeName">' . $v1['ItemType']['name'] . '</span><span style="color:black;"> X '.$v1['Tray']['ata_cache'].'</span>';
                     $classTray = 'tray-list' . ' ' . 'tray-trayType' . $v1['ItemType']['name'];
                     break;
                 }

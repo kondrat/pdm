@@ -1,8 +1,9 @@
-/app/Config/core.php
-/app/Config/database.php
+/app/Config
 /app/tmp
-!empty
-!.gitignore
-*~
+/lib/Cake/Console/Templates/skel/tmp/
+/plugins
+/vendors
+/build
+/dist
 .DS_Store
 tags
