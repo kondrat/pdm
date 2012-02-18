@@ -80,6 +80,9 @@ class TraysController extends AppController {
             // @todo check if it bug or not. Should be converted automatecly 
             $this->request->data['Tray']['parent_id'] = $this->request->data['Tray']['parentId'];
             $this->request->data['ItemType']['id'] = $this->request->data['Tray']['ItemType'];
+            unset($this->request->data['Tray']['parentId']);
+            unset($this->request->data['Tray']['ItemType']);
+            
             $this->Tray->create();
             if ($this->Tray->saveAssociated($this->request->data)) {
                //ata cache making 
