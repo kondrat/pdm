@@ -47,6 +47,8 @@ class Tray extends AppModel {
         $value = array_values($check);
         debug($value[0]);
         debug($this->data);
+        $child = $this->children($this->data['Tray']['parent_id']);
+        debug($child);
 //        debug($ata_code);
 //        debug($data);
 //        debug($parent_id);
