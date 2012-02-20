@@ -99,15 +99,21 @@ class TraysController extends AppController {
             }
         }
         $this->set('parentId', $id);
-        $parentIds = $this->Tray->generateTreeList(null, null, null, '---');
+        //$parentIds = $this->Tray->generateTreeList(null, null, null, '---');
         //$parentIds = $this->Tray->find('list');
-        $this->set(compact('parentIds'));
+        //$this->set(compact('parentIds'));
+        $parentName = $this->Tray->find('first', array(
+                                                'conditions' => array('Tray.id'=> $id),
+                                                'fields' => array('Tray.name'),
+                                                    
+                ));
+        $this->set('parentName',$parentName);
 
         $itemTypes = $this->Tray->ItemType->find('list');
         $this->set(compact('itemTypes'));
 
         $parents = $this->Tray->getPath($id);
-        $this->set('parents', $parents);
+        //$this->set('parents', $parents);
 
         //geting data by using component 'ATA'
         $trayArray = $this->Ata->getAta($parents);

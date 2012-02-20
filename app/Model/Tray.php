@@ -12,16 +12,18 @@ class Tray extends AppModel {
         'name' => array(
             'rule'=> 'alphaNumeric',
             'required'=>true,
-            'message'=>'Just a test for node name'
+            'allowEmpty' => false,
+            'message'=>'Ata name is incorrect'
         ),
         'ata_code' => array(
             'ruleAlphNumeric' => array(
                     'rule'=>'alphaNumeric',
                     'required' => true,
-                    'message' => 'Just a test for ata_code'
+                    'allowEmpty' => false,
+                    'message' => 'Ata code must be Numeric'
             ),
             'ruleCheckAta' => array(
-                    'rule' => array('checkAta',26),
+                    'rule' => array('checkAtaUnique'),
                     'message' => 'Ata code already taken'
             )
         )
@@ -43,16 +45,19 @@ class Tray extends AppModel {
     );
     
     
-    public function checkAta($check){
+    public function checkAtaUnique($check){
         $value = array_values($check);
-        debug($value[0]);
-        debug($this->data);
+        //debug($value[0]);
+        //debug($this->data);
         $child = $this->children($this->data['Tray']['parent_id']);
-        debug($child);
-//        debug($ata_code);
-//        debug($data);
-//        debug($parent_id);
-        return FALSE;
+        foreach ($child as $v){
+            if( $v['Tray']['ata_code'] == $this->data['Tray']['ata_code'] ){
+                //echo 'puk';
+                return FALSE;
+            }
+        }
+        //debug($child);
+        return TRUE;
     }
     
 }

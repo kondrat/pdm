@@ -1,5 +1,5 @@
 <div class="tray-noClass">
-    <p><?php echo __('ATA code:'); ?></p>
+    <p style="margin: 0;padding: 0;"><?php echo __('ATA code:'); ?></p>
     <?php //debug($trayArray);?>
     <?php //debug($addEdit);?>
     <?php
@@ -27,7 +27,8 @@
                 'options' => array('0','1', '2', '3', '4', '5', '6', '7', '8', '9'),
                 'default' => $trayArray['subAtaTwo'],
                 'label' => false,
-                'div' => false
+                'div' => false,
+                'error'=>false
                     )
             )
             . '</span> <span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
@@ -43,7 +44,8 @@
                 'options' => array('0','1', '2', '3', '4', '5', '6', '7', '8', '9'),
                 'default' => $trayArray['subAta'],
                 'label' => false,
-                'div' => false
+                'div' => false,
+                'error'=>false
                     )
             )
              .'</span>'
@@ -58,7 +60,8 @@
                 'options' => array('0','1', '2', '3', '4', '5', '6', '7', '8', '9'),
                 'default' => $trayArray['ata'],
                 'label' => false,
-                'div' => false
+                'div' => false,
+                'error'=>false
                     )
             )
             .'</span> <span class="tray-ataCode">'.
@@ -92,7 +95,10 @@
             .'<span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
             break;
     }
+    
+        
     ?>
 
-    
+    <span class="tray-ataCodeInput"><?php echo $this->Form->input('ItemType',array('div'=>false,'label'=>false));?></span>
 </div>
+<div class="tray-noClass"><?php echo $this->Form->error('ata_code');?></div>

@@ -38,6 +38,17 @@
 .tray-ataCode{
     color: red;
 }
+.tray-noClass{
+    float: left;
+    margin: 0;
+    padding: 0;
+    
+}
+.tray-toName{
+    float: left;
+}
+
+
 .message {
 	clear: both;
 	color: #fff;

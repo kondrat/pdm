@@ -1,18 +1,16 @@
 <div class="trays form">
     <?php echo $this->Form->create('Tray'); ?>
     <fieldset>
+        
         <legend><?php echo __('Add Tray'); ?></legend>
-        <?php
-        echo $this->Form->input('parentId', array('default' => $parentId));
-        ?>
-        <?php
-        echo $this->Form->input('name');
-        ?>
+        <div><?php echo __('Parent name: ').'<span style="color:black;font-size:larger;">'.$parentName['Tray']['name'].'</span>';?></div>
+        <?php echo $this->Form->input('parentId', array('type'=>'hidden', 'default' => $parentId));?>
 
-        <div><?php echo $this->element('Trays/ata_code',array('trayArray' => $trayArray, 'addEdit' => 'add'));?></div>
-        <?php 
-        echo $this->Form->input('ItemType');
-        ?>
+        <div class="tray-toName"><?php echo $this->element('Trays/ata_code',array('trayArray' => $trayArray, 'addEdit' => 'add'));?></div>
+        
+        <?php echo $this->Form->input('name');?>
+        
+        
         <?php 
         //echo $this->Form->input('ata_cache',array('type'=>'hidden','value'=>$trayArray['prjType'].$trayArray['ata'].$trayArray['subAta'].$trayArray['subAtaTwo']));
         ?>
