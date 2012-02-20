@@ -4,6 +4,7 @@
 	<tr>
 			
 			<th><?php echo $this->Paginator->sort('name');?></th>
+                        <th><?php echo $this->Paginator->sort('suffix');?></th>
 			<th><?php echo $this->Paginator->sort('created');?></th>
 			<th><?php echo $this->Paginator->sort('modified');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
@@ -14,6 +15,7 @@
 	<tr>
 		
 		<td><?php echo h($itemtype['ItemType']['name']); ?>&nbsp;</td>
+                <td><?php echo h($itemtype['ItemType']['suffix']); ?>&nbsp;</td>
 		<td><?php echo h($itemtype['ItemType']['created']); ?>&nbsp;</td>
 		<td><?php echo h($itemtype['ItemType']['modified']); ?>&nbsp;</td>
 		<td class="actions">

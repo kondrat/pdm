@@ -4,6 +4,7 @@
 		<legend><?php echo __('Add ItemType'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
+                echo $this->Form->input('suffix');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

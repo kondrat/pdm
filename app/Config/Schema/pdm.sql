@@ -1,23 +1,22 @@
-# --------------------------------------------------------
-# Host:                         127.0.0.1
-# Server version:               5.1.40-community
-# Server OS:                    Win32
-# HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-01-31 19:51:27
-# --------------------------------------------------------
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.1.54-1ubuntu4 - (Ubuntu)
+-- Server OS:                    debian-linux-gnu
+-- HeidiSQL version:             7.0.0.4053
+-- Date/time:                    2012-02-20 23:17:12
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40014 SET FOREIGN_KEY_CHECKS=0 */;
 
-# Dumping database structure for pdm
+-- Dumping database structure for pdm
 DROP DATABASE IF EXISTS `pdm`;
 CREATE DATABASE IF NOT EXISTS `pdm` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `pdm`;
 
 
-# Dumping structure for table pdm.items
+-- Dumping structure for table pdm.items
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
   `id` varchar(36) NOT NULL DEFAULT '',
@@ -29,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping data for table pdm.items: 6 rows
+-- Dumping data for table pdm.items: 6 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `tray_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
@@ -42,7 +41,7 @@ INSERT INTO `items` (`id`, `tray_id`, `drwnbr`, `name`, `created`, `modified`) V
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
-# Dumping structure for table pdm.items_groups
+-- Dumping structure for table pdm.items_groups
 DROP TABLE IF EXISTS `items_groups`;
 CREATE TABLE IF NOT EXISTS `items_groups` (
   `id` varchar(36) NOT NULL DEFAULT '',
@@ -53,13 +52,13 @@ CREATE TABLE IF NOT EXISTS `items_groups` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-# Dumping data for table pdm.items_groups: 0 rows
+-- Dumping data for table pdm.items_groups: 0 rows
 DELETE FROM `items_groups`;
 /*!40000 ALTER TABLE `items_groups` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_groups` ENABLE KEYS */;
 
 
-# Dumping structure for table pdm.items_items
+-- Dumping structure for table pdm.items_items
 DROP TABLE IF EXISTS `items_items`;
 CREATE TABLE IF NOT EXISTS `items_items` (
   `id` varchar(36) NOT NULL DEFAULT '',
@@ -68,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `items_items` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping data for table pdm.items_items: 3 rows
+-- Dumping data for table pdm.items_items: 3 rows
 DELETE FROM `items_items`;
 /*!40000 ALTER TABLE `items_items` DISABLE KEYS */;
 INSERT INTO `items_items` (`id`, `item_id`, `sub_item_id`) VALUES
@@ -78,7 +77,7 @@ INSERT INTO `items_items` (`id`, `item_id`, `sub_item_id`) VALUES
 /*!40000 ALTER TABLE `items_items` ENABLE KEYS */;
 
 
-# Dumping structure for table pdm.items_projects
+-- Dumping structure for table pdm.items_projects
 DROP TABLE IF EXISTS `items_projects`;
 CREATE TABLE IF NOT EXISTS `items_projects` (
   `id` varchar(36) NOT NULL DEFAULT '',
@@ -87,36 +86,35 @@ CREATE TABLE IF NOT EXISTS `items_projects` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-# Dumping data for table pdm.items_projects: 0 rows
+-- Dumping data for table pdm.items_projects: 0 rows
 DELETE FROM `items_projects`;
 /*!40000 ALTER TABLE `items_projects` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
 
 
-# Dumping structure for table pdm.item_types
+-- Dumping structure for table pdm.item_types
 DROP TABLE IF EXISTS `item_types`;
 CREATE TABLE IF NOT EXISTS `item_types` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) DEFAULT NULL,
+  `suffix` varchar(256) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
-# Dumping data for table pdm.item_types: ~6 rows (approximately)
+-- Dumping data for table pdm.item_types: ~4 rows (approximately)
 DELETE FROM `item_types`;
 /*!40000 ALTER TABLE `item_types` DISABLE KEYS */;
-INSERT INTO `item_types` (`id`, `name`, `created`, `modified`) VALUES
-	(1, 'Assy', '2012-01-26 10:32:48', '2012-01-31 15:49:42'),
-	(2, 'Part', '2012-01-26 10:33:00', '2012-01-31 15:50:03'),
-	(3, 'Std', '2012-01-26 10:33:20', '2012-01-29 22:34:38'),
-	(6, 'EQpart', '2012-01-29 11:43:06', '2012-01-29 21:25:03'),
-	(10, NULL, '2012-01-29 21:46:39', '2012-01-29 21:46:39'),
-	(11, NULL, '2012-01-29 21:46:57', '2012-01-29 21:46:57');
+INSERT INTO `item_types` (`id`, `name`, `suffix`, `created`, `modified`) VALUES
+	(1, 'Assy', '000', '2012-01-26 10:32:48', '2012-02-20 23:12:26'),
+	(2, 'Part', '200', '2012-01-26 10:33:00', '2012-02-20 23:12:49'),
+	(3, 'Std', 'std', '2012-01-26 10:33:20', '2012-02-20 23:13:20'),
+	(6, 'EQpart', '000', '2012-01-29 11:43:06', '2012-02-20 23:13:34');
 /*!40000 ALTER TABLE `item_types` ENABLE KEYS */;
 
 
-# Dumping structure for table pdm.projects
+-- Dumping structure for table pdm.projects
 DROP TABLE IF EXISTS `projects`;
 CREATE TABLE IF NOT EXISTS `projects` (
   `id` varchar(36) NOT NULL DEFAULT '',
@@ -127,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
-# Dumping data for table pdm.projects: ~4 rows (approximately)
+-- Dumping data for table pdm.projects: ~4 rows (approximately)
 DELETE FROM `projects`;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
 INSERT INTO `projects` (`id`, `projectname`, `description`, `created`, `modified`) VALUES
@@ -138,7 +136,7 @@ INSERT INTO `projects` (`id`, `projectname`, `description`, `created`, `modified
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 
 
-# Dumping structure for table pdm.project_plans
+-- Dumping structure for table pdm.project_plans
 DROP TABLE IF EXISTS `project_plans`;
 CREATE TABLE IF NOT EXISTS `project_plans` (
   `id` varchar(36) NOT NULL DEFAULT '',
@@ -150,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `project_plans` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
-# Dumping data for table pdm.project_plans: ~4 rows (approximately)
+-- Dumping data for table pdm.project_plans: ~4 rows (approximately)
 DELETE FROM `project_plans`;
 /*!40000 ALTER TABLE `project_plans` DISABLE KEYS */;
 INSERT INTO `project_plans` (`id`, `project_id`, `name`, `location`, `created`, `modified`) VALUES
@@ -161,7 +159,7 @@ INSERT INTO `project_plans` (`id`, `project_id`, `name`, `location`, `created`, 
 /*!40000 ALTER TABLE `project_plans` ENABLE KEYS */;
 
 
-# Dumping structure for table pdm.trays
+-- Dumping structure for table pdm.trays
 DROP TABLE IF EXISTS `trays`;
 CREATE TABLE IF NOT EXISTS `trays` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -176,9 +174,9 @@ CREATE TABLE IF NOT EXISTS `trays` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 
-# Dumping data for table pdm.trays: 23 rows
+-- Dumping data for table pdm.trays: 29 rows
 DELETE FROM `trays`;
 /*!40000 ALTER TABLE `trays` DISABLE KEYS */;
 INSERT INTO `trays` (`id`, `parent_id`, `lft`, `rght`, `name`, `item_type_id`, `project_id`, `ata_code`, `ata_cache`, `created`, `modified`) VALUES
@@ -212,6 +210,5 @@ INSERT INTO `trays` (`id`, `parent_id`, `lft`, `rght`, `name`, `item_type_id`, `
 	(63, 62, 12, 13, 'More just rotel', 2, NULL, NULL, '148', '2012-01-31 15:48:29', '2012-01-31 15:48:29'),
 	(64, 7, 25, 26, 'fsdg 234', 2, NULL, '9', '19', '2012-01-31 15:50:03', '2012-01-31 15:50:03');
 /*!40000 ALTER TABLE `trays` ENABLE KEYS */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

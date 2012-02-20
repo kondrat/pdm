@@ -1,24 +1,24 @@
-<div class="parts view">
-<h2><?php  echo __('Part');?></h2>
+<div class="ItemTypes view">
+<h2><?php  echo __('ItemType');?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
-			<?php echo h($part['Part']['id']); ?>
+			<?php echo h($ItemType['ItemType']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Partname'); ?></dt>
+		<dt><?php echo __('ItemType name'); ?></dt>
 		<dd>
-			<?php echo h($part['Part']['partname']); ?>
+			<?php echo h($ItemType['ItemType']['name']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Created'); ?></dt>
 		<dd>
-			<?php echo h($part['Part']['created']); ?>
+			<?php echo h($ItemType['ItemType']['created']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Modified'); ?></dt>
 		<dd>
-			<?php echo h($part['Part']['modified']); ?>
+			<?php echo h($ItemType['ItemType']['modified']); ?>
 			&nbsp;
 		</dd>
 	</dl>
@@ -26,9 +26,9 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Part'), array('action' => 'edit', $part['Part']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Part'), array('action' => 'delete', $part['Part']['id']), null, __('Are you sure you want to delete # %s?', $part['Part']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Parts'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Part'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Edit ItemType'), array('action' => 'edit', $ItemType['ItemType']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete ItemType'), array('action' => 'delete', $ItemType['ItemType']['id']), null, __('Are you sure you want to delete # %s?', $ItemType['ItemType']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List ItemTypes'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New ItemType'), array('action' => 'add')); ?> </li>
 	</ul>
 </div>

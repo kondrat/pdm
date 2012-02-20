@@ -29,7 +29,7 @@ class ItemTypesController extends AppController {
 		if (!$this->ItemType->exists()) {
 			throw new NotFoundException(__('Invalid ItemType'));
 		}
-		$this->set('itemtypes', $this->ItemType->read(null, $id));
+		$this->set('ItemType', $this->ItemType->read(null, $id));
 	}
 
 /**
