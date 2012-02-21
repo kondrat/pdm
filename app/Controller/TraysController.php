@@ -163,7 +163,7 @@ class TraysController extends AppController {
         $this->set(compact('itemTypes'));        
 
         $parentName = $this->Tray->find('first', array(
-                                                'conditions' => array('Tray.id'=> $id),
+                                                'conditions' => array('Tray.id'=> $this->request->data['Tray']['parent_id']),
                                                 'fields' => array('Tray.name'),
                                                     
                 ));

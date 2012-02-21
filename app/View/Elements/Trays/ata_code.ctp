@@ -12,6 +12,7 @@
     }
     
     $swithCase = $trayArray['position'];
+    
     if($addEdit == 'add'){
         $swithCase = $swithCase +1;
     }
@@ -71,7 +72,7 @@
             break;             
         
          case 2:       
-              '<span class="tray-prjCode">X</span><span class="tray-ataCode">'.
+            echo '<span class="tray-prjCode">X</span><span class="tray-ataCode">'.
               $trayArray['ata'] .
               $trayArray['subAta'] . ' '.            
               $trayArray['subAtaTwo'] 

@@ -241,6 +241,11 @@ class Debugger {
 				$error = 'Notice';
 				$level = LOG_NOTICE;
 			break;
+			case E_DEPRECATED:
+			case E_USER_DEPRECATED:
+				$error = 'Deprecated';
+				$level = LOG_NOTICE;
+			break;
 			default:
 				return;
 			break;
@@ -496,13 +501,23 @@ class Debugger {
 /**
  * Export an array type object.  Filters out keys used in datasource configuration.
  *
+ * The following keys are replaced with ***'s
+ *
+ * - password
+ * - login
+ * - host
+ * - database
+ * - port
+ * - prefix
+ * - schema
+ *
  * @param array $var The array to export.
  * @param integer $depth The current depth, used for recursion tracking.
  * @param integer $indent The current indentation level.
  * @return string Exported array.
  */
 	protected static function _array(array $var, $depth, $indent) {
-		$var = array_merge($var,  array_intersect_key(array(
+		$secrets = array(
 			'password' => '*****',
 			'login'  => '*****',
 			'host' => '*****',
@@ -510,7 +525,9 @@ class Debugger {
 			'port' => '*****',
 			'prefix' => '*****',
 			'schema' => '*****'
-		), $var));
+		);
+		$replace = array_intersect_key($secrets, $var);
+		$var = $replace + $var;
 
 		$out = "array(";
 		$n = $break = $end = null;
@@ -793,5 +810,4 @@ class Debugger {
 			trigger_error(__d('cake_dev', 'Please change the value of \'Security.cipherSeed\' in app/Config/core.php to a numeric (digits only) seed value specific to your application'), E_USER_NOTICE);
 		}
 	}
-
 }
