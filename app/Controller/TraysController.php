@@ -109,7 +109,10 @@ class TraysController extends AppController {
                 ));
         $this->set('parentName',$parentName);
 
-        $itemTypes = $this->Tray->ItemType->find('list');
+        $itemTypes = $this->Tray->ItemType->find('list',array('fields'=>array('ItemType.id','ItemType.name')));
+        $itemSuffixes = $this->Tray->ItemType->find('list',array('fields'=>array('ItemType.id','ItemType.suffix')));
+        $itemSuffixes = json_encode($itemSuffixes);
+        $this->set('itemSuffixes',$itemSuffixes);
         $this->set(compact('itemTypes'));
 
         $parents = $this->Tray->getPath($id);
@@ -153,6 +156,19 @@ class TraysController extends AppController {
         $parentIds = $this->Tray->generateTreeList(null, null, null, '---');
         $this->set(compact('parentIds'));
 
+        $itemTypes = $this->Tray->ItemType->find('list',array('fields'=>array('ItemType.id','ItemType.name')));
+        $itemSuffixes = $this->Tray->ItemType->find('list',array('fields'=>array('ItemType.id','ItemType.suffix')));
+        $itemSuffixes = json_encode($itemSuffixes);
+        $this->set('itemSuffixes',$itemSuffixes);
+        $this->set(compact('itemTypes'));        
+
+        $parentName = $this->Tray->find('first', array(
+                                                'conditions' => array('Tray.id'=> $id),
+                                                'fields' => array('Tray.name'),
+                                                    
+                ));
+        $this->set('parentName',$parentName);
+        
         $parents = $this->Tray->getPath($this->request->data['Tray']['id']);
         $this->set('parents', $parents);
 

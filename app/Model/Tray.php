@@ -31,8 +31,11 @@ class Tray extends AppModel {
     
     
     public $hasMany = array(
-
+        'MyItems' => array(
+            'className'  => 'Items',
+        )
     );
+    
     public $belongsTo = array(
         'ItemType' => array(
             'className' => 'ItemType',

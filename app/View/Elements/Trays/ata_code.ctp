@@ -31,7 +31,7 @@
                 'error'=>false
                     )
             )
-            . '</span> <span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
+            . '</span> <span style="color:gray;font-weight:normal"> - xxxxx - </span><span id="tray-suffix" data-itemSuffixs = '.$itemSuffixes.'>xxx</span>';
             break;
         
         case 4:
@@ -50,7 +50,7 @@
             )
              .'</span>'
             .$trayArray['subAtaTwo'] 
-            . '<span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
+            . '<span style="color:gray;font-weight:normal"> - xxxxx - </span><span id="tray-suffix" data-itemSuffixs = '.$itemSuffixes.'>xxx</span>';
             break;
            
          case 3:
@@ -67,7 +67,7 @@
             .'</span> <span class="tray-ataCode">'.
               $trayArray['subAta'] . ' '.            
               $trayArray['subAtaTwo']
-              .'</span><span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
+              .'</span><span style="color:gray;font-weight:normal"> - xxxxx - </span><span id="tray-suffix" data-itemSuffixs = '.$itemSuffixes.'>xxx</span>';
             break;             
         
          case 2:       
@@ -75,7 +75,7 @@
               $trayArray['ata'] .
               $trayArray['subAta'] . ' '.            
               $trayArray['subAtaTwo'] 
-            .'</span><span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
+            .'</span><span style="color:gray;font-weight:normal"> - xxxxx - </span><span id="tray-suffix" data-itemSuffixs = '.$itemSuffixes.'>xxx</span>';
             break;        
         
          case 1:
@@ -92,7 +92,7 @@
               $trayArray['ata'] .
               $trayArray['subAta'] .            
               $trayArray['subAtaTwo'] 
-            .'<span style="color:gray;font-weight:normal"> - xxxxx - xxx</span>';
+            .'<span style="color:gray;font-weight:normal"> - xxxxx - </span><span id="tray-suffix" data-itemSuffixs = '.$itemSuffixes.'>xxx</span>';
             break;
     }
     

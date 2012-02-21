@@ -1,4 +1,4 @@
-<div class="parts form">
+<div class="ItemTypes form">
 <?php echo $this->Form->create('ItemType');?>
 	<fieldset>
 		<legend><?php echo __('Edit Item Type'); ?></legend>
