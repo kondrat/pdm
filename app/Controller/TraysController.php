@@ -77,14 +77,16 @@ class TraysController extends AppController {
             throw new NotFoundException(__('Invalid tray.'));
         }
         if ($this->request->is('post')) {
+           
             // @todo check if it bug or not. Should be converted automatecly 
             $this->request->data['Tray']['parent_id'] = $this->request->data['Tray']['parentId'];
-            $this->request->data['ItemType']['id'] = $this->request->data['Tray']['ItemType'];
+            $this->request->data['Tray']['item_type_id'] = $this->request->data['Tray']['ItemType'];
             unset($this->request->data['Tray']['parentId']);
             unset($this->request->data['Tray']['ItemType']);
             
+            
             $this->Tray->create();
-            if ($this->Tray->saveAssociated($this->request->data)) {
+            if ($this->Tray->save($this->request->data)) {
                //ata cache making 
                $newTrayParents =  $this->Tray->getPath($this->Tray->id);
                $newTrayAta = $this->Ata->getAta($newTrayParents);
@@ -137,10 +139,21 @@ class TraysController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             //debug($this->request->data);
             
-            $this->request->data['ItemType']['id'] = $this->request->data['Tray']['ItemType'];
+            $this->request->data['Tray']['item_type_id'] = $this->request->data['Tray']['ItemType'];
             $this->request->data['Tray']['parent_id'] = $this->request->data['Tray']['parentId'];
+            unset($this->request->data['Tray']['parentId']);
+            unset($this->request->data['Tray']['ItemType']);            
             
-            if ($this->Tray->saveAssociated($this->request->data)) {
+            //debug($this->request->data);
+            
+            if ($this->Tray->save($this->request->data)) {
+                
+               //ata cache making 
+               $newTrayParents =  $this->Tray->getPath($this->Tray->id);
+               $newTrayAta = $this->Ata->getAta($newTrayParents);
+               $newTrayAtaCache = $newTrayAta['ata'].$newTrayAta['subAta'].$newTrayAta['subAtaTwo'];
+               $this->Tray->saveField('ata_cache',$newTrayAtaCache);
+                
                 $this->Session->setFlash(__('The tray has been saved'), 'default', array('class' => 'success message'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -150,8 +163,8 @@ class TraysController extends AppController {
             $this->request->data = $this->Tray->read(null, $id);
         }
 
-        $itemTypes = $this->Tray->ItemType->find('list');
-        $this->set(compact('itemTypes'));
+        //$itemTypes = $this->Tray->ItemType->find('list');
+        //$this->set(compact('itemTypes'));
 
         $parentIds = $this->Tray->generateTreeList(null, null, null, '---');
         $this->set(compact('parentIds'));
@@ -162,6 +175,8 @@ class TraysController extends AppController {
         $this->set('itemSuffixes',$itemSuffixes);
         $this->set(compact('itemTypes'));        
 
+
+        
         $parentName = $this->Tray->find('first', array(
                                                 'conditions' => array('Tray.id'=> $this->request->data['Tray']['parent_id']),
                                                 'fields' => array('Tray.name'),
