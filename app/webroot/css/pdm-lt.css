@@ -16,5 +16,8 @@
     text-decoration: none;
 }
 .lt-headerLink:hover{
-    color: yellow;
+    /*color: yellow;*/
+}
+#header div.actions{
+    width: 5%;
 }

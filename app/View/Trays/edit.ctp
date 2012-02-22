@@ -6,7 +6,7 @@
         <?php echo $this->Form->input('id');?>
         <?php echo $this->Form->input('parentId', array('type'=>'hidden', 'default' => $this->request->data['Tray']['parent_id']));?>
         <?php //echo $this->Form->input('parentId',array('default' => $this->request->data['Tray']['parent_id']));?>
-        <div><?php echo $this->element('Trays/ata_code',array('trayArray' => $trayArray, 'addEdit' => 'edit'));?></div>
+        <div><?php echo $this->element('Trays/ata_code_edit');?></div>
         <?php echo $this->Form->input('name', array('label' => __('Tray name')));?>       
      
 

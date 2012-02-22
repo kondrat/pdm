@@ -34,9 +34,13 @@
 <body>
 	<div class="container">
 		<div id="header">
-			<h3>
-                            <?php echo $this->Html->link( __('Header'),'/', array('class'=>'lt-headerLink')); ?>
-                        </h3>
+                    <div class="actions">
+                        <ul>
+                            <li>
+                            <?php echo $this->Html->link( __('Home'),'/', array('class'=>'lt-headerLink')); ?>
+                            </li>
+                        </ul>
+                    </div>
 		</div>
 		<div id="content">
 
