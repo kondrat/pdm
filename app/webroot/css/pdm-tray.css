@@ -47,8 +47,12 @@
 .tray-toName{
     float: left;
 }
-
-
+.tray-traySuffix{
+    font-weight: normal;
+    color: green;
+    font-size: small;
+    font-style: italic;
+}
 .message {
 	clear: both;
 	color: #fff;

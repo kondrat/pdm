@@ -21,10 +21,12 @@ class TraysController extends AppController {
     public function index() {
         $trays = $this->Tray->generateTreeList(null, null, null, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
 
-        //$thread  = $this->Tray->children(1,TRUE); 
+        $t  = $this->Tray->children(1,FALSE); 
+        $this->set('t',$t);
         $nest = $this->Tray->find('all');
 
-        //$nest = Set::nest($nest,array('root' => '1'));
+        $nest1 = Set::nest($nest,array('root' => '1'));
+        $this->set('nest1',$nest1);
         //debug($nest);
         //$a = $this->getTree(0);
         //debug($a);
@@ -139,7 +141,7 @@ class TraysController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             //debug($this->request->data);
             
-            $this->request->data['Tray']['item_type_id'] = $this->request->data['Tray']['ItemType'];
+            
             $this->request->data['Tray']['parent_id'] = $this->request->data['Tray']['parentId'];
             unset($this->request->data['Tray']['parentId']);
             unset($this->request->data['Tray']['ItemType']);            
