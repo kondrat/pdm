@@ -9,7 +9,7 @@ App::uses('AppModel', 'Model');
 class Tray extends AppModel {
 
     public $name = 'Tray';
-    public $actsAs = array('Tree');
+    public $actsAs = array('Tree','Containable');
     public $validate = array(
         'name' => array(
             'rule' => 'alphaNumeric',

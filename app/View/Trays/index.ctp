@@ -1,5 +1,5 @@
 <div class="trays index">
-    <h2><?php echo __('Trays'); ?></h2>
+    <h2><?php echo $trayName.__(' trays'); ?></h2>
     <table cellpadding="0" cellspacing="0">
         <tr>
             <th><?php echo __('Name'); ?></th>
