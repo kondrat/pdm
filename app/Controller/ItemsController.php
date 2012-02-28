@@ -82,6 +82,35 @@ class ItemsController extends AppController {
     }
 
     /**
+     * 
+     */
+    public function getAtaCode(){
+        if ($this->request->is('ajax')) {
+            
+            $ataData = array();
+            $ataId = null;
+            
+            $ataId= $this->request->data["ataId"];
+            
+            if($ataId != null){
+                
+                $ataData = $this->Item->Tray->find('first',array(
+                    'conditions'=>array('Tray.id'=>$ataId)
+                ));
+                
+                //debug($ataData);
+                
+            }else{
+                return;
+            }
+            
+            $this->set('ataCache',$ataData['Tray']['ata_cache']);
+            $this->set('itemType',$ataData['ItemType']['suffix']);
+            
+        }
+    }
+
+        /**
      * edit method
      *
      * @param string $id

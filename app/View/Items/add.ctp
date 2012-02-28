@@ -3,9 +3,8 @@
 <?php echo $this->Form->create('Item');?>
 	<fieldset>
 		<legend><?php echo __('Add Item for ').$trayName; ?></legend>
-	<?php
-                echo $this->Form->input('tray');
-	?>
+	<?php echo $this->Form->input('tray');?>
+                <div id="tem"></div>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
 </div>
