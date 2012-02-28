@@ -38,8 +38,13 @@ class ItemsController extends AppController {
      *
      * @return void
      */
-    public function add() {
-
+    public function add($id=NULL) {
+        
+        $this->Item->Tray->id = $id;
+        if (!$this->Item->Tray->exists()) {
+            throw new NotFoundException(__('Invalid tray'));
+        }
+        
         if ($this->request->is('post')) {
 
 
@@ -54,10 +59,24 @@ class ItemsController extends AppController {
                 $this->Session->setFlash(__('The item could not be saved. Please, try again.'));
             }
         }
-
-        $trays = $this->Item->Tray->generateTreeList(null, null, null, '---');
+        
+        $traysData = array();
+        $riflesTrays = array();
+        
+        $traysData = $this->Item->Tray->find('first',array(
+            'conditions'=>array('Tray.id'=>$id),
+            'fields'=>array('Tray.lft','Tray.rght','Tray.name'),
+            'contain'=>false)
+                );
+        
+        if ($traysData != array()) {
+            $trayName = $traysData['Tray']['name'];
+            $trays = $this->Item->Tray->generateTreeList(
+                            array('Tray.lft >=' => $traysData['Tray']['lft'], 'Tray.rght <=' => $traysData['Tray']['rght']), null, null, '----');
+        }
         $this->set(compact('trays'));
-
+        $this->set('trayName',$trayName);
+        
         $subItems = $this->Item->find('list');
         $this->set(compact('subItems'));
     }

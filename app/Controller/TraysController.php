@@ -50,7 +50,7 @@ class TraysController extends AppController {
         $this->set('nest', $nest);
         $this->set('trayName',$trayName);
         $this->set('trays', $riflesTrays);
-        //die;
+
     }
 
     /*

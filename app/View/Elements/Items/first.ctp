@@ -2,9 +2,13 @@
 
 <?php echo $this->Form->create('Item');?>
 	<fieldset>
-		<legend><?php echo __('Add Item for ').$trayName; ?></legend>
+		<legend><?php echo __('Add Item'); ?></legend>
 	<?php
                 echo $this->Form->input('tray');
+		echo $this->Form->input('name',array('style'=>''));
+                echo $this->Form->input('drwnbr');
+                
+		echo $this->Form->input('SubItem');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
