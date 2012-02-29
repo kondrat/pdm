@@ -1,9 +1,12 @@
 <div class="items form">
 
+    <div>
+        <a href="file:///S:/TADS/PDM/PROJECT_408/PARTS/AK/">Good boltAGA338.CATPart</a>
+    </div>
 <?php echo $this->Form->create('Item');?>
 	<fieldset>
-		<legend><?php echo __('Add Item for ').$trayName; ?></legend>
-	<?php echo $this->Form->input('tray');?>
+		<legend><?php echo __('Add Item to ').$trayName; ?></legend>
+	<?php echo $this->Form->input('tray',array("id"=>"item-trayListAdd"));?>
                 <div id="tem"></div>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

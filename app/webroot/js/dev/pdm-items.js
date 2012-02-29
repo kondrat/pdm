@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 jQuery(document).ready(function(){
-    var itemTray = $("#ItemTray");
+    var itemTray = $("#item-trayListAdd");
     
     itemTray.change(function(){
         
