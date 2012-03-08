@@ -1,8 +1,5 @@
 <div class="items form">
 
-    <div>
-        <a href="file:///S:/TADS/PDM/PROJECT_408/PARTS/AK/">Good boltAGA338.CATPart</a>
-    </div>
 <?php echo $this->Form->create('Item');?>
 	<fieldset>
 		<legend><?php echo __('Add Item to ').$trayName; ?></legend>

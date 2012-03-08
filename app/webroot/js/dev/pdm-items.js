@@ -14,13 +14,22 @@ jQuery(document).ready(function(){
             url: "\/items\/getAtaCode",
             type: "POST",
             data: {
-               "data[ataId]":thisTray.val()       
+                "data[ataId]":thisTray.val()       
             },
             success:function (data) {               
                 //console.log(data)
                 if(data) {
                     
                     $("#tem").empty().append(data);
+                    
+                    // Countablel plugin code                   
+                    $("#item-drwNbrTip").simplyCountable({
+                        counter: '#item-drwNbrCounter',
+                        maxCount: 5,
+                        strictMax: false,
+                        overClass: 'item-drwNbrTipOver'
+                    });
+                    
                 }
                 
             },
@@ -32,6 +41,16 @@ jQuery(document).ready(function(){
         });
     });
     
+
     
+    
+    /*
+     * tipsy code
+     */
+    $("#item-ataCodeTip, #item-drwNbrTip, #item-suffixTip, #item-issueTip").tipsy({
+        live:true,
+        gravity: 's'
+    });
+//$("#item-test").tipsy();
 });
 

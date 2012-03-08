@@ -17,6 +17,7 @@
                             'pdm-tray',
                             'pdm-item',
                             'cake.generic.css',
+                            'tipsy/tipsy'
 //                            'pdm-tray',
 //                            'screen',
 //                            'print'
@@ -26,7 +27,9 @@
                 echo $this->Html->script(array(
                     'jq/jquery-1.7.1.min',
                     'dev/pdm-items',
-                    'dev/pdm-tray'
+                    'dev/pdm-tray',
+                    'plug/jquery.tipsy',
+                    'plug/jquery.simplyCountable'
                 ));
 		echo $scripts_for_layout;
 	?>

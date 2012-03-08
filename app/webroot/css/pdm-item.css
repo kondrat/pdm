@@ -5,8 +5,31 @@
     Description:
         it - item classes
 */
-
-
-
+.item-newItemNbr{
+    background-color: #EEEEEE;
+    float: left;
+    font-size: large; 
+    position: relative;
+}
+.item-addNewItemNbr{
+    font-size: smaller;
+    margin: 0 10px;
+    padding: 3px;
+    width: 50px;
+}
+.item-addNewItemName{
+    width: 500px;
+}
+.item-drwNumberCounter{
+    color: gray;
+    font-style: italic;
+    font-weight: normal;
+    position: absolute;
+    right: -15px;
+    top: 0;
+}
+.item-drwNbrTipOver{
+    color: red;
+}
 
 
