@@ -1,6 +1,9 @@
 <div class="items index">
     <h2><?php echo __('Items'); ?></h2>
-
+    <p><?php 
+            echo $this->Form->input('Project');
+        ?>
+        <?php echo __('Select product');?></p>
     <table cellpadding="0" cellspacing="0">
         <tr>
             <th><?php echo $this->Paginator->sort('drwnbr'); ?></th>
@@ -43,6 +46,6 @@
 </div>
 <div class="actions">
     <ul>
-        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add',1)); ?></li>
+        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add',1,'prj'=>$this->Form->value('Project.id'))); ?></li>
     </ul>
 </div>

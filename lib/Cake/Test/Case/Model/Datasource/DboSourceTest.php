@@ -581,7 +581,7 @@ class DboSourceTest extends CakeTestCase {
 	}
 
 /**
- * test that cacheMethod works as exepected
+ * test that cacheMethod works as expected
  *
  * @return void
  */
@@ -790,7 +790,7 @@ class DboSourceTest extends CakeTestCase {
  *
  * @return void
  */
-	function testGroupNoModel() {
+	public function testGroupNoModel() {
 		$result = $this->db->group('created');
 		$this->assertEquals(' GROUP BY created', $result);
 	}
@@ -798,7 +798,7 @@ class DboSourceTest extends CakeTestCase {
 /**
  * Test getting the last error.
  */
-	function testLastError() {
+	public function testLastError() {
 		$stmt = $this->getMock('PDOStatement');
 		$stmt->expects($this->any())
 			->method('errorInfo')

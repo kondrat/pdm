@@ -38,7 +38,7 @@ class Item extends AppModel {
             'deleteQuery' => '',
             'insertQuery' => ''
         ),
-        'Projects' => array(
+        'Project' => array(
             'classname' => 'Project',
             'foreignKey' => 'item_id',
             'associationForeignKey' => 'project_id'

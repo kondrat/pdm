@@ -403,6 +403,9 @@ class TestTaskTest extends CakeTestCase {
 
 		$result = $this->Task->getRealClassname('Controller', 'PostsController');
 		$this->assertEquals('PostsController', $result);
+		
+		$result = $this->Task->getRealClassname('Controller', 'AlertTypes');
+		$this->assertEquals('AlertTypesController', $result);
 
 		$result = $this->Task->getRealClassname('Helper', 'Form');
 		$this->assertEquals('FormHelper', $result);
@@ -572,8 +575,8 @@ class TestTaskTest extends CakeTestCase {
 	public function testInteractiveWithPlugin() {
 		$testApp = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS;
 		App::build(array(
-			'plugins' => array($testApp)
-		), true);
+			'Plugin' => array($testApp)
+		), App::RESET);
 		CakePlugin::load('TestPlugin');
 
 		$this->Task->plugin = 'TestPlugin';

@@ -16,6 +16,8 @@ class ItemsController extends AppController {
      */
     public function index() {
         //$this->Item->recursive = 0;
+        $projects = $this->Item->Project->find('list',array('fields' => array('Project.id', 'Project.projectname')));
+        $this->set('projects',$projects);
         $this->set('items', $this->paginate());
     }
 

@@ -222,7 +222,7 @@ class TestAppSchema extends CakeSchema {
 }
 
 /**
- * SchmeaPost class
+ * SchemaPost class
  *
  * @package       Cake.Test.Case.Model
  */
@@ -341,7 +341,7 @@ class SchemaDatatype extends CakeTestModel {
  * Testdescribe class
  *
  * This class is defined purely to inherit the cacheSources variable otherwise
- * testSchemaCreatTable will fail if listSources has already been called and
+ * testSchemaCreateTable will fail if listSources has already been called and
  * its source cache populated - I.e. if the test is run within a group
  *
  * @uses          CakeTestModel
@@ -669,7 +669,7 @@ class CakeSchemaTest extends CakeTestCase {
 	public function testSchemaReadWithPlugins() {
 		App::objects('model', null, false);
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
 		CakePlugin::load('TestPlugin');
 
@@ -982,7 +982,7 @@ class CakeSchemaTest extends CakeTestCase {
  */
 	public function testSchemaLoadingFromPlugin() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
 		CakePlugin::load('TestPlugin');
 		$Other = $this->Schema->load(array('name' => 'TestPluginApp', 'plugin' => 'TestPlugin'));

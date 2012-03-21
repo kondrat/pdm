@@ -1,9 +1,5 @@
 <?php
 /**
- * ControllerTest file
- *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -328,7 +324,7 @@ class TestComponent extends Object {
  *
  * @return void
  */
-	public function initialize($controller) {
+	public function initialize(Controller $controller) {
 	}
 
 /**
@@ -336,7 +332,7 @@ class TestComponent extends Object {
  *
  * @return void
  */
-	public function startup($controller) {
+	public function startup(Controller $controller) {
 	}
 
 /**
@@ -344,7 +340,7 @@ class TestComponent extends Object {
  *
  * @return void
  */
-	public function shutdown($controller) {
+	public function shutdown(Controller $controller) {
 	}
 
 /**
@@ -352,7 +348,7 @@ class TestComponent extends Object {
  *
  * @return void
  */
-	public function beforeRender($controller) {
+	public function beforeRender(Controller $controller) {
 		if ($this->viewclass) {
 			$controller->viewClass = $this->viewclass;
 		}
@@ -362,7 +358,7 @@ class TestComponent extends Object {
 class Test2Component extends TestComponent {
 
 
-	public function beforeRender($controller) {
+	public function beforeRender(Controller $controller) {
 		return false;
 	}
 }
@@ -385,7 +381,7 @@ class AnotherTestController extends ControllerTestAppController {
  *
  * @var array
  */
-	public $uses = null;
+	public $uses = false;
 
 /**
  * merge parent
@@ -460,7 +456,7 @@ class ControllerTest extends CakeTestCase {
  */
 	public function testLoadModelInPlugins() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 			'Controller' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Controller' . DS),
 			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS)
 		));
@@ -501,7 +497,7 @@ class ControllerTest extends CakeTestCase {
 
 		unset($Controller);
 
-		App::build(array('plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)));
+		App::build(array('Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)));
 		CakePlugin::load('TestPlugin');
 
 		$Controller = new Controller($request);
@@ -624,7 +620,7 @@ class ControllerTest extends CakeTestCase {
 	public function testRender() {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
-		), true);
+		), App::RESET);
 		ClassRegistry::flush();
 		$request = new CakeRequest('controller_posts/index');
 		$request->params['action'] = 'index';
@@ -917,7 +913,7 @@ class ControllerTest extends CakeTestCase {
 
 
 		$this->assertTrue(in_array('ControllerPost', $appVars['uses']));
-		$this->assertNull($testVars['uses']);
+		$this->assertFalse($testVars['uses']);
 
 		$this->assertFalse(property_exists($TestController, 'ControllerPost'));
 

@@ -151,11 +151,11 @@ class TreeBehaviorNumberTest extends CakeTestCase {
 	}
 
 /**
- * testDetectNoneExistantParent method
+ * testDetectNoneExistentParent method
  *
  * @return void
  */
-	public function testDetectNoneExistantParent() {
+	public function testDetectNoneExistentParent() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
 		$this->Tree->initialize(2, 2);
@@ -1291,7 +1291,6 @@ class TreeBehaviorNumberTest extends CakeTestCase {
  * @return void
  */
 	public function testFindThreaded() {
-		$this->loadFixtures('Person');
 		$Model = new Person();
 		$Model->recursive = -1;
 		$Model->Behaviors->attach('Tree', array('parent' => 'mother_id'));

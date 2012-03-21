@@ -85,7 +85,7 @@ class CacheHelperTest extends CakeTestCase {
 		Configure::write('Cache.disable', false);
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
-		), true);
+		), App::RESET);
 	}
 
 /**
@@ -228,7 +228,7 @@ class CacheHelperTest extends CakeTestCase {
  *
  * @return void
  */
-	public function testComplexNoCache () {
+	public function testComplexNoCache() {
 		$this->Controller->cache_parsing();
 		$this->Controller->request->addParams(array(
 			'controller' => 'cache_test',
@@ -525,9 +525,9 @@ class CacheHelperTest extends CakeTestCase {
 /**
  * test ControllerName contains AppName
  *
- * This test verifys view cache is created correctly when the app name is contained in part of the controller name.
+ * This test verifies view cache is created correctly when the app name is contained in part of the controller name.
  * (webapp Name) base name is 'cache' controller is 'cacheTest' action is 'cache_name'
- * apps url would look somehing like http://localhost/cache/cacheTest/cache_name
+ * apps url would look something like http://localhost/cache/cacheTest/cache_name
  *
  * @return void
  **/

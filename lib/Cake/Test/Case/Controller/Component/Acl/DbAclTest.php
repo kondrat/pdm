@@ -12,18 +12,20 @@
  *
  * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
- * @package       Cake.Test.Case.Controller.Component
+ * @package       Cake.Test.Case.Controller.Component.Acl
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+App::uses('ComponentCollection', 'Controller');
+App::uses('AclComponent', 'Controller/Component');
 App::uses('DbAcl', 'Controller/Component/Acl');
 App::uses('AclNode', 'Model');
 
 /**
  * AclNodeTwoTestBase class
  *
- * @package       Cake.Test.Case.Controller.Component
+ * @package       Cake.Test.Case.Controller.Component.Acl
  */
 class AclNodeTwoTestBase extends AclNode {
 
@@ -45,7 +47,7 @@ class AclNodeTwoTestBase extends AclNode {
 /**
  * AroTwoTest class
  *
- * @package       Cake.Test.Case.Controller.Component
+ * @package       Cake.Test.Case.Controller.Component.Acl
  */
 class AroTwoTest extends AclNodeTwoTestBase {
 
@@ -74,7 +76,7 @@ class AroTwoTest extends AclNodeTwoTestBase {
 /**
  * AcoTwoTest class
  *
- * @package       Cake.Test.Case.Controller.Component
+ * @package       Cake.Test.Case.Controller.Component.Acl
  */
 class AcoTwoTest extends AclNodeTwoTestBase {
 
@@ -103,7 +105,7 @@ class AcoTwoTest extends AclNodeTwoTestBase {
 /**
  * PermissionTwoTest class
  *
- * @package       Cake.Test.Case.Controller.Component
+ * @package       Cake.Test.Case.Controller.Component.Acl
  */
 class PermissionTwoTest extends CakeTestModel {
 
@@ -146,7 +148,7 @@ class PermissionTwoTest extends CakeTestModel {
 /**
  * DbAclTwoTest class
  *
- * @package       Cake.Test.Case.Controller.Component
+ * @package       Cake.Test.Case.Controller.Component.Acl
  */
 class DbAclTwoTest extends DbAcl {
 
@@ -155,7 +157,7 @@ class DbAclTwoTest extends DbAcl {
  *
  * @return void
  */
-	function __construct() {
+	public function __construct() {
 		$this->Aro = new AroTwoTest();
 		$this->Aro->Permission = new PermissionTwoTest();
 		$this->Aco = new AcoTwoTest();
@@ -166,7 +168,7 @@ class DbAclTwoTest extends DbAcl {
 /**
  * Test case for AclComponent using the DbAcl implementation.
  *
- * @package       Cake.Test.Case.Controller.Component
+ * @package       Cake.Test.Case.Controller.Component.Acl
  */
 class DbAclTest extends CakeTestCase {
 /**
@@ -480,7 +482,7 @@ class DbAclTest extends CakeTestCase {
  * @param bool $treesToo
  * @return void
  */
-	function __debug ($printTreesToo = false) {
+	protected function __debug($printTreesToo = false) {
 		$this->Acl->Aro->displayField = 'alias';
 		$this->Acl->Aco->displayField = 'alias';
 		$aros = $this->Acl->Aro->find('list', array('order' => 'lft'));
@@ -527,7 +529,7 @@ class DbAclTest extends CakeTestCase {
  * @param int $len
  * @return void
  */
-	function __pad($string = '', $len = 14) {
+	protected function __pad($string = '', $len = 14) {
 		return str_pad($string, $len);
 	}
 }

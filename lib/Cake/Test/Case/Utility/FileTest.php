@@ -236,11 +236,11 @@ class FileTest extends CakeTestCase {
 	}
 
 /**
- * testOpeningNonExistantFileCreatesIt method
+ * testOpeningNonExistentFileCreatesIt method
  *
  * @return void
  */
-	public function testOpeningNonExistantFileCreatesIt() {
+	public function testOpeningNonExistentFileCreatesIt() {
 		$someFile = new File(TMP . 'some_file.txt', false);
 		$this->assertTrue($someFile->open());
 		$this->assertEquals('', $someFile->read());
@@ -427,14 +427,14 @@ class FileTest extends CakeTestCase {
  *
  * @return void
  */
-	function testDeleteAfterRead() {
+	public function testDeleteAfterRead() {
 		if (!$tmpFile = $this->_getTmpFile()) {
 			return false;
 		}
 		if (!file_exists($tmpFile)) {
 			touch($tmpFile);
 		}
-		$File =& new File($tmpFile);
+		$File = new File($tmpFile);
 		$File->read();
 		$this->assertTrue($File->delete());
 	}
@@ -484,7 +484,7 @@ class FileTest extends CakeTestCase {
  * @param bool $paintSkip
  * @return void
  */
-	function _getTmpFile($paintSkip = true) {
+	protected function _getTmpFile($paintSkip = true) {
 		$tmpFile = TMP . 'tests' . DS . 'cakephp.file.test.tmp';
 		if (is_writable(dirname($tmpFile)) && (!file_exists($tmpFile) || is_writable($tmpFile))) {
 			return $tmpFile;

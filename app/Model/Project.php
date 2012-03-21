@@ -25,7 +25,7 @@ class Project extends AppModel {
             array(
                 'className'              => 'Item',
                 'joinTable'              => 'items_projects',
-                'foreignKey'             => 'poject_id',
+                'foreignKey'             => 'project_id',
                 'associationForeignKey'  => 'item_id',
                 'unique'                 => true,
                 'conditions'             => '',
