@@ -1,16 +1,23 @@
 <div class="items index">
     <h2><?php echo __('Items'); ?></h2>
-    <p><?php 
-            echo $this->Form->input('Project');
+
+        <?php 
+            echo $this->Form->input('Project', array(
+                'label'=>__('Select project'),
+                'selected'=>$this->request->params['named']['prj'],
+                'id'=>'item-currentPrj'
+                    ));
+            $projectId = null;
+            $projectId = key($projects);   
         ?>
-        <?php echo __('Select product');?></p>
+
     <table cellpadding="0" cellspacing="0">
         <tr>
             <th><?php echo $this->Paginator->sort('drwnbr'); ?></th>
             <th><?php echo $this->Paginator->sort('name'); ?></th>
 
             <th><?php echo $this->Paginator->sort('tray.name'); ?></th>
-            <th class="actions"><?php echo __('Actions'); ?></th>
+            <th class="actions" style="text-align: center;"><?php echo __('Actions'); ?></th>
         </tr>
         <?php
         $i = 0;
@@ -46,6 +53,6 @@
 </div>
 <div class="actions">
     <ul>
-        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add',1,'prj'=>$this->Form->value('Project.id'))); ?></li>
+        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add','trd'=>2,'prj'=>$projectId)); ?></li>
     </ul>
 </div>

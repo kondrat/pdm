@@ -3,9 +3,10 @@
  * and open the template in the editor.
  */
 jQuery(document).ready(function(){
-    var itemTray = $("#item-trayListAdd");
     
-    itemTray.change(function(){
+    var $item_Tray = $("#item-trayListAdd");
+    
+    $item_Tray.change(function(){
         
         var thisTray = $(this);
         
@@ -41,6 +42,48 @@ jQuery(document).ready(function(){
         });
     });
     
+
+
+    var $item_Prj = $("#item-currentPrj");
+    var item_currentPrjId = $item_Prj.val();
+    /*
+     * to chage items for selected project
+     */
+    
+    var func_getItem = function(max){
+
+        var $thisPrj = max;
+        $.ajax({
+            dataType:"html",
+            url: "\/items\/getItemsForPrj",
+            type: "POST",
+            data: {
+                "data[prjId]":$thisPrj       
+            },
+            success:function (data) {               
+                //console.log(data)
+                if(data) {
+
+                    
+            }
+                
+            },
+                    
+            error:function(){
+                alert('Problem with the server. Try again later.');
+                 
+            }
+        });;
+    }
+
+    func_getItem(item_currentPrjId);
+
+    $item_Prj.change(function(){
+        $thisCurrentPrjId = $(this).val();
+        func_getItem($thisCurrentPrjId);
+    })
+
+
 
     
     

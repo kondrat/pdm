@@ -21,6 +21,32 @@ class ItemsController extends AppController {
         $this->set('items', $this->paginate());
     }
 
+    public function getItemsForPrj(){
+        if ($this->request->is('ajax')) {
+
+            $prjId = null;
+            
+            $prjId= $this->request->data["prjId"];
+            
+            if($prjId != null){
+                
+                $itemOfPrj = $this->Item->find('all',array(
+                   //'conditions'=>array('Project.project_id'=>$prjId)
+                ));
+                
+                debug($itemOfPrj);
+                
+            }else{
+                return;
+            }
+            
+            //$this->set('ataCache',$ataData['Tray']['ata_cache']);
+            //$this->set('itemType',$ataData['ItemType']['suffix']);
+            
+                    
+        }
+    }
+
     /**
      * view method
      *
