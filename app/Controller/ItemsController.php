@@ -18,6 +18,13 @@ class ItemsController extends AppController {
         //$this->Item->recursive = 0;
         $projects = $this->Item->Project->find('list',array('fields' => array('Project.id', 'Project.projectname')));
         $this->set('projects',$projects);
+        
+        $itemTest = $this->Item->find('all',
+                array(
+                    'conditions'=> array('Tray.id'=>2)
+                ));
+        
+        $this->set('itemTest',$itemTest);
         $this->set('items', $this->paginate());
     }
 
@@ -66,7 +73,10 @@ class ItemsController extends AppController {
      *
      * @return void
      */
-    public function add($id=NULL) {
+    public function add() {
+        
+        $id = $this->request->params['named']['trd'];
+     
         
         $this->Item->Tray->id = $id;
         if (!$this->Item->Tray->exists()) {

@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-03-15 17:57:29
+-- Date/time:                    2012-03-28 19:25:08
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `items` (
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `tray_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
-	('4f21592e-4800-4ffc-ba89-0ca89be3e0a3', '5', 'A000', 'New Just Test 7', '2012-01-26 13:46:22', '2012-01-29 06:39:26'),
-	('4f215754-3604-4a4f-a704-0ca89be3e0a3', '8', 'A000', 'New Just Test 541', '2012-01-26 13:38:28', '2012-01-26 13:59:03'),
+	('4f21592e-4800-4ffc-ba89-0ca89be3e0a3', '2', 'A000', 'New Just Test 7', '2012-01-26 13:46:22', '2012-01-29 06:39:26'),
+	('4f215754-3604-4a4f-a704-0ca89be3e0a3', '2', 'A000', 'New Just Test 541', '2012-01-26 13:38:28', '2012-01-26 13:59:03'),
 	('4f214b57-fc4c-4095-9d9f-0ca89be3e0a3', '8', 'A_000_0_1899_200_a00', 'new Item', '2012-01-26 12:47:19', '2012-01-29 06:31:21'),
 	('4f24e901-0e98-44c5-a451-0ca89be3e0a3', '5', 'B_000_0_C00', 'New Just Test 61', '2012-01-29 06:36:49', '2012-01-29 06:36:49'),
 	('4f24ecbb-3ca4-4fe4-804a-0ca89be3e0a3', '6', 'B_000_0_G00', 'New Just Test 52', '2012-01-29 06:52:43', '2012-01-29 07:46:04'),
@@ -84,11 +84,13 @@ CREATE TABLE IF NOT EXISTS `items_projects` (
   `item_id` varchar(36) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table pdm.items_projects: 0 rows
+-- Dumping data for table pdm.items_projects: 1 rows
 DELETE FROM `items_projects`;
 /*!40000 ALTER TABLE `items_projects` DISABLE KEYS */;
+INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
+	(1, '4f21592e-4800-4ffc-ba89-0ca89be3e0a3', 1);
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
 
 
@@ -123,13 +125,14 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.projects: ~1 rows (approximately)
+-- Dumping data for table pdm.projects: ~2 rows (approximately)
 DELETE FROM `projects`;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
 INSERT INTO `projects` (`id`, `projectname`, `description`, `created`, `modified`) VALUES
-	(1, 'ks-11', 'descr', '2012-03-11 13:30:14', '2012-03-11 13:30:14');
+	(1, 'KS-11', 'Descr KM-11', '2012-03-11 13:30:14', '2012-03-21 12:55:13'),
+	(2, 'KM-11', 'Desc KM-11', '2012-03-21 12:39:43', '2012-03-21 12:39:43');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 
 
