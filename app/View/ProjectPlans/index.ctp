@@ -14,7 +14,7 @@
 	<tr>
 		
 		<td><?php echo h($ProjectPlan['ProjectPlan']['name']); ?>&nbsp;</td>
-		<td><?php echo h($ProjectPlan['Project']['projectname']); ?>&nbsp;</td>
+		<td><?php echo h($ProjectPlan['Project']['name']); ?>&nbsp;</td>
 		
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $ProjectPlan['ProjectPlan']['id'])); ?>

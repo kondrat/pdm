@@ -3,7 +3,7 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			
-			<th><?php echo $this->Paginator->sort('Projectname');?></th>
+			<th><?php echo $this->Paginator->sort('name');?></th>
 			<th><?php echo $this->Paginator->sort('description');?></th>
 
 			<th class="actions"><?php echo __('Actions');?></th>
@@ -13,7 +13,7 @@
 	foreach ($Projects as $Project): ?>
 	<tr>
 		
-		<td><?php echo h($Project['Project']['projectname']); ?>&nbsp;</td>
+		<td><?php echo h($Project['Project']['name']); ?>&nbsp;</td>
 		<td><?php echo h($Project['Project']['description']); ?>&nbsp;</td>
 		
 		<td class="actions">

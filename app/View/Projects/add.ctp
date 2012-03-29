@@ -3,7 +3,7 @@
 	<fieldset>
 		<legend><?php echo __('Add Project'); ?></legend>
 	<?php
-		echo $this->Form->input('projectname');
+		echo $this->Form->input('name');
 	?>
         <?php 
                 echo $this->Form->input('description');

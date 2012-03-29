@@ -16,7 +16,7 @@ class ItemsController extends AppController {
      */
     public function index() {
         //$this->Item->recursive = 0;
-        $projects = $this->Item->Project->find('list',array('fields' => array('Project.id', 'Project.projectname')));
+        $projects = $this->Item->Project->find('list',array('fields' => array('Project.id', 'Project.name')));
         $this->set('projects',$projects);
         
         $itemTest = $this->Item->find('all',
@@ -75,10 +75,10 @@ class ItemsController extends AppController {
      */
     public function add() {
         
-        $id = $this->request->params['named']['trd'];
+        $trayId = $this->request->params['named']['trd'];
      
         
-        $this->Item->Tray->id = $id;
+        $this->Item->Tray->id = $trayId;
         if (!$this->Item->Tray->exists()) {
             throw new NotFoundException(__('Invalid tray'));
         }
@@ -98,11 +98,20 @@ class ItemsController extends AppController {
             }
         }
         
+        
+        $projects = $this->Item->Project->find('list',array(
+            'condition'=>array(),
+            'fields'=>array('Project.id','Project.name'),
+            'contain'=>false
+        ));
+        $this->set(compact('projects'));
+        
+        
         $traysData = array();
         $riflesTrays = array();
         
         $traysData = $this->Item->Tray->find('first',array(
-            'conditions'=>array('Tray.id'=>$id),
+            'conditions'=>array('Tray.id'=>$trayId),
             'fields'=>array('Tray.lft','Tray.rght','Tray.name'),
             'contain'=>false)
                 );

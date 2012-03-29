@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-03-28 19:25:08
+-- Date/time:                    2012-03-29 17:27:21
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -120,7 +120,7 @@ INSERT INTO `item_types` (`id`, `name`, `suffix`, `created`, `modified`) VALUES
 DROP TABLE IF EXISTS `projects`;
 CREATE TABLE IF NOT EXISTS `projects` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `projectname` varchar(256) DEFAULT NULL,
+  `name` varchar(256) DEFAULT NULL,
   `description` text,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
 -- Dumping data for table pdm.projects: ~2 rows (approximately)
 DELETE FROM `projects`;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` (`id`, `projectname`, `description`, `created`, `modified`) VALUES
+INSERT INTO `projects` (`id`, `name`, `description`, `created`, `modified`) VALUES
 	(1, 'KS-11', 'Descr KM-11', '2012-03-11 13:30:14', '2012-03-21 12:55:13'),
 	(2, 'KM-11', 'Desc KM-11', '2012-03-21 12:39:43', '2012-03-21 12:39:43');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;

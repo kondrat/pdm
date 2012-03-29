@@ -39,7 +39,7 @@ class ProjectPlansController extends AppController {
  */
 	public function add() {
                 $this->set('projects', $this->ProjectPlan->Project->find('list',
-                        array('fields' => array('Project.projectname'))
+                        array('fields' => array('Project.name'))
                         
                         ));
 		if ($this->request->is('post')) {
@@ -66,7 +66,7 @@ class ProjectPlansController extends AppController {
 			throw new NotFoundException(__('Invalid ProjectPlans'));
 		}
                 $this->set('projects', $this->ProjectPlan->Project->find('list',
-                        array('fields' => array('Project.projectname'))
+                        array('fields' => array('Project.name'))
                         
                         ));
 		if ($this->request->is('post') || $this->request->is('put')) {

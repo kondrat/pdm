@@ -11,7 +11,7 @@
 		<dd>
                     <span style="font-style:italic;">
                         <span> <?php echo __('back to project');?></span>
-			<?php echo $this->Html->link(h($ProjectPlans['Project']['projectname']),array('controller'=>'Projects','action'=>'view',$ProjectPlans['Project']['id'])); ?>
+			<?php echo $this->Html->link(h($ProjectPlans['Project']['name']),array('controller'=>'Projects','action'=>'view',$ProjectPlans['Project']['id'])); ?>
                     </span>
 			&nbsp;
 		</dd>

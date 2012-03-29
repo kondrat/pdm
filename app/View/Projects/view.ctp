@@ -2,10 +2,10 @@
 <h2><?php  echo __('Project');?></h2>
 	<dl>
 
-		<dt><?php echo __('Projectname'); ?></dt>
+		<dt><?php echo __('Name'); ?></dt>
 		<dd>
 			<span style="color:blue;font-weight: bold;font-size: larger">
-                            <?php echo h($Project['Project']['projectname']); ?>
+                            <?php echo h($Project['Project']['name']); ?>
                         </span>
 			&nbsp;
 		</dd>

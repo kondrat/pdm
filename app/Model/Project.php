@@ -7,8 +7,11 @@ App::uses('AppModel', 'Model');
  *
  */
 class Project extends AppModel {
-
+    
     public $name = 'Project';
+    
+    public $actsAs = array('Containable');
+    
     public $hasMany = array(
         'ProjectPlan' => array(
             'className' => 'ProjectPlan',
