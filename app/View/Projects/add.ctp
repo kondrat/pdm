@@ -2,12 +2,11 @@
 <?php echo $this->Form->create('Project');?>
 	<fieldset>
 		<legend><?php echo __('Add Project'); ?></legend>
-	<?php
-		echo $this->Form->input('name');
-	?>
-        <?php 
-                echo $this->Form->input('description');
-        ?>
+                
+	<?php echo $this->Form->input('name');?>
+        <?php echo $this->Form->input('tray_id');?>
+        <?php echo $this->Form->input('description');?>
+                
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
 </div>

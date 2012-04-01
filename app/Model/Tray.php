@@ -33,16 +33,15 @@ class Tray extends AppModel {
     public $hasMany = array(
         'MyItems' => array(
             'className' => 'Items',
+        ),
+        'Project' => array(
+            'className' => 'Project'
         )
     );
     public $belongsTo = array(
         'ItemType' => array(
             'className' => 'ItemType',
             'foreignKey' => 'item_type_id'
-        ),
-        'Project' => array(
-            'className' => 'Project',
-            'foreignKey' => 'project_id'
         )
     );
 

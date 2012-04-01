@@ -4,7 +4,8 @@
 	<tr>
 			
 			<th><?php echo $this->Paginator->sort('name');?></th>
-			<th><?php echo $this->Paginator->sort('description');?></th>
+                        <th><?php echo $this->Paginator->sort('Tray.name');?></th>
+                        <th><?php echo $this->Paginator->sort('description');?></th>
 
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
@@ -14,6 +15,7 @@
 	<tr>
 		
 		<td><?php echo h($Project['Project']['name']); ?>&nbsp;</td>
+                <td><?php echo $Project['Tray']['name'];?></td>
 		<td><?php echo h($Project['Project']['description']); ?>&nbsp;</td>
 		
 		<td class="actions">

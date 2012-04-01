@@ -16,13 +16,17 @@ class Project extends AppModel {
         'ProjectPlan' => array(
             'className' => 'ProjectPlan',
             'foreignKey' => 'project_id'
-        ),
-        'Tray' => array(
-            'className' => 'Tray',
-            'foreignKey' => 'project_id'
         )
     );
 
+    public $belongsTo = array(
+        'Tray' => array(
+            'className' => 'Tray',
+            'foreignKey' => 'tray_id'
+        )
+    );    
+    
+    
     public $hasAndBelongsToMany = array(
         'Item' =>
             array(

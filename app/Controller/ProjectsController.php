@@ -47,6 +47,10 @@ class ProjectsController extends AppController {
 				$this->Session->setFlash(__('The Project could not be saved. Please, try again.'));
 			}
 		}
+                
+                $trays = $this->Project->Tray->find('list',array('conditions'=>array('parent_id'=>1)));
+                $this->set(compact('trays'));
+                
 	}
 
 /**
@@ -70,6 +74,8 @@ class ProjectsController extends AppController {
 		} else {
 			$this->request->data = $this->Project->read(null, $id);
 		}
+                $trays = $this->Project->Tray->find('list',array('conditions'=>array('parent_id'=>1)));
+                $this->set(compact('trays'));
 	}
 
 /**
