@@ -15,7 +15,6 @@ class Item extends AppModel {
      * @var string
      */
     public $displayField = 'name';
-
     //The Associations below have been created with all possible keys, those that are not needed can be removed
     /**
      * hasAndBelongsToMany associations
@@ -40,12 +39,13 @@ class Item extends AppModel {
         ),
         'Project' => array(
             'classname' => 'Project',
+            'joinTable' => 'items_projects',
             'foreignKey' => 'item_id',
-            'associationForeignKey' => 'project_id'
+            'associationForeignKey' => 'project_id',
+            'unique' => true
         )
     );
     public $belongsTo = array(
-
         'Tray' => array(
             'className' => 'Tray',
             'foreignKey' => 'tray_id'

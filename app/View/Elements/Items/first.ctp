@@ -5,8 +5,8 @@
 		<legend><?php echo __('Add Item'); ?></legend>
 	<?php
                 echo $this->Form->input('tray');
-		echo $this->Form->input('name',array('style'=>''));
-                echo $this->Form->input('drwnbr');
+		echo $this->Form->input('Item.name',array('style'=>''));
+                echo $this->Form->input('Item.drwnbr');
                 
 		echo $this->Form->input('SubItem');
 	?>

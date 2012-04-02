@@ -19,13 +19,65 @@ class ItemsController extends AppController {
         $projects = $this->Item->Project->find('list',array('fields' => array('Project.id', 'Project.name')));
         $this->set('projects',$projects);
         
-        $itemTest = $this->Item->find('all',
-                array(
-                    'conditions'=> array('Tray.id'=>2)
-                ));
+
         
-        $this->set('itemTest',$itemTest);
+        $traysData = array();
+        $riflesTrays = array();
+        
+        $traysData = $this->Item->Tray->find('first',array(
+            'conditions'=>array('Tray.id'=>2),
+            'fields'=>array('Tray.lft','Tray.rght','Tray.name'),
+            'contain'=>false)
+                );
+        if ($traysData != array()) {
+            $trayName = $traysData['Tray']['name'];
+            $riflesTrays = $this->Item->Tray->generateTreeList(
+                            array('Tray.lft >=' => $traysData['Tray']['lft'], 'Tray.rght <=' => $traysData['Tray']['rght']), null, null, '....');
+        }
+        
+        $this->set('riflesTrays',$riflesTrays);
+        $this->set('trayName',$trayName);
         $this->set('items', $this->paginate());
+        
+        //tests
+        //debug($traysData);
+        $tt = $this->Item->Tray->find('all',
+                
+                array(
+                    'conditions'=> array('Tray.lft >=' => $traysData['Tray']['lft'], 'Tray.rght <=' => $traysData['Tray']['rght']),
+                    //'fields'=>array(),
+                    'contain'=>array('Item'=>array('Project')),
+                    'order'=>array('Tray.lft')
+                    //'recursive' => 3
+                    
+                    
+                    ));
+        
+            foreach ($tt as $k=>$v){
+               
+                    //debug($v);
+                    //if($v['Item'] != array() ){
+                        foreach ($v['Item'] as $k2=>$v2){
+                            //debug($v2);
+                        }
+                    //}
+               
+                
+            }
+        
+        
+        $this->set('tt',$tt);
+        
+        $ii = $this->Item->find('all',
+                array(
+                   'conditions'=>array()
+                )
+                );
+        
+        $ii = Set::extract('/Project[id=1]',$ii);
+        
+        $this->set('ii',$ii);
+        
     }
 
     public function getItemsForPrj(){
@@ -84,13 +136,19 @@ class ItemsController extends AppController {
         }
         
         if ($this->request->is('post')) {
+            
+            
 
-
-            $this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
-            $this->request->data["tray"]["id"] = $this->request->data['Item']['Tray'];
-
+            //$this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
+            $this->request->data["Item"]["tray_id"] = $this->request->data['Item']['tray'];
+            $this->request->data["Project"]["id"] = $this->request->data["Item"]["projects"];
+            $this->request->data["Item"]["drwnbr"] = $this->request->data['drwnbr'];
+            $this->request->data["Item"]["name"] = $this->request->data['name'];
+            
+            //debug($this->request->data);
+            
             $this->Item->create();
-            if ($this->Item->saveAssociated($this->request->data)) {
+            if ($this->Item->save($this->request->data)) {
                 $this->Session->setFlash(__('The item has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {

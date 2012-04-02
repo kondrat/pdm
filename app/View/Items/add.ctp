@@ -3,7 +3,7 @@
     <?php echo $this->Form->create('Item'); ?>
     <fieldset>
         <legend><?php echo __('Add Item to ') . $trayName; ?></legend>
-        <?php echo $this->Form->input('project', array()); ?>
+        <?php echo $this->Form->input('projects', array()); ?>
         <?php echo $this->Form->input('tray', array("id" => "item-trayListAdd")); ?>
         <div id="tem"></div>
     </fieldset>

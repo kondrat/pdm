@@ -31,8 +31,8 @@ class Tray extends AppModel {
         )
     );
     public $hasMany = array(
-        'MyItems' => array(
-            'className' => 'Items',
+        'Item' => array(
+            'className' => 'Item',
         ),
         'Project' => array(
             'className' => 'Project'

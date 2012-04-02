@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-03-29 17:27:21
+-- Date/time:                    2012-04-02 17:53:52
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,25 +19,27 @@ USE `pdm`;
 -- Dumping structure for table pdm.items
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `tray_id` varchar(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tray_id` int(11) DEFAULT NULL,
   `drwnbr` varchar(36) NOT NULL DEFAULT '',
   `name` varchar(36) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items: 6 rows
+-- Dumping data for table pdm.items: 0 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `tray_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
-	('4f21592e-4800-4ffc-ba89-0ca89be3e0a3', '2', 'A000', 'New Just Test 7', '2012-01-26 13:46:22', '2012-01-29 06:39:26'),
-	('4f215754-3604-4a4f-a704-0ca89be3e0a3', '2', 'A000', 'New Just Test 541', '2012-01-26 13:38:28', '2012-01-26 13:59:03'),
-	('4f214b57-fc4c-4095-9d9f-0ca89be3e0a3', '8', 'A_000_0_1899_200_a00', 'new Item', '2012-01-26 12:47:19', '2012-01-29 06:31:21'),
-	('4f24e901-0e98-44c5-a451-0ca89be3e0a3', '5', 'B_000_0_C00', 'New Just Test 61', '2012-01-29 06:36:49', '2012-01-29 06:36:49'),
-	('4f24ecbb-3ca4-4fe4-804a-0ca89be3e0a3', '6', 'B_000_0_G00', 'New Just Test 52', '2012-01-29 06:52:43', '2012-01-29 07:46:04'),
-	('4f251285-dd24-457a-b190-0ca89be3e0a3', '3', 'A_000_0_1899_200_a01', 'New Just Test 63', '2012-01-29 09:33:57', '2012-01-29 09:33:57');
+	(14, 38, 'asfd', 'sadf', '2012-04-02 12:00:50', '2012-04-02 12:00:50'),
+	(13, 38, 'asfd', 'sadf', '2012-04-02 11:49:39', '2012-04-02 11:49:39'),
+	(12, 27, 'sadf', 'asdf', '2012-04-02 11:49:17', '2012-04-02 11:49:17'),
+	(11, 5, '1234', '1234', '2012-04-02 11:42:52', '2012-04-02 11:42:52'),
+	(8, 5, 'sdfg', '999', '2012-04-02 11:22:24', '2012-04-02 11:22:24'),
+	(9, 27, 'asdf', 'asdf1', '2012-04-02 11:23:23', '2012-04-02 11:23:23'),
+	(10, 27, 'sadf', 'asdf', '2012-04-02 11:35:00', '2012-04-02 11:35:00'),
+	(15, 37, '1234', '1234', '2012-04-02 12:03:55', '2012-04-02 12:03:55');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -61,19 +63,15 @@ DELETE FROM `items_groups`;
 -- Dumping structure for table pdm.items_items
 DROP TABLE IF EXISTS `items_items`;
 CREATE TABLE IF NOT EXISTS `items_items` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `item_id` varchar(36) DEFAULT NULL,
-  `sub_item_id` varchar(36) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(11) DEFAULT NULL,
+  `sub_item_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items_items: 3 rows
+-- Dumping data for table pdm.items_items: 0 rows
 DELETE FROM `items_items`;
 /*!40000 ALTER TABLE `items_items` DISABLE KEYS */;
-INSERT INTO `items_items` (`id`, `item_id`, `sub_item_id`) VALUES
-	('4f215c27-c0b0-4b09-8eb1-0ca89be3e0a3', '4f215754-3604-4a4f-a704-0ca89be3e0a3', '4f21592e-4800-4ffc-ba89-0ca89be3e0a3'),
-	('4f24f93c-eaf4-42b7-9fc5-0ca89be3e0a3', '4f24ecbb-3ca4-4fe4-804a-0ca89be3e0a3', '4f21592e-4800-4ffc-ba89-0ca89be3e0a3'),
-	('4f24f93c-f51c-490e-a623-0ca89be3e0a3', '4f24ecbb-3ca4-4fe4-804a-0ca89be3e0a3', '4f215754-3604-4a4f-a704-0ca89be3e0a3');
 /*!40000 ALTER TABLE `items_items` ENABLE KEYS */;
 
 
@@ -81,16 +79,18 @@ INSERT INTO `items_items` (`id`, `item_id`, `sub_item_id`) VALUES
 DROP TABLE IF EXISTS `items_projects`;
 CREATE TABLE IF NOT EXISTS `items_projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `item_id` varchar(36) DEFAULT NULL,
+  `item_id` int(11) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table pdm.items_projects: 1 rows
+-- Dumping data for table pdm.items_projects: 0 rows
 DELETE FROM `items_projects`;
 /*!40000 ALTER TABLE `items_projects` DISABLE KEYS */;
 INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
-	(1, '4f21592e-4800-4ffc-ba89-0ca89be3e0a3', 1);
+	(2, 15, 1),
+	(3, 8, 1),
+	(4, 9, 2);
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
 
 
@@ -121,18 +121,20 @@ DROP TABLE IF EXISTS `projects`;
 CREATE TABLE IF NOT EXISTS `projects` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) DEFAULT NULL,
+  `tray_id` int(11) DEFAULT NULL,
   `description` text,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.projects: ~2 rows (approximately)
+-- Dumping data for table pdm.projects: ~3 rows (approximately)
 DELETE FROM `projects`;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` (`id`, `name`, `description`, `created`, `modified`) VALUES
-	(1, 'KS-11', 'Descr KM-11', '2012-03-11 13:30:14', '2012-03-21 12:55:13'),
-	(2, 'KM-11', 'Desc KM-11', '2012-03-21 12:39:43', '2012-03-21 12:39:43');
+INSERT INTO `projects` (`id`, `name`, `tray_id`, `description`, `created`, `modified`) VALUES
+	(1, 'KS-11', 2, 'Descr KM-11', '2012-03-11 13:30:14', '2012-04-01 10:50:18'),
+	(2, 'KM-11', 2, 'Desc KM-11', '2012-03-21 12:39:43', '2012-04-01 10:54:43'),
+	(3, 'TR-11', 2, 'Tactical rifle', '2012-04-01 10:49:17', '2012-04-01 10:49:17');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 
 
