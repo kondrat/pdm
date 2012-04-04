@@ -16,7 +16,10 @@ class Project extends AppModel {
         'ProjectPlan' => array(
             'className' => 'ProjectPlan',
             'foreignKey' => 'project_id'
-        )
+        ),
+
+        'ItemProject'
+
     );
 
     public $belongsTo = array(

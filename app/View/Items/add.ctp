@@ -6,6 +6,7 @@
         <?php echo $this->Form->input('projects', array()); ?>
         <?php echo $this->Form->input('tray', array("id" => "item-trayListAdd")); ?>
         <div id="tem"></div>
+        <?php echo $this->Form->input('SubItem');?>
     </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>
 </div>

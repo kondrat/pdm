@@ -10,3 +10,4 @@
 </div>
 
 <?php echo $this->Form->input('name',array("class"=>"item-addNewItemName"));?>
+<?php echo $this->Form->input('SubItem');?>

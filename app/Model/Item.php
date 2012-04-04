@@ -21,6 +21,8 @@ class Item extends AppModel {
      *
      * @var array
      */
+    public $actsAs = array('Containable');
+    
     public $hasAndBelongsToMany = array(
         'SubItem' => array(
             'className' => 'Item',
@@ -50,6 +52,9 @@ class Item extends AppModel {
             'className' => 'Tray',
             'foreignKey' => 'tray_id'
         )
+    );
+    public $hasMany = array(
+        'ItemsProject'
     );
 
 }
