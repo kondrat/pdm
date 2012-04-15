@@ -93,12 +93,69 @@ class ItemsController extends AppController {
     }
 
     public function todel(){
-                $kk = $this->Item->Tray->find("threaded",
-                array(
-                    //'fields'=>array('Tray.id','Tray.name','Tray.parent_id'),
-                    'contain'=>false
-                ));
-        $this->set('kk',$kk);
+//                $kk = $this->Item->Tray->find("threaded",
+//                array(
+//                    //'fields'=>array('Tray.id','Tray.name','Tray.parent_id'),
+//                    'contain'=>'Item'
+//                ));
+//        $this->set('kk',$kk);
+        $neededProject = NULL;
+        $neededProject = 1;
+        $ll = $this->Item->find('all',array(
+            //'conditions'=>array('Item.id'=>21),
+            //'fields'=>array('Item.id','Item.tray_id','Item.name'),
+            'contain'=>array(
+                'SubItem'=>array('fields'=>array('SubItem.id','SubItem.tray_id','SubItem.name')),
+                'Project'=>array('conditions'=>array('Project.id'=>$neededProject),'fields'=>array('Project.id'))
+                
+                )
+        ));
+        //$this->set('ll',$ll);
+        
+        //removing parts not from demanded project
+        
+        $newArray = array();
+        
+        foreach($ll as $k=>$v){
+            if($v['Project'] != array()){
+               $newArray[] = $v; 
+               
+            }
+
+        }
+        
+        $this->set('ll',$newArray);
+        
+        //make tree of items
+        
+        $rootItem = NULL;
+        $rootItemId = 21;
+        $finalTree = array();
+        
+        //getting first tree Item
+        foreach ($newArray as $v3){
+            if($v3['Item']['id'] == $rootItemId){
+                $finalTree[0]['Item'] = $v3['Item'];
+                $finalTree[0]['SubItem'] = $v3['SubItem'];
+                break;
+            }
+        }
+        
+        //creating fo final tree
+        
+//        foreach ($finalTree as $k4=>$v4){
+//            foreach ($v4['SubItem'])
+//        }
+        
+       debug($finalTree);
+        
+//        foreach ($newArray as $k2=>$v2){
+//            if($v2['']){
+//                
+//            }
+//        }
+        
+        
     }
 
 
