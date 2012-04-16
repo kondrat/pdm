@@ -92,20 +92,25 @@ class ItemsController extends AppController {
 
     }
 
+    private $projectItmes = array();
+
+    private $finalTree = array();
+
     public function todel(){
-//                $kk = $this->Item->Tray->find("threaded",
-//                array(
-//                    //'fields'=>array('Tray.id','Tray.name','Tray.parent_id'),
-//                    'contain'=>'Item'
-//                ));
-//        $this->set('kk',$kk);
+                $kk = $this->Item->Tray->find("threaded",
+                array(
+                    //'fields'=>array('Tray.id','Tray.name','Tray.parent_id'),
+                    'contain'=>'Item'
+                ));
+        $this->set('kk',$kk);
+        
         $neededProject = NULL;
         $neededProject = 1;
         $ll = $this->Item->find('all',array(
             //'conditions'=>array('Item.id'=>21),
             //'fields'=>array('Item.id','Item.tray_id','Item.name'),
             'contain'=>array(
-                'SubItem'=>array('fields'=>array('SubItem.id','SubItem.tray_id','SubItem.name')),
+                'SubItem'=>array('fields'=>array('SubItem.id','SubItem.tray_id','SubItem.name','SubItem.drwnbr')),
                 'Project'=>array('conditions'=>array('Project.id'=>$neededProject),'fields'=>array('Project.id'))
                 
                 )
@@ -126,39 +131,66 @@ class ItemsController extends AppController {
         
         $this->set('ll',$newArray);
         
+        $this->projectItmes = $newArray;
+        
         //make tree of items
         
         $rootItem = NULL;
         $rootItemId = 21;
-        $finalTree = array();
+        $rootItemPos = NULL;
         
-        //getting first tree Item
-        foreach ($newArray as $v3){
-            if($v3['Item']['id'] == $rootItemId){
-                $finalTree[0]['Item'] = $v3['Item'];
-                $finalTree[0]['SubItem'] = $v3['SubItem'];
+        //getting first tree Item fo final Tree
+        foreach ($newArray as $kk => $vv){
+            if($vv['Item']['id'] == $rootItemId){
+//                $this->finalTree[0]['Item'] = $vv['Item'];
+//                $this->finalTree[0]['Children'] = $vv['SubItem'];
+                $rootItemPos = $kk;
                 break;
             }
         }
         
+        
         //creating fo final tree
-        
-//        foreach ($finalTree as $k4=>$v4){
-//            foreach ($v4['SubItem'])
-//        }
-        
-       debug($finalTree);
-        
-//        foreach ($newArray as $k2=>$v2){
-//            if($v2['']){
-//                
-//            }
-//        }
+       //debug($this->finalTree);
+ 
+       $this->finalTree[0] = $this->makeTree($newArray[$rootItemPos]);
+ 
+       
+       debug($this->finalTree);
         
         
     }
 
+    
+    private function makeTree($itemToWork = array() ){
+        
+        foreach($itemToWork['SubItem'] as $k=>$v){
+            
+            
+            foreach ($this->projectItmes as $k2=>$v2){
+                
+                if( $v['id'] == $v2['Item']['id'] ){
+                    //$this->makeTree($v2['SubItem']);
+                        
+//                        $currentItem = array();
+                            $currentItem['Item']= $v2['Item'];
+                          $currentItem['Children'] = $v2['SubItem'];
+                        
+                        $itemToWork['Children'][$k] = $currentItem;
+                                
+                }
+            }
+            
+            //$this->makeTree($itemToWork);
+            
+        }
+        return $itemToWork;
+        
+        
+    }
 
+   
+    
     public function getItemsForPrj() {
         if ($this->request->is('ajax')) {
 
