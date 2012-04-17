@@ -108,7 +108,7 @@ class ItemsController extends AppController {
         $neededProject = 1;
         $ll = $this->Item->find('all',array(
             //'conditions'=>array('Item.id'=>21),
-            //'fields'=>array('Item.id','Item.tray_id','Item.name'),
+            'fields'=>array('Item.id','Item.tray_id','Item.name','Item.drwnbr'),
             'contain'=>array(
                 'SubItem'=>array('fields'=>array('SubItem.id','SubItem.tray_id','SubItem.name','SubItem.drwnbr')),
                 'Project'=>array('conditions'=>array('Project.id'=>$neededProject),'fields'=>array('Project.id'))
@@ -123,7 +123,18 @@ class ItemsController extends AppController {
         
         foreach($ll as $k=>$v){
             if($v['Project'] != array()){
-               $newArray[] = $v; 
+                
+               $tempArr = array();
+               
+               
+               $tempArr['Item'] = $v['Item'];
+               $tempArr['SubItem'] = array();;
+               
+               foreach($v['SubItem'] as $vp){
+                   $tempArr['SubItem'][] = $vp['id'];
+               }
+               
+               $newArray[] = $tempArr; 
                
             }
 
@@ -136,7 +147,7 @@ class ItemsController extends AppController {
         //make tree of items
         
         $rootItem = NULL;
-        $rootItemId = 21;
+        $rootItemId = 14;
         $rootItemPos = NULL;
         
         //getting first tree Item fo final Tree
@@ -153,38 +164,45 @@ class ItemsController extends AppController {
         //creating fo final tree
        //debug($this->finalTree);
  
-       $this->finalTree[0] = $this->makeTree($newArray[$rootItemPos]);
+       $mm = $this->makeTree($newArray[$rootItemPos]);
  
        
-       debug($this->finalTree);
+       //debug($mm);
         
+
         
     }
 
+    private  $return = array();
     
-    private function makeTree($itemToWork = array() ){
+    private function makeTree( $itemToWork = array() ){
         
-        foreach($itemToWork['SubItem'] as $k=>$v){
-            
-            
-            foreach ($this->projectItmes as $k2=>$v2){
-                
-                if( $v['id'] == $v2['Item']['id'] ){
-                    //$this->makeTree($v2['SubItem']);
-                        
-//                        $currentItem = array();
-                            $currentItem['Item']= $v2['Item'];
-                          $currentItem['Children'] = $v2['SubItem'];
-                        
-                        $itemToWork['Children'][$k] = $currentItem;
-                                
-                }
-            }
-            
-            //$this->makeTree($itemToWork);
-            
-        }
-        return $itemToWork;
+        
+       $newM['Item'] = $itemToWork['Item'];
+       $newM['Child'] = array();
+ 
+       foreach($itemToWork['SubItem'] as $v3){
+           
+           
+               $curArr = array();
+           
+               foreach ($this->projectItmes as $v4){
+                   if( $v3 == $v4['Item']['id'] ){
+                       
+                       $toAdd['Item'] = $v4['Item'];
+                       $toAdd['SubItem'] = $v4['SubItem'];
+                       
+                       $newM['Child'][] = $toAdd;
+                      
+                   }
+               }          
+           
+               //$this->makeTree($newM);
+               
+       }
+ 
+       
+       debug($newM);   
         
         
     }
