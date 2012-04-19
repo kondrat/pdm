@@ -147,7 +147,7 @@ class ItemsController extends AppController {
         //make tree of items
         
         $rootItem = NULL;
-        $rootItemId = 14;
+        $rootItemId = 23;
         $rootItemPos = NULL;
         
         //getting first tree Item fo final Tree
@@ -167,7 +167,7 @@ class ItemsController extends AppController {
        $mm = $this->makeTree($newArray[$rootItemPos]);
  
        
-       //debug($mm);
+       debug($mm);
         
 
         
@@ -175,25 +175,39 @@ class ItemsController extends AppController {
 
     private  $return = array();
     
+    private $newM = array();
+
+
     private function makeTree( $itemToWork = array() ){
         
-        
-       $newM['Item'] = $itemToWork['Item'];
-       $newM['Child'] = array();
+       $load = array();
+       
+       $load['Item'] = $itemToWork['Item'];
+       $load['Child'] = array();
  
        foreach($itemToWork['SubItem'] as $v3){
            
            
-               $curArr = array();
-           
                foreach ($this->projectItmes as $v4){
                    if( $v3 == $v4['Item']['id'] ){
-                       
+                       $toAdd = array();
                        $toAdd['Item'] = $v4['Item'];
-                       $toAdd['SubItem'] = $v4['SubItem'];
+                       $toAdd['Child'] = $v4['SubItem'];
                        
-                       $newM['Child'][] = $toAdd;
+                       //debug($toAdd);
+                       //$newM['Child'][] = $toAdd;
+                        //array_merge($this->newM,$toAdd);
                       
+                        //debug($this->newM);
+                       
+                       $load['Child'][] = $v4;
+                       $this->newM['Child'][]= $toAdd;
+                       debug($toAdd);
+                       
+                       echo 'end projectItem; ';
+                       debug($this->newM);
+                       $this->makeTree($v4);
+                       break;
                    }
                }          
            
@@ -202,7 +216,7 @@ class ItemsController extends AppController {
        }
  
        
-       debug($newM);   
+       //debug( $load);   
         
         
     }
