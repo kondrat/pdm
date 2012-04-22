@@ -163,63 +163,54 @@ class ItemsController extends AppController {
         
         //creating fo final tree
        //debug($this->finalTree);
- 
-       $mm = $this->makeTree($newArray[$rootItemPos]);
+        //debug($this->newM);
+        
+       
  
        
-       debug($mm);
-        
 
-        
-    }
-
-    private  $return = array();
-    
-    private $newM = array();
-
-
-    private function makeTree( $itemToWork = array() ){
-        
-       $load = array();
        
-       $load['Item'] = $itemToWork['Item'];
-       $load['Child'] = array();
- 
-       foreach($itemToWork['SubItem'] as $v3){
-           
-           
-               foreach ($this->projectItmes as $v4){
-                   if( $v3 == $v4['Item']['id'] ){
-                       $toAdd = array();
-                       $toAdd['Item'] = $v4['Item'];
-                       $toAdd['Child'] = $v4['SubItem'];
+       $newK = array(0=>array('Item'=>$newArray[$rootItemPos]['Item'],'SubItem'=>$newArray[$rootItemPos]['SubItem'] ));
+       
+       $lala[0] = $this->mT($newK[0]);
+       $this->set('lala',$lala);
+       
+    }  
+
+
+    private function mT($getChild = array()){
+        
+           $toWork = $getChild['SubItem'];
+           unset ($getChild['SubItem']);
+           $res = $getChild;
+        
+           foreach ($toWork as $k=>$v){
+               
+               foreach ($this->projectItmes as $k2=>$v2){
+                   
+                   if($v == $v2['Item']['id']){
                        
-                       //debug($toAdd);
-                       //$newM['Child'][] = $toAdd;
-                        //array_merge($this->newM,$toAdd);
-                      
-                        //debug($this->newM);
                        
-                       $load['Child'][] = $v4;
-                       $this->newM['Child'][]= $toAdd;
-                       debug($toAdd);
+                       $res['Child'][$k] = $this->mT($v2);
                        
-                       echo 'end projectItem; ';
-                       debug($this->newM);
-                       $this->makeTree($v4);
+                       
                        break;
                    }
-               }          
+               }
+           }
+
+           return $res;
+    }        
+    
+
+
+
+
+    
+
+
            
-               //$this->makeTree($newM);
-               
-       }
- 
-       
-       //debug( $load);   
-        
-        
-    }
+
 
    
     

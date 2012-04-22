@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-02 17:53:52
+-- Date/time:                    2012-04-22 17:56:41
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -26,20 +26,18 @@ CREATE TABLE IF NOT EXISTS `items` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items: 0 rows
+-- Dumping data for table pdm.items: 5 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `tray_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
-	(14, 38, 'asfd', 'sadf', '2012-04-02 12:00:50', '2012-04-02 12:00:50'),
-	(13, 38, 'asfd', 'sadf', '2012-04-02 11:49:39', '2012-04-02 11:49:39'),
-	(12, 27, 'sadf', 'asdf', '2012-04-02 11:49:17', '2012-04-02 11:49:17'),
-	(11, 5, '1234', '1234', '2012-04-02 11:42:52', '2012-04-02 11:42:52'),
-	(8, 5, 'sdfg', '999', '2012-04-02 11:22:24', '2012-04-02 11:22:24'),
-	(9, 27, 'asdf', 'asdf1', '2012-04-02 11:23:23', '2012-04-02 11:23:23'),
-	(10, 27, 'sadf', 'asdf', '2012-04-02 11:35:00', '2012-04-02 11:35:00'),
-	(15, 37, '1234', '1234', '2012-04-02 12:03:55', '2012-04-02 12:03:55');
+	(28, 27, 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
+	(27, 27, 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
+	(26, 3, 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
+	(25, 27, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-22 11:24:43'),
+	(24, 5, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-22 11:23:51'),
+	(23, 3, 'root', 'root', '2012-04-19 13:21:45', '2012-04-22 11:27:41');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -67,11 +65,20 @@ CREATE TABLE IF NOT EXISTS `items_items` (
   `item_id` int(11) DEFAULT NULL,
   `sub_item_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items_items: 0 rows
+-- Dumping data for table pdm.items_items: 7 rows
 DELETE FROM `items_items`;
 /*!40000 ALTER TABLE `items_items` DISABLE KEYS */;
+INSERT INTO `items_items` (`id`, `item_id`, `sub_item_id`) VALUES
+	(15, 24, 27),
+	(21, 23, 25),
+	(18, 25, 26),
+	(17, 25, 27),
+	(16, 24, 26),
+	(19, 26, 28),
+	(20, 23, 28),
+	(22, 23, 24);
 /*!40000 ALTER TABLE `items_items` ENABLE KEYS */;
 
 
@@ -82,15 +89,18 @@ CREATE TABLE IF NOT EXISTS `items_projects` (
   `item_id` int(11) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table pdm.items_projects: 0 rows
+-- Dumping data for table pdm.items_projects: 5 rows
 DELETE FROM `items_projects`;
 /*!40000 ALTER TABLE `items_projects` DISABLE KEYS */;
 INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
-	(2, 15, 1),
-	(3, 8, 1),
-	(4, 9, 2);
+	(15, 25, 1),
+	(14, 24, 1),
+	(13, 23, 1),
+	(16, 26, 1),
+	(17, 27, 1),
+	(18, 28, 1);
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
 
 
