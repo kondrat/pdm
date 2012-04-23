@@ -26,10 +26,10 @@
                 
                 echo $this->Html->script(array(
                     'jq/jquery-1.7.1.min',
-                    'dev/pdm-items',
-                    'dev/pdm-tray',
                     'plug/jquery.tipsy',
-                    'plug/jquery.simplyCountable'
+                    'plug/jquery.simplyCountable',
+                    'dev/pdm-items',
+                    'dev/pdm-tray'
                 ));
 		echo $scripts_for_layout;
 	?>

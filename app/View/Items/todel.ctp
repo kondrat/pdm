@@ -1,39 +1,28 @@
 <h3>To del</h3>
-<?php debug($lala);?>
+<?php //debug($lala);?>
 
 <?php
     
-
-    
-    
-    // echo $treeHtml;
-    
-    
-    function showTree($inputTree = array()){
+    function muT($arr = array()){
+        $toShow = '';
         
-        //$treeHtml = null;
-
-        foreach ($inputTree as $k=>$v){
-
-            $treeHtml .= '<ul><li>'.$v['Item']['name'].'</li>';
-
-            if(isset ($v['Child'])){
-                $treeHtml .= '<ul>';
-                foreach ($v['Child'] as $k2=>$v2){
-                    debug($v2);
-                    $treeHtml .= '<li>'.$v2['Item']['name'].'</li>';
-                    $treeHtml .= showTree($v2);
-                }
-                $treeHtml .= '</ul>';
+        foreach ($arr as $k=>$v){
+            
+            $toShow .= '<li class="item-treeNode"><span class="item">'.$v['Item']['name'];
+            //debug($v);
+            if(isset ($v['Child']) ){
+                //foreach ($v['Child'] as $k2=>$v2){
+                    //debug($v);
+                    $toShow .= '<ul>';
+                    //$toShow .= muT($v2['Child']);
+                    $toShow .= muT($v['Child']);
+                    $toShow .= '</ul>';
+                //}
             }
-
-        }
-        $treeHtml .= '</li></ul>'; 
-        
-        return $treeHtml;
-        
+            $toShow .= '</span></li>';
+        }   
+        return $toShow;
     }
     
-    echo showTree($lala);
-    
+    echo '<ul id="pdm-listItems">'.muT($lala).'</ul>';
 ?>

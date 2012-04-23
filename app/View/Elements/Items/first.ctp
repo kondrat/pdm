@@ -8,7 +8,7 @@
 		echo $this->Form->input('Item.name',array('style'=>''));
                 echo $this->Form->input('Item.drwnbr');
                 
-		echo $this->Form->input('SubItem');
+		//echo $this->Form->input('SubItem');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

@@ -83,9 +83,16 @@ jQuery(document).ready(function(){
         func_getItem($thisCurrentPrjId);
     })
 
-
-
-    
+    $("span.item").click(function(e){
+        var clicked = jQuery(e.target);
+        console.log(clicked.eq(0));
+        var el = clicked.find("ul:first");
+        if(el.hasClass("hideMe")){
+            el.removeClass("hideMe");
+        } else {
+            el.addClass("hideMe");
+        }
+    });
     
     /*
      * tipsy code
