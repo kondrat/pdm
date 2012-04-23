@@ -36,4 +36,8 @@
 .hideMe{
     display: none;
 }
+.hasChildNode{
+    text-decoration: underline;
+    cursor: pointer;
+}
 

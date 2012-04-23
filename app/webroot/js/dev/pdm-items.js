@@ -83,10 +83,21 @@ jQuery(document).ready(function(){
         func_getItem($thisCurrentPrjId);
     })
 
+
+
+
+    /**
+     *tree game
+     */
+ 
+ 	$("#demo1").jstree({ 
+		"plugins" : [ "themes", "default" ]
+	});
+    
     $("span.item").click(function(e){
         var clicked = jQuery(e.target);
-        console.log(clicked.eq(0));
-        var el = clicked.find("ul:first");
+        console.log(clicked);
+        var el = clicked.next("ul:first");
         if(el.hasClass("hideMe")){
             el.removeClass("hideMe");
         } else {

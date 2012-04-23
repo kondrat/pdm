@@ -1,5 +1,35 @@
 <h3>To del</h3>
 <?php //debug($lala);?>
+<?php
+//    $hoho = json_encode($lala);
+//    echo $hoho;
+
+    function muT2($arr = array()){
+        $toShow = '';
+        
+        foreach ($arr as $k=>$v){
+            
+            $toShow .= '<li ><a href="some data">'.$v['Item']['name'].'</a>';
+            
+            if(isset ($v['Child']) ){
+
+                                   
+                    $toShow .= '<ul>';
+                    $toShow .= muT2($v['Child']);
+                    $toShow .= '</ul>';
+
+            } 
+            $toShow .= '</li>';
+        }   
+        return $toShow;
+    }
+
+?>
+
+<div id="demo1">
+    <?php echo muT2($lala);?>
+</div>
+
 
 <?php
     
@@ -8,21 +38,22 @@
         
         foreach ($arr as $k=>$v){
             
-            $toShow .= '<li class="item-treeNode"><span class="item">'.$v['Item']['name'];
-            //debug($v);
+ 
             if(isset ($v['Child']) ){
-                //foreach ($v['Child'] as $k2=>$v2){
-                    //debug($v);
+
+                    $toShow .= '<li class="item-treeNode"><span class="item hasChildNode">'.$v['Item']['name'].'</span>';               
                     $toShow .= '<ul>';
-                    //$toShow .= muT($v2['Child']);
                     $toShow .= muT($v['Child']);
                     $toShow .= '</ul>';
-                //}
+
+            } else {
+                $toShow .= '<li class="item-treeNode"><span class="item">'.$v['Item']['name'].'</span>';
             }
-            $toShow .= '</span></li>';
+            $toShow .= '</li>';
         }   
         return $toShow;
     }
     
-    echo '<ul id="pdm-listItems">'.muT($lala).'</ul>';
+    
 ?>
+<div><?php echo '<ul id="pdm-listItems">'.muT($lala).'</ul>';?></div>
