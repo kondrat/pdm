@@ -6,5 +6,6 @@
         <li><?php echo $this->Html->link(__('Rifle\'s Trays'), array('controller' => 'trays', 'action' => 'index',2)); ?></li>
         <li><?php echo $this->Html->link(__('Tooling\'s Trays'), array('controller' => 'trays', 'action' => 'index',9)); ?></li>
         <li><?php echo $this->Html->link(__('ItemTypes'), array('controller' => 'itemTypes', 'action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link(__('Job Cards'), array('controller' => 'jobcards', 'action' => 'index')); ?></li>
     </ul>
 </div>

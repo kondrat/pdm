@@ -89,10 +89,7 @@ jQuery(document).ready(function(){
     /**
      *tree game
      */
- 
- 	$("#demo1").jstree({ 
-		"plugins" : [ "themes", "default" ]
-	});
+
     
     $("span.item").click(function(e){
         var clicked = jQuery(e.target);

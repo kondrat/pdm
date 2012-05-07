@@ -16,9 +16,9 @@
                             'pdm-lt',
                             'pdm-tray',
                             'pdm-item',
+                            'pdm-jcard',
                             'cake.generic.css',
-                            'tipsy/tipsy',
-                            'jstree/style'
+                            'tipsy/tipsy'
 //                            'pdm-tray',
 //                            'screen',
 //                            'print'
@@ -29,8 +29,6 @@
                     'jq/jquery-1.7.1.min',
                     'plug/jquery.tipsy',
                     'plug/jquery.simplyCountable',
-                    //'plug/jquery.jstree',
-                    'jquery.jstree',
                     'dev/pdm-items',
                     'dev/pdm-tray'
                 ));

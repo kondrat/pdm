@@ -1,0 +1,19 @@
+/* 
+    Document   : pdm-jcard
+    Created on : 29.01.2012, 11:01:11
+    Author     : Kondrat
+    Description:
+        jcard - jobcards classes
+*/
+table.jcard-mainTable{
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+table.jcard-mainTable td{
+    border: 1px solid black;
+}
+table tr.jcard-manufPart td{
+    background-color: lightgray;
+}
+
+
