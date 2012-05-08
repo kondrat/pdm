@@ -20,4 +20,63 @@ table tr.jcard-manufPart td{
     background-color: lightgray;
 }
 
+.jcard-wrapper{
+    border: 1px solid;
+    float: left;
+    width: 1000px;
+}
+.jcard-block-1{
+    background-color: lightgray;
+    float: left;
+}
+.jcard-block-2{
+    background-color: white;
+    font-weight: bold;
+    float: left;
+}
+.jcard-block-3{
+    background-color: lightgoldenrodyellow;
+    float: left;
+}
+.jcard-block-4{
+    background-color: lightblue;
+    float: left;
+}
+.jcard-block-5{
+    background-color: lightpink;
+    float: left;
+}
+.jcard-line{
+    float: left;
+    line-height: 28px;
+    width: 100%;
+    border-bottom: 1px solid;
+}
+div.jcard-lastLine{
+    border-bottom: none;
+}
+.jcard-field-1, .jcard-field-2, .jcard-field-3, .jcard-field-4{
+    float: left;
+    margin-left: 10px;
+    border-right: 1px solid;    
+}
+
+.jcard-field-1{
+    width: 990px;
+}
+.jcard-field-2{
+    width: 489px;
+}
+.jcard-field-3{
+    width: 501px;
+}
+.jcard-field-4{
+    width: 152px;
+}
+div.jcard-lastField{
+    border-right: none;
+}
+.jcard-remarks{
+    height: 150px;
+}
 
