@@ -178,6 +178,30 @@
                 <div class="jcard-field-4 jcard-lastField">DATE:</div>                
             </div>
         </div>
+        <div class="jcard-block-1">
+            <div class="jcard-line">
+                <div class="jcard-field-3"><?php echo __('MANUFACTURE ENGINEER'); ?></div>
+                <div class="jcard-field-4">.</div>
+                <div class="jcard-field-4">.</div>
+                <div class="jcard-field-4 jcard-lastField">.</div>                
+            </div>
+        </div>
+        <div class="jcard-block-3">
+            <div class="jcard-line">
+                <div class="jcard-field-3"><?php echo __('MANUFACTURE ENGINEER'); ?></div>
+                <div class="jcard-field-4">.</div>
+                <div class="jcard-field-4">.</div>
+                <div class="jcard-field-4 jcard-lastField">.</div>                
+            </div>
+        </div>
+        <div class="jcard-block-4">
+            <div class="jcard-line">
+                <div class="jcard-field-3"><?php echo __('STORE INSPECTOR'); ?></div>
+                <div class="jcard-field-4">.</div>
+                <div class="jcard-field-4">.</div>
+                <div class="jcard-field-4 jcard-lastField">.</div>                
+            </div>
+        </div>
     </div>
     
 
