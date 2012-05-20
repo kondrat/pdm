@@ -4,6 +4,9 @@
 		<legend><?php echo __('Add Jobcard'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
+                echo $this->Form->input('originator');
+                echo $this->Form->input('Assigned to');
+                
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
