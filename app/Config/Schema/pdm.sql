@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-22 17:56:41
+-- Date/time:                    2012-05-21 18:10:40
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -16,6 +16,106 @@ CREATE DATABASE IF NOT EXISTS `pdm` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `pdm`;
 
 
+-- Dumping structure for table pdm.acos
+DROP TABLE IF EXISTS `acos`;
+CREATE TABLE IF NOT EXISTS `acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `foreign_key` varchar(36) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `lft` int(10) DEFAULT NULL,
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.acos: ~0 rows (approximately)
+DELETE FROM `acos`;
+/*!40000 ALTER TABLE `acos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acos` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.aros
+DROP TABLE IF EXISTS `aros`;
+CREATE TABLE IF NOT EXISTS `aros` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `foreign_key` varchar(36) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `lft` int(10) DEFAULT NULL,
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.aros: ~0 rows (approximately)
+DELETE FROM `aros`;
+/*!40000 ALTER TABLE `aros` DISABLE KEYS */;
+/*!40000 ALTER TABLE `aros` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.aros_acos
+DROP TABLE IF EXISTS `aros_acos`;
+CREATE TABLE IF NOT EXISTS `aros_acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `aro_id` varchar(36) NOT NULL,
+  `aco_id` varchar(36) NOT NULL,
+  `_create` varchar(2) NOT NULL DEFAULT '0',
+  `_read` varchar(2) NOT NULL DEFAULT '0',
+  `_update` varchar(2) NOT NULL DEFAULT '0',
+  `_delete` varchar(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.aros_acos: ~0 rows (approximately)
+DELETE FROM `aros_acos`;
+/*!40000 ALTER TABLE `aros_acos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `aros_acos` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.groups
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.groups: ~6 rows (approximately)
+DELETE FROM `groups`;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+INSERT INTO `groups` (`id`, `name`, `modified`, `created`) VALUES
+	(1, 'Root', '2012-05-21 14:08:50', '2012-05-21 18:06:03'),
+	(2, 'Admin', '2012-05-21 14:08:54', '2012-05-21 18:05:42'),
+	(3, 'Designer', '2012-05-21 14:08:59', '2012-05-21 18:05:50'),
+	(4, 'Manufacture', '2012-05-21 14:09:04', '2012-05-21 18:05:54'),
+	(5, 'Drafter', '2012-05-21 14:09:10', '2012-05-21 18:05:57'),
+	(6, 'Worker', '2012-05-21 14:09:22', '2012-05-21 18:05:59');
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.groups_users
+DROP TABLE IF EXISTS `groups_users`;
+CREATE TABLE IF NOT EXISTS `groups_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table pdm.groups_users: 3 rows
+DELETE FROM `groups_users`;
+/*!40000 ALTER TABLE `groups_users` DISABLE KEYS */;
+INSERT INTO `groups_users` (`id`, `group_id`, `user_id`) VALUES
+	(1, 1, 1),
+	(2, 2, 1),
+	(3, 3, 3);
+/*!40000 ALTER TABLE `groups_users` ENABLE KEYS */;
+
+
 -- Dumping structure for table pdm.items
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
@@ -26,36 +126,23 @@ CREATE TABLE IF NOT EXISTS `items` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items: 5 rows
+-- Dumping data for table pdm.items: 10 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `tray_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
+	(30, 27, 'second1', 'second1', '2012-04-23 09:46:26', '2012-04-23 09:54:57'),
+	(29, 27, 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
 	(28, 27, 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
 	(27, 27, 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
 	(26, 3, 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
-	(25, 27, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-22 11:24:43'),
-	(24, 5, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-22 11:23:51'),
-	(23, 3, 'root', 'root', '2012-04-19 13:21:45', '2012-04-22 11:27:41');
+	(25, 27, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
+	(24, 5, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
+	(23, 3, 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
+	(31, 27, 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
+	(32, 27, 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
-
-
--- Dumping structure for table pdm.items_groups
-DROP TABLE IF EXISTS `items_groups`;
-CREATE TABLE IF NOT EXISTS `items_groups` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `number` varchar(36) DEFAULT NULL,
-  `name` varchar(36) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- Dumping data for table pdm.items_groups: 0 rows
-DELETE FROM `items_groups`;
-/*!40000 ALTER TABLE `items_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `items_groups` ENABLE KEYS */;
 
 
 -- Dumping structure for table pdm.items_items
@@ -65,20 +152,25 @@ CREATE TABLE IF NOT EXISTS `items_items` (
   `item_id` int(11) DEFAULT NULL,
   `sub_item_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items_items: 7 rows
+-- Dumping data for table pdm.items_items: 13 rows
 DELETE FROM `items_items`;
 /*!40000 ALTER TABLE `items_items` DISABLE KEYS */;
 INSERT INTO `items_items` (`id`, `item_id`, `sub_item_id`) VALUES
-	(15, 24, 27),
-	(21, 23, 25),
-	(18, 25, 26),
-	(17, 25, 27),
-	(16, 24, 26),
+	(34, 24, 31),
+	(32, 23, 24),
+	(39, 25, 31),
+	(38, 25, 30),
+	(33, 24, 30),
 	(19, 26, 28),
-	(20, 23, 28),
-	(22, 23, 24);
+	(31, 23, 25),
+	(30, 23, 29),
+	(35, 24, 32),
+	(36, 30, 27),
+	(37, 30, 26),
+	(40, 29, 31),
+	(41, 29, 32);
 /*!40000 ALTER TABLE `items_items` ENABLE KEYS */;
 
 
@@ -89,9 +181,9 @@ CREATE TABLE IF NOT EXISTS `items_projects` (
   `item_id` int(11) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table pdm.items_projects: 5 rows
+-- Dumping data for table pdm.items_projects: 10 rows
 DELETE FROM `items_projects`;
 /*!40000 ALTER TABLE `items_projects` DISABLE KEYS */;
 INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
@@ -100,7 +192,11 @@ INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
 	(13, 23, 1),
 	(16, 26, 1),
 	(17, 27, 1),
-	(18, 28, 1);
+	(18, 28, 1),
+	(19, 29, 1),
+	(20, 30, 1),
+	(21, 31, 1),
+	(22, 32, 1);
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
 
 
@@ -124,6 +220,28 @@ INSERT INTO `item_types` (`id`, `name`, `suffix`, `created`, `modified`) VALUES
 	(3, 'Std', 'std', '2012-01-26 10:33:20', '2012-02-20 23:13:20'),
 	(6, 'EQpart', 'eqp', '2012-01-29 11:43:06', '2012-02-22 09:46:12');
 /*!40000 ALTER TABLE `item_types` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.jobcards
+DROP TABLE IF EXISTS `jobcards`;
+CREATE TABLE IF NOT EXISTS `jobcards` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) DEFAULT NULL,
+  `originator_id` int(11) DEFAULT NULL,
+  `worker_id` int(11) DEFAULT NULL,
+  `description` text,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.jobcards: ~2 rows (approximately)
+DELETE FROM `jobcards`;
+/*!40000 ALTER TABLE `jobcards` DISABLE KEYS */;
+INSERT INTO `jobcards` (`id`, `name`, `originator_id`, `worker_id`, `description`, `created`, `modified`) VALUES
+	(2, 'Just a test job card 3', NULL, NULL, NULL, '2012-05-07 12:16:32', '2012-05-07 12:36:59'),
+	(3, 'New job card 2', NULL, NULL, NULL, '2012-05-07 12:37:39', '2012-05-07 12:37:39');
+/*!40000 ALTER TABLE `jobcards` ENABLE KEYS */;
 
 
 -- Dumping structure for table pdm.projects
@@ -181,34 +299,60 @@ CREATE TABLE IF NOT EXISTS `trays` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.trays: 22 rows
+-- Dumping data for table pdm.trays: 23 rows
 DELETE FROM `trays`;
 /*!40000 ALTER TABLE `trays` DISABLE KEYS */;
 INSERT INTO `trays` (`id`, `parent_id`, `lft`, `rght`, `name`, `item_type_id`, `project_id`, `ata_code`, `ata_cache`, `created`, `modified`) VALUES
-	(1, NULL, 1, 44, 'Root Tray', 1, NULL, '', 'xxx', NULL, NULL),
-	(2, 1, 2, 39, 'Rifles', 1, NULL, 'R', '000', NULL, '2012-01-31 06:04:30'),
-	(3, 2, 3, 12, 'Barrels', 1, NULL, '1', '100', NULL, '2012-02-26 09:12:42'),
+	(1, NULL, 1, 46, 'Root Tray', 1, NULL, '', 'xxx', NULL, NULL),
+	(2, 1, 2, 41, 'Rifles', 1, NULL, 'R', '000', NULL, '2012-01-31 06:04:30'),
+	(3, 2, 3, 14, 'Barrels', 1, NULL, '1', '100', NULL, '2012-02-26 09:12:42'),
 	(5, 3, 6, 11, 'MuzzleBreaks', 1, NULL, '6', '160', NULL, '2012-02-22 12:56:00'),
-	(6, 2, 13, 34, 'Actions', 1, NULL, NULL, NULL, NULL, NULL),
-	(7, 6, 14, 21, 'Resivers', 1, NULL, '1', NULL, NULL, '2012-01-31 15:49:42'),
-	(8, 6, 22, 33, 'Bolts', 1, NULL, '', NULL, NULL, '2012-01-29 22:31:35'),
-	(9, 1, 40, 43, 'Tools', 1, NULL, NULL, '000', NULL, NULL),
-	(10, 9, 41, 42, 'Crabs', 0, NULL, NULL, NULL, NULL, NULL),
-	(28, 2, 35, 36, 'Stocks', 1, NULL, '', NULL, NULL, '2012-01-29 21:47:54'),
-	(29, 8, 23, 24, 'Bolt', 2, NULL, NULL, NULL, NULL, NULL),
-	(30, 8, 25, 26, 'Bolt sleeve', 2, NULL, NULL, NULL, NULL, NULL),
-	(32, 8, 27, 28, 'Bolt clamp', 2, NULL, '', NULL, NULL, '2012-01-29 22:33:17'),
+	(6, 2, 15, 36, 'Actions', 1, NULL, NULL, NULL, NULL, NULL),
+	(7, 6, 16, 23, 'Resivers', 1, NULL, '1', NULL, NULL, '2012-01-31 15:49:42'),
+	(8, 6, 24, 35, 'Bolts', 1, NULL, '', NULL, NULL, '2012-01-29 22:31:35'),
+	(9, 1, 42, 45, 'Tools', 1, NULL, NULL, '000', NULL, NULL),
+	(10, 9, 43, 44, 'Crabs', 0, NULL, NULL, NULL, NULL, NULL),
+	(28, 2, 37, 38, 'Stocks', 1, NULL, '', NULL, NULL, '2012-01-29 21:47:54'),
+	(29, 8, 25, 26, 'Bolt', 2, NULL, NULL, NULL, NULL, NULL),
+	(30, 8, 27, 28, 'Bolt sleeve', 2, NULL, NULL, NULL, NULL, NULL),
+	(32, 8, 29, 30, 'Bolt clamp', 2, NULL, '', NULL, NULL, '2012-01-29 22:33:17'),
 	(27, 3, 4, 5, 'Barrel', 2, NULL, '5', '150', NULL, '2012-02-22 11:41:17'),
-	(36, 7, 15, 16, 'Handle limit', 2, NULL, NULL, NULL, NULL, NULL),
-	(34, 8, 31, 32, 'Bolt stop', 2, NULL, '', NULL, NULL, '2012-01-29 22:33:07'),
-	(33, 8, 29, 30, 'Firing Pin', 2, NULL, '', NULL, NULL, '2012-01-29 22:32:59'),
-	(39, 7, 17, 18, 'Thread insert', 2, NULL, NULL, NULL, NULL, NULL),
+	(36, 7, 17, 18, 'Handle limit', 2, NULL, NULL, NULL, NULL, NULL),
+	(34, 8, 33, 34, 'Bolt stop', 2, NULL, '', NULL, NULL, '2012-01-29 22:33:07'),
+	(33, 8, 31, 32, 'Firing Pin', 2, NULL, '', NULL, NULL, '2012-01-29 22:32:59'),
+	(39, 7, 19, 20, 'Thread insert', 2, NULL, NULL, NULL, NULL, NULL),
 	(38, 5, 9, 10, 'Nut', 2, NULL, '2', '142', NULL, '2012-02-22 11:43:22'),
 	(37, 5, 7, 8, 'Muzzle break', 2, NULL, '3', '143', NULL, '2012-02-22 11:41:47'),
-	(40, 7, 19, 20, 'Resivers', 2, NULL, NULL, NULL, NULL, NULL),
-	(44, 2, 37, 38, 'biPods', 1, NULL, '', NULL, NULL, '2012-01-29 22:34:38');
+	(40, 7, 21, 22, 'Resivers', 2, NULL, NULL, NULL, NULL, NULL),
+	(44, 2, 39, 40, 'biPods', 1, NULL, '', NULL, NULL, '2012-01-29 22:34:38'),
+	(74, 3, 12, 13, 'Misc', 1, NULL, '4', '14X', '2012-04-23 13:37:05', '2012-04-23 13:37:05');
 /*!40000 ALTER TABLE `trays` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) DEFAULT NULL,
+  `password` varchar(64) DEFAULT NULL,
+  `name` varchar(32) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.users: ~2 rows (approximately)
+DELETE FROM `users`;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `group_id`, `password`, `name`, `email`, `last_login`, `created`, `modified`) VALUES
+	(1, NULL, '1234', 'AlexeyKondratyev', 'aa@mm.ru', NULL, '2012-05-21 09:39:04', '2012-05-21 09:39:04'),
+	(3, NULL, '1234', 'aa2', 'aa2@mm.ru', NULL, '2012-05-21 11:12:33', '2012-05-21 11:12:33');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

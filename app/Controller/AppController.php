@@ -2,17 +2,26 @@
 
 App::uses('Controller', 'Controller');
 
-
 class AppController extends Controller {
-    
-    public $components = array( 'Session',
-                                'Cookie',
-                                'RequestHandler',
-                                'DebugKit.Toolbar'
-        );
 
-    
+    public $components = array(
+        'Security',
+        'Session',
+        'Cookie',
+        'RequestHandler',
+        'Auth' => array(
+            'authenticate' => array(
+                'Form'
+            ),
+            'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
+        ),
+        //'Acl',
+        'DebugKit.Toolbar'
+    );
+
     function beforeFilter() {
         parent::beforeFilter();
+        //$this->Auth->allow('*');
     }
+
 }

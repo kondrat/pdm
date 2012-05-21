@@ -7,14 +7,56 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
     
+    /*
+     * before filter
+     */
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('reg','logout');
+    }    
+    
+    /**
+     * reg
+     */
+    
+    public function reg(){
+            if ($this->request->is('post')) {
+                //debug($this->request->data);
+                $this->User->create();
+                if ($this->User->save($this->request->data)) {
+                    $this->Session->setFlash(__('The user has been saved'));
+                    $this->redirect(array('controller'=>'pages','action' => 'home'));
+                } else {
+                    $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+                }
+            }
+        $groups = $this->User->Group->find('list');
+        $this->set(compact('groups'));
+        
+        
+    }
+
     /**
      * Login
      * 
      */
 
     public function login(){
+
+        if ($this->request->is('post')) {
+            if ($this->Auth->login($this->request->data)) {
+                $this->redirect($this->Auth->redirect());
+            } else {
+                $this->Session->setFlash('Your username or password was incorrect!');
+            }
+        }
         
     }
+
+    public function logout() {
+         $this->redirect($this->Auth->logout());
+    }
+
 
  /**
   * index method
@@ -22,8 +64,11 @@ class UsersController extends AppController {
   * @return void
   */
 	public function index() {
-		$this->User->recursive = 0;
-		$this->set('users', $this->paginate());
+            
+
+            
+            $this->User->recursive = 0;
+            $this->set('users', $this->paginate());
 	}
 
 /**

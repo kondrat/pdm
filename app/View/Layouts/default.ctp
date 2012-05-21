@@ -29,8 +29,8 @@
                     'jq/jquery-1.7.1.min',
                     'plug/jquery.tipsy',
                     'plug/jquery.simplyCountable',
-                    'dev/pdm-items',
-                    'dev/pdm-tray'
+                    //'dev/pdm-items',
+                    //'dev/pdm-tray'
                 ));
 		echo $scripts_for_layout;
 	?>
@@ -39,11 +39,21 @@
 	<div class="container">
 		<div id="header">
                     <div class="actions">
-                        <ul>
-                            <li>
+                        <div style="float: left;width: 500px;">
+                            <div style="float: left">
                             <?php echo $this->Html->link( __('Home'),'/', array('class'=>'lt-headerLink')); ?>
-                            </li>
-                        </ul>
+                            </div>
+                            <?php if($this->Session->read('Auth.User.User.name')):?>
+                            <div style="float: left;margin-left: 10px">                                  
+                               <?php                                     
+                                 echo $this->Html->link( __('Logout'),array('controller'=>'users','action'=>'logout'), array('class'=>'lt-headerLink'));                                   
+                               ?>                               
+                            </div>
+                            <div style="float: left;margin-left: 10px;">
+                                <?php echo $this->Session->read('Auth.User.User.name');?>
+                            </div>
+                            <?php endif;?>
+                        </div>
                     </div>
 		</div>
 		<div id="content">
