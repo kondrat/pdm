@@ -51,4 +51,15 @@ class User extends AppModel {
             'insertQuery' => ''
         )
     ); 
+    
+    public $hasMany = array(
+        'Originator' => array(
+            'className' => 'User',
+            'foreignKey' => 'originator_id'
+        ),
+        'Worker' => array(
+            'className' => 'User',
+            'foreignKey' => 'worker_id'
+        )
+        );
 }

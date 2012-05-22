@@ -17,16 +17,10 @@ class JobcardsController extends AppController {
     public function index() {
 
         $jobcards = array();
-        
+
         $jobcards = $this->Jobcard->recursive = 0;
-        $this->set('jobcards',$this->paginate());
-
+        $this->set('jobcards', $this->paginate());
     }
-
-
-
-
-
 
     /**
      * view method
@@ -48,21 +42,32 @@ class JobcardsController extends AppController {
      * @return void
      */
     public function add() {
-		if ($this->request->is('post')) {
-			$this->Jobcard->create();
-			if ($this->Jobcard->save($this->request->data)) {
-				$this->Session->setFlash(__('The job card has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The jobcard could not be saved. Please, try again.'));
-			}
-		}        
+        
+        if ($this->request->is('post')) {
+            
+            $this->request->data['Jobcard']['machine_id'] = $this->request->data['Jobcard']['Machine'];
+            
+            $this->Jobcard->create();
+            if ($this->Jobcard->save($this->request->data)) {
+                $this->Session->setFlash(__('The job card has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The jobcard could not be saved. Please, try again.'));
+            }
+        }
+        
+        $machines = $this->Jobcard->Machine->find('list');
+        $this->set('machines',$machines);
+        
+        $workers = $originators = $this->Jobcard->Worker->find('list');
+        $this->set('originators',$originators);
+        $this->set('workers',$workers);
+        
     }
 
     /**
      * 
      */
-  
 
     /**
      * edit method
@@ -77,7 +82,8 @@ class JobcardsController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
 
-
+            $this->request->data['Jobcard']['machine_id'] = $this->request->data['Jobcard']['Machine'];
+            
             if ($this->Jobcard->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__('The jobcard has been saved'), "default", array('class' => 'success message'));
                 $this->redirect(array('action' => 'index'));
@@ -87,9 +93,9 @@ class JobcardsController extends AppController {
         } else {
             $this->request->data = $this->Jobcard->read(null, $id);
         }
-
-
-
+        
+        $machines = $this->Jobcard->Machine->find('list');
+        $this->set('machines',$machines);
     }
 
     /**

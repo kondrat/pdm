@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-05-21 18:10:40
+-- Date/time:                    2012-05-22 18:02:18
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -104,15 +104,17 @@ CREATE TABLE IF NOT EXISTS `groups_users` (
   `group_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table pdm.groups_users: 3 rows
+-- Dumping data for table pdm.groups_users: 5 rows
 DELETE FROM `groups_users`;
 /*!40000 ALTER TABLE `groups_users` DISABLE KEYS */;
 INSERT INTO `groups_users` (`id`, `group_id`, `user_id`) VALUES
 	(1, 1, 1),
 	(2, 2, 1),
-	(3, 3, 3);
+	(3, 3, 3),
+	(4, 5, 4),
+	(5, 6, 4);
 /*!40000 ALTER TABLE `groups_users` ENABLE KEYS */;
 
 
@@ -227,21 +229,48 @@ DROP TABLE IF EXISTS `jobcards`;
 CREATE TABLE IF NOT EXISTS `jobcards` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   `originator_id` int(11) DEFAULT NULL,
   `worker_id` int(11) DEFAULT NULL,
+  `material_id` int(11) DEFAULT NULL,
+  `machine_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
   `description` text,
+  `targetdate` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dumping data for table pdm.jobcards: ~2 rows (approximately)
 DELETE FROM `jobcards`;
 /*!40000 ALTER TABLE `jobcards` DISABLE KEYS */;
-INSERT INTO `jobcards` (`id`, `name`, `originator_id`, `worker_id`, `description`, `created`, `modified`) VALUES
-	(2, 'Just a test job card 3', NULL, NULL, NULL, '2012-05-07 12:16:32', '2012-05-07 12:36:59'),
-	(3, 'New job card 2', NULL, NULL, NULL, '2012-05-07 12:37:39', '2012-05-07 12:37:39');
+INSERT INTO `jobcards` (`id`, `name`, `status`, `originator_id`, `worker_id`, `material_id`, `machine_id`, `quantity`, `description`, `targetdate`, `created`, `modified`) VALUES
+	(2, 'Just a test job card 3', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2012-05-07 12:16:32', '2012-05-22 13:49:48'),
+	(3, 'New job card 2', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, '2012-05-07 12:37:39', '2012-05-22 13:50:13'),
+	(4, 'My new name', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, '2012-05-22 13:51:30', '2012-05-22 13:51:30');
 /*!40000 ALTER TABLE `jobcards` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.machines
+DROP TABLE IF EXISTS `machines`;
+CREATE TABLE IF NOT EXISTS `machines` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.machines: ~0 rows (approximately)
+DELETE FROM `machines`;
+/*!40000 ALTER TABLE `machines` DISABLE KEYS */;
+INSERT INTO `machines` (`id`, `name`, `modified`, `created`) VALUES
+	(1, 'Saublin 1', '2012-05-22 13:29:55', '2012-05-22 13:29:48'),
+	(2, 'You-Ji mil 3 axis', '2012-05-22 13:36:52', '2012-05-22 13:36:52'),
+	(3, 'You-Ji mil 4 axis', '2012-05-22 13:37:04', '2012-05-22 13:37:04'),
+	(4, 'You-Ji turn', '2012-05-22 13:37:29', '2012-05-22 13:37:14');
+/*!40000 ALTER TABLE `machines` ENABLE KEYS */;
 
 
 -- Dumping structure for table pdm.projects
@@ -345,14 +374,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.users: ~2 rows (approximately)
+-- Dumping data for table pdm.users: ~3 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `group_id`, `password`, `name`, `email`, `last_login`, `created`, `modified`) VALUES
 	(1, NULL, '1234', 'AlexeyKondratyev', 'aa@mm.ru', NULL, '2012-05-21 09:39:04', '2012-05-21 09:39:04'),
-	(3, NULL, '1234', 'aa2', 'aa2@mm.ru', NULL, '2012-05-21 11:12:33', '2012-05-21 11:12:33');
+	(3, NULL, '1234', 'aa2', 'aa2@mm.ru', NULL, '2012-05-21 11:12:33', '2012-05-21 11:12:33'),
+	(4, NULL, '1234', 'aa3', 'aa3@mm.ru', NULL, '2012-05-22 06:34:01', '2012-05-22 06:34:01');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

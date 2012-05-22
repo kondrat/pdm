@@ -4,8 +4,10 @@
 		<legend><?php echo __('Add Jobcard'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
-                echo $this->Form->input('originator');
-                echo $this->Form->input('Assigned to');
+                echo $this->Form->input('Originator');
+                echo $this->Form->input('Worker');
+                echo $this->Form->input('Machine');
+                
                 
 	?>
 	</fieldset>

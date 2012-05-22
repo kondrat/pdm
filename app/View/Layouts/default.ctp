@@ -50,7 +50,7 @@
                                ?>                               
                             </div>
                             <div style="float: left;margin-left: 10px;">
-                                <?php echo $this->Session->read('Auth.User.User.name');?>
+                                <span>User name:&nbsp;</span><span style="font-size: larger;"><?php echo $this->Session->read('Auth.User.User.name');?></span>
                             </div>
                             <?php endif;?>
                         </div>
