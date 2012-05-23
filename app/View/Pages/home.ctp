@@ -21,5 +21,7 @@
         <li><?php echo $this->Html->link(__('Users'), array('controller' => 'users', 'action' => 'index')); ?></li>
         <li>Machines</li>
         <li><?php echo $this->Html->link(__('Machines'), array('controller' => 'machines', 'action' => 'index')); ?></li>
+        <li>Materials</li>
+        <li><?php echo $this->Html->link(__('Materials'), array('controller' => 'materials', 'action' => 'index')); ?></li>
     </ul>
 </div>

@@ -48,7 +48,19 @@
         </div> 
         
         <div class="jcard-line">
-            <div class="jcard-field-1 jcard-lastField"><?php echo __('Material type:'); ?>&nbsp;<span><?php echo "Al 7075"; ?></div>
+            <div class="jcard-field-1 jcard-lastField"><?php echo __('Material type:'); ?>&nbsp;
+                <span>
+                    <?php 
+                        $thisJobCardMaterial = null;
+                        if(!isset($jobcard['Material']['name']) || $jobcard['Material']['name'] == null ){
+                            $thisJobCardMaterial = __('N/A');
+                        } else {
+                            $thisJobCardMaterial = $jobcard['Material']['name'];
+                        }
+                        echo $thisJobCardMaterial; 
+                    ?>
+                </span>
+            </div>
         </div>
 
         <div class="jcard-line">

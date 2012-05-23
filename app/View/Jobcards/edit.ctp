@@ -6,6 +6,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('name');
                 echo $this->Form->input('Machine');
+                echo $this->Form->input('Material');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

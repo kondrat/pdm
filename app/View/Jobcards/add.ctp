@@ -7,6 +7,7 @@
                 echo $this->Form->input('Originator');
                 echo $this->Form->input('Worker');
                 echo $this->Form->input('Machine');
+                echo $this->Form->input('Material');
                 
                 
 	?>

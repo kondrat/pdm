@@ -35,7 +35,11 @@ class Jobcard extends AppModel {
         'Worker' => array(
             'className' => 'User',
             'foreignKey' => 'worker_id'
-        )        
+        ),
+		'Material' => array(
+			'className' => 'Material',
+			'foreignKey' => 'material_id'
+		)
     );
     
     

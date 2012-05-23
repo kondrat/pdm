@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-05-22 18:02:18
+-- Date/time:                    2012-05-23 17:57:05
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -240,15 +240,17 @@ CREATE TABLE IF NOT EXISTS `jobcards` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.jobcards: ~2 rows (approximately)
+-- Dumping data for table pdm.jobcards: ~4 rows (approximately)
 DELETE FROM `jobcards`;
 /*!40000 ALTER TABLE `jobcards` DISABLE KEYS */;
 INSERT INTO `jobcards` (`id`, `name`, `status`, `originator_id`, `worker_id`, `material_id`, `machine_id`, `quantity`, `description`, `targetdate`, `created`, `modified`) VALUES
-	(2, 'Just a test job card 3', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2012-05-07 12:16:32', '2012-05-22 13:49:48'),
+	(2, 'Just a test job card 3', NULL, NULL, NULL, 6, 2, NULL, NULL, NULL, '2012-05-07 12:16:32', '2012-05-23 10:25:13'),
 	(3, 'New job card 2', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, '2012-05-07 12:37:39', '2012-05-22 13:50:13'),
-	(4, 'My new name', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, '2012-05-22 13:51:30', '2012-05-22 13:51:30');
+	(4, 'My new name', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, '2012-05-22 13:51:30', '2012-05-22 13:51:30'),
+	(7, 'My new name1', NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, '2012-05-23 10:14:51', '2012-05-23 10:14:51'),
+	(8, 'Hello Roma', NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, '2012-05-23 10:28:49', '2012-05-23 10:28:49');
 /*!40000 ALTER TABLE `jobcards` ENABLE KEYS */;
 
 
@@ -262,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `machines` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.machines: ~0 rows (approximately)
+-- Dumping data for table pdm.machines: ~4 rows (approximately)
 DELETE FROM `machines`;
 /*!40000 ALTER TABLE `machines` DISABLE KEYS */;
 INSERT INTO `machines` (`id`, `name`, `modified`, `created`) VALUES
@@ -271,6 +273,25 @@ INSERT INTO `machines` (`id`, `name`, `modified`, `created`) VALUES
 	(3, 'You-Ji mil 4 axis', '2012-05-22 13:37:04', '2012-05-22 13:37:04'),
 	(4, 'You-Ji turn', '2012-05-22 13:37:29', '2012-05-22 13:37:14');
 /*!40000 ALTER TABLE `machines` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.materials
+DROP TABLE IF EXISTS `materials`;
+CREATE TABLE IF NOT EXISTS `materials` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.materials: ~0 rows (approximately)
+DELETE FROM `materials`;
+/*!40000 ALTER TABLE `materials` DISABLE KEYS */;
+INSERT INTO `materials` (`id`, `name`, `modified`, `created`) VALUES
+	(5, 'Al7075', '2012-05-23 10:03:13', '2012-05-23 10:03:13'),
+	(6, 'steell420', '2012-05-23 10:03:35', '2012-05-23 10:03:35');
+/*!40000 ALTER TABLE `materials` ENABLE KEYS */;
 
 
 -- Dumping structure for table pdm.projects
