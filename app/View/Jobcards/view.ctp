@@ -9,18 +9,30 @@
         </div>
         
         <div class="jcard-line">
-            <div class="jcard-field-2"><b><?php echo __('Originator:'); ?></b>&nbsp;<span><?php echo "Originator Name"; ?></div>
+            <div class="jcard-field-2"><b><?php echo __('Originator:'); ?></b>&nbsp;
+                <span>
+                    <?php echo $jobcard['Originator']['name']; ?>
+                </span>
+            </div>
             <div class="jcard-field-2 jcard-lastField"><b><?php echo __('Start date:'); ?></b>&nbsp;<span><?php echo h($jobcard['Jobcard']['created']); ?></span></div>
         </div>
 
         <div class="jcard-line">
-            <div class="jcard-field-2"><b><?php echo __('Assigned to:'); ?></b>&nbsp;<span><?php echo "Worker name"; ?></div>
-            <div class="jcard-field-2 jcard-lastField"><b><?php echo __('Target date:'); ?></b>&nbsp;<span><?php echo "Date"; ?></span></div>
+            <div class="jcard-field-2"><b><?php echo __('Assigned to:'); ?></b>&nbsp;
+                <span>
+                    <?php echo $jobcard['Worker']['name']; ?>
+                </span>
+            </div>
+            <div class="jcard-field-2 jcard-lastField"><b><?php echo __('Target date:'); ?></b>&nbsp;
+                <span><?php echo $jobcard['Jobcard']['targetdate']; ?></span>
+            </div>
         </div>
 
         <div class="jcard-line">
             <div class="jcard-field-2"><?php echo __('Part number/Kit number:'); ?>&nbsp;<span><?php echo "A000 0 0000 200"; ?></div>
-            <div class="jcard-field-2 jcard-lastField"><?php echo __('Quantity:'); ?>&nbsp;<span><?php echo "100"; ?></span></div>
+            <div class="jcard-field-2 jcard-lastField"><?php echo __('Quantity:'); ?>&nbsp;
+                <span><?php echo $jobcard['Jobcard']['quantity']; ?></span>
+            </div>
         </div>
         
         <div class="jcard-line">

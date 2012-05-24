@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-05-23 17:57:05
+-- Date/time:                    2012-05-24 17:15:01
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `groups_users` (
   `group_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table pdm.groups_users: 5 rows
 DELETE FROM `groups_users`;
@@ -114,7 +114,11 @@ INSERT INTO `groups_users` (`id`, `group_id`, `user_id`) VALUES
 	(2, 2, 1),
 	(3, 3, 3),
 	(4, 5, 4),
-	(5, 6, 4);
+	(5, 6, 4),
+	(6, 6, 5),
+	(7, 5, 7),
+	(8, 6, 7),
+	(9, 5, 8);
 /*!40000 ALTER TABLE `groups_users` ENABLE KEYS */;
 
 
@@ -236,21 +240,20 @@ CREATE TABLE IF NOT EXISTS `jobcards` (
   `machine_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `description` text,
-  `targetdate` datetime DEFAULT NULL,
+  `targetdate` date DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.jobcards: ~4 rows (approximately)
+-- Dumping data for table pdm.jobcards: ~5 rows (approximately)
 DELETE FROM `jobcards`;
 /*!40000 ALTER TABLE `jobcards` DISABLE KEYS */;
 INSERT INTO `jobcards` (`id`, `name`, `status`, `originator_id`, `worker_id`, `material_id`, `machine_id`, `quantity`, `description`, `targetdate`, `created`, `modified`) VALUES
-	(2, 'Just a test job card 3', NULL, NULL, NULL, 6, 2, NULL, NULL, NULL, '2012-05-07 12:16:32', '2012-05-23 10:25:13'),
-	(3, 'New job card 2', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, '2012-05-07 12:37:39', '2012-05-22 13:50:13'),
-	(4, 'My new name', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, '2012-05-22 13:51:30', '2012-05-22 13:51:30'),
-	(7, 'My new name1', NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, '2012-05-23 10:14:51', '2012-05-23 10:14:51'),
-	(8, 'Hello Roma', NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, '2012-05-23 10:28:49', '2012-05-23 10:28:49');
+	(13, NULL, NULL, 3, 3, 5, 1, 12, 'asdf asdf asdf', '2012-05-24', '2012-05-24 07:45:54', '2012-05-24 07:45:54'),
+	(14, NULL, NULL, 3, 1, 5, 1, 12, 'Description 1', '2012-05-24', '2012-05-24 09:13:50', '2012-05-24 09:13:50'),
+	(15, NULL, NULL, 3, 5, 5, 1, 12, 'descripton 12', '2012-05-24', '2012-05-24 09:19:28', '2012-05-24 09:19:28'),
+	(16, NULL, NULL, 1, 7, 5, 1, 3, 'descr', '2012-05-24', '2012-05-24 09:21:19', '2012-05-24 09:21:19');
 /*!40000 ALTER TABLE `jobcards` ENABLE KEYS */;
 
 
@@ -283,14 +286,15 @@ CREATE TABLE IF NOT EXISTS `materials` (
   `modified` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.materials: ~0 rows (approximately)
+-- Dumping data for table pdm.materials: ~2 rows (approximately)
 DELETE FROM `materials`;
 /*!40000 ALTER TABLE `materials` DISABLE KEYS */;
 INSERT INTO `materials` (`id`, `name`, `modified`, `created`) VALUES
 	(5, 'Al7075', '2012-05-23 10:03:13', '2012-05-23 10:03:13'),
-	(6, 'steell420', '2012-05-23 10:03:35', '2012-05-23 10:03:35');
+	(6, 'steell420', '2012-05-23 10:03:35', '2012-05-23 10:03:35'),
+	(7, 'Steel416', '2012-05-24 10:47:09', '2012-05-24 10:47:09');
 /*!40000 ALTER TABLE `materials` ENABLE KEYS */;
 
 
@@ -395,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dumping data for table pdm.users: ~3 rows (approximately)
 DELETE FROM `users`;
@@ -403,7 +407,10 @@ DELETE FROM `users`;
 INSERT INTO `users` (`id`, `group_id`, `password`, `name`, `email`, `last_login`, `created`, `modified`) VALUES
 	(1, NULL, '1234', 'AlexeyKondratyev', 'aa@mm.ru', NULL, '2012-05-21 09:39:04', '2012-05-21 09:39:04'),
 	(3, NULL, '1234', 'aa2', 'aa2@mm.ru', NULL, '2012-05-21 11:12:33', '2012-05-21 11:12:33'),
-	(4, NULL, '1234', 'aa3', 'aa3@mm.ru', NULL, '2012-05-22 06:34:01', '2012-05-22 06:34:01');
+	(4, NULL, '1234', 'aa3', 'aa3@mm.ru', NULL, '2012-05-22 06:34:01', '2012-05-22 06:34:01'),
+	(5, NULL, '1234', 'worker1', '', NULL, '2012-05-24 09:17:39', '2012-05-24 09:17:39'),
+	(7, NULL, '1234', 'worker2', 'worker2@mm.ru', NULL, '2012-05-24 09:18:32', '2012-05-24 09:18:32'),
+	(8, NULL, '1234', 'drafter1', 'drafter1@mm.ru', NULL, '2012-05-24 10:18:37', '2012-05-24 10:18:37');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

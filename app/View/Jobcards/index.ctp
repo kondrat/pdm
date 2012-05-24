@@ -3,9 +3,9 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			
-			<th><?php echo $this->Paginator->sort('name');?></th>
-			<th><?php echo $this->Paginator->sort('created');?></th>
-			<th><?php echo $this->Paginator->sort('modified');?></th>
+			<th><?php echo $this->Paginator->sort('description');?></th>
+			<th><?php echo $this->Paginator->sort('originator');?></th>
+			<th><?php echo $this->Paginator->sort('Worker.name');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
@@ -13,9 +13,9 @@
 	foreach ($jobcards as $jobcard): ?>
 	<tr>
 		
-		<td><?php echo h($jobcard['Jobcard']['name']); ?>&nbsp;</td>
-		<td><?php echo h($jobcard['Jobcard']['created']); ?>&nbsp;</td>
-		<td><?php echo h($jobcard['Jobcard']['modified']); ?>&nbsp;</td>
+		<td><?php echo h($jobcard['Jobcard']['description']); ?>&nbsp;</td>
+		<td><?php echo h($jobcard['Originator']['name']); ?>&nbsp;</td>
+		<td><?php echo h($jobcard['Worker']['name']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $jobcard['Jobcard']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $jobcard['Jobcard']['id'])); ?>

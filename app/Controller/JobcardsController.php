@@ -2,7 +2,6 @@
 
 App::uses('AppController', 'Controller');
 
-
 /**
  * jobcards Controller
  *
@@ -10,8 +9,6 @@ App::uses('AppController', 'Controller');
  */
 class JobcardsController extends AppController {
 
-    
-    
     /**
      * index method
      *
@@ -45,12 +42,15 @@ class JobcardsController extends AppController {
      * @return void
      */
     public function add() {
-        
+
         if ($this->request->is('post')) {
-            
+
             $this->request->data['Jobcard']['machine_id'] = $this->request->data['Jobcard']['Machine'];
             $this->request->data['Jobcard']['material_id'] = $this->request->data['Jobcard']['Material'];
             
+            $this->request->data['Jobcard']['originator_id'] = $this->request->data['Jobcard']['Originator'];
+            $this->request->data['Jobcard']['worker_id'] = $this->request->data['Jobcard']['Worker'];
+
             $this->Jobcard->create();
             if ($this->Jobcard->save($this->request->data)) {
                 $this->Session->setFlash(__('The job card has been saved'));
@@ -59,25 +59,59 @@ class JobcardsController extends AppController {
                 $this->Session->setFlash(__('The jobcard could not be saved. Please, try again.'));
             }
         }
-        
+
         $machines = $this->Jobcard->Machine->find('list');
-        $this->set('machines',$machines);
+        $this->set('machines', $machines);
 
         $materials = $this->Jobcard->Material->find('list');
-        $this->set('materials',$materials);
+        $this->set('materials', $materials);
+
 
         
+
+
+
+//        $this->Jobcard->bindModel(
+//                array('hasMany' => array(
+//                        'Originator' => array(
+//                            'className' => 'User',
+//                            'foreignKey' => 'originator_id'
+//                        ),
+//                        'Worker' => array(
+//                            'className' => 'User',
+//                            'foreignKey' => 'worker_id'
+//                        ),
+//                    )
+//                )
+//        );
+        
+       
         $this->loadModel('User');
-        $users = $this->User->find('all');
-        //$this->set('users',$users);
- 
+        $originator = $this->User->find('first',array(
+            'conditions'=>array('User.name'=>$this->Session->read('Auth.User.User.name'))
+        ));
         
-        $workers = $originators = $this->Jobcard->Worker->find('list');
+        //$workers = $this->Jobcard->Worker->find('list');
+        
+        $workers = array();
         
         
-        $this->set('originators',$originators);
-        $this->set('workers',$workers);
+        $allUsers = $this->User->find('all');
         
+        foreach ($allUsers as $singleUser){
+            foreach ($singleUser['Group'] as $userGroup){
+                if( in_array($userGroup['name'], array('Worker','Drafter'))){
+                    
+                    $workers[$singleUser['User']['id']] = $singleUser['User']['name'];
+                    break;
+                }
+            }
+        }
+        
+        
+        
+        $this->set('originator', $originator);
+        $this->set('workers', $workers);
     }
 
     /**
@@ -99,7 +133,7 @@ class JobcardsController extends AppController {
 
             $this->request->data['Jobcard']['machine_id'] = $this->request->data['Jobcard']['Machine'];
             $this->request->data['Jobcard']['material_id'] = $this->request->data['Jobcard']['Material'];
-            
+
             if ($this->Jobcard->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__('The jobcard has been saved'), "default", array('class' => 'success message'));
                 $this->redirect(array('action' => 'index'));
@@ -109,12 +143,12 @@ class JobcardsController extends AppController {
         } else {
             $this->request->data = $this->Jobcard->read(null, $id);
         }
-        
+
         $machines = $this->Jobcard->Machine->find('list');
-        $this->set('machines',$machines);
+        $this->set('machines', $machines);
 
         $materials = $this->Jobcard->Material->find('list');
-        $this->set('materials',$materials);
+        $this->set('materials', $materials);
     }
 
     /**

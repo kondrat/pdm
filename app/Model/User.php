@@ -53,13 +53,6 @@ class User extends AppModel {
     ); 
     
     public $hasMany = array(
-        'Originator' => array(
-            'className' => 'User',
-            'foreignKey' => 'originator_id'
-        ),
-        'Worker' => array(
-            'className' => 'User',
-            'foreignKey' => 'worker_id'
-        )
+
         );
 }

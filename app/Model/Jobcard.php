@@ -5,6 +5,16 @@ App::uses('AppModel', 'Model');
  *
  */
 class Jobcard extends AppModel {
+
+        public $validate = array(
+        'quantity' => array(
+            'required' => array(
+                'rule' => array('numeric'),
+                'message' => 'A quantiry must be numeric'
+            )
+        )
+    );
+        
 //    public $hasAndBelongsToMany = array(
 //        'User' => array(
 //            'className' => 'User',
