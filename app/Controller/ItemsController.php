@@ -8,6 +8,23 @@ App::uses('AppController', 'Controller');
  * @property Item $Item
  */
 class ItemsController extends AppController {
+    
+    
+    /*
+     * before filter
+     */
+    public function beforeFilter() {
+        parent::beforeFilter();
+        //$this->Auth->allow(array('getItemsForPrj','getAtaCode'));
+        $this->Auth->allow();
+        
+         if ($this->request->is('ajax')) {
+             $this->Security->validatePost = false;
+             $this->Security->csrfCheck = false;
+         } 
+        
+        
+    }    
 
     /**
      * index method

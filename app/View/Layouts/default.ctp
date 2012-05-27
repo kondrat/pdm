@@ -29,8 +29,8 @@
                     'jq/jquery-1.7.1.min',
                     'plug/jquery.tipsy',
                     'plug/jquery.simplyCountable',
-                    //'dev/pdm-items',
-                    //'dev/pdm-tray'
+                    'dev/pdm-items',
+                    'dev/pdm-tray'
                 ));
 		echo $scripts_for_layout;
 	?>
