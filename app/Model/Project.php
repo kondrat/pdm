@@ -18,7 +18,7 @@ class Project extends AppModel {
             'foreignKey' => 'project_id'
         ),
 
-        'ItemProject'
+        'ItemsProject'
 
     );
 

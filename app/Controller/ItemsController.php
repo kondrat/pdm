@@ -56,31 +56,10 @@ class ItemsController extends AppController {
         $this->set('trayName', $trayName);
         $this->set('items', $this->paginate());
 
-        //tests
-        //debug($traysData);
-        $tt = $this->Item->Tray->find('all', array(
-            'conditions' => array('Tray.lft >=' => $traysData['Tray']['lft'], 'Tray.rght <=' => $traysData['Tray']['rght']),
-            //'fields'=>array(),
-            'contain' => array('Item' => array(
-                    'Project' => array('conditions' => array('Project.id' => 1)),
-                    'SubItem'
-            )),
-            'order' => array('Tray.lft')
-                //'recursive' => 3
-                ));
-
-        foreach ($tt as $k => $v) {
-
-            //debug($v);
-            //if($v['Item'] != array() ){
-            foreach ($v['Item'] as $k2 => $v2) {
-                //debug($v2);
-            }
-            //}
-        }
 
 
-        $this->set('tt', $tt);
+
+
 
         $ii = $this->Item->find('all', array(
             'conditions' => array(),
@@ -97,7 +76,7 @@ class ItemsController extends AppController {
         $this->set('ii', $ii);
 
         $gg = $this->Item->ItemsProject->find('all', array(
-            'conditions' => array('ItemsProject.project_id' => 2),
+            'conditions' => array('ItemsProject.project_id' => 1),
             'contain' => array(
                 //'Item'
             'Item'=>array('SubItem')

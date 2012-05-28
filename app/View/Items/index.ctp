@@ -1,15 +1,15 @@
 <div class="items index">
     <h2><?php echo __('Items'); ?></h2>
 
-        <?php 
-            echo $this->Form->input('Project', array(
-                'label'=>__('Select project'),
-                'selected'=>$this->request->params['named']['prj'],
-                'id'=>'item-currentPrj'
-                    ));
-            $projectId = null;
-            $projectId = key($projects);   
-        ?>
+    <?php
+    echo $this->Form->input('Project', array(
+        'label' => __('Select project'),
+        'selected' => $this->request->params['named']['prj'],
+        'id' => 'item-currentPrj'
+    ));
+    $projectId = null;
+    $projectId = key($projects);
+    ?>
 
     <table cellpadding="0" cellspacing="0">
         <tr>
@@ -31,10 +31,10 @@
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $item['Item']['id'])); ?>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $item['Item']['id'])); ?>
-    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $item['Item']['id']), null, __('Are you sure you want to delete # %s?', $item['Item']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $item['Item']['id']), null, __('Are you sure you want to delete # %s?', $item['Item']['id'])); ?>
                 </td>
             </tr>
-<?php endforeach; ?>
+        <?php endforeach; ?>
     </table>
     <p>
         <?php
@@ -53,6 +53,6 @@
 </div>
 <div class="actions">
     <ul>
-        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add','trd'=>2,'prj'=>$projectId)); ?></li>
+        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add', 'trd' => 2, 'prj' => $projectId)); ?></li>
     </ul>
 </div>
