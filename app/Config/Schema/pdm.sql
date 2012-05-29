@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-05-24 17:15:01
+-- Date/time:                    2012-05-29 16:10:13
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `groups_users` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table pdm.groups_users: 5 rows
+-- Dumping data for table pdm.groups_users: 9 rows
 DELETE FROM `groups_users`;
 /*!40000 ALTER TABLE `groups_users` DISABLE KEYS */;
 INSERT INTO `groups_users` (`id`, `group_id`, `user_id`) VALUES
@@ -127,6 +127,7 @@ DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tray_id` int(11) DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
   `drwnbr` varchar(36) NOT NULL DEFAULT '',
   `name` varchar(36) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -137,17 +138,17 @@ CREATE TABLE IF NOT EXISTS `items` (
 -- Dumping data for table pdm.items: 10 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` (`id`, `tray_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
-	(30, 27, 'second1', 'second1', '2012-04-23 09:46:26', '2012-04-23 09:54:57'),
-	(29, 27, 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
-	(28, 27, 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
-	(27, 27, 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
-	(26, 3, 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
-	(25, 27, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
-	(24, 5, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
-	(23, 3, 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
-	(31, 27, 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
-	(32, 27, 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02');
+INSERT INTO `items` (`id`, `tray_id`, `status_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
+	(30, 27, NULL, 'A00-second1-000', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
+	(29, 27, NULL, 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
+	(28, 27, NULL, 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
+	(27, 27, NULL, 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
+	(26, 3, NULL, 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
+	(25, 27, NULL, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
+	(24, 5, NULL, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
+	(23, 3, NULL, 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
+	(31, 27, NULL, 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
+	(32, 27, NULL, 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -158,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `items_items` (
   `item_id` int(11) DEFAULT NULL,
   `sub_item_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table pdm.items_items: 13 rows
 DELETE FROM `items_items`;
@@ -173,8 +174,8 @@ INSERT INTO `items_items` (`id`, `item_id`, `sub_item_id`) VALUES
 	(31, 23, 25),
 	(30, 23, 29),
 	(35, 24, 32),
-	(36, 30, 27),
-	(37, 30, 26),
+	(43, 30, 26),
+	(42, 30, 27),
 	(40, 29, 31),
 	(41, 29, 32);
 /*!40000 ALTER TABLE `items_items` ENABLE KEYS */;
@@ -246,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `jobcards` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.jobcards: ~5 rows (approximately)
+-- Dumping data for table pdm.jobcards: ~4 rows (approximately)
 DELETE FROM `jobcards`;
 /*!40000 ALTER TABLE `jobcards` DISABLE KEYS */;
 INSERT INTO `jobcards` (`id`, `name`, `status`, `originator_id`, `worker_id`, `material_id`, `machine_id`, `quantity`, `description`, `targetdate`, `created`, `modified`) VALUES
@@ -288,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `materials` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.materials: ~2 rows (approximately)
+-- Dumping data for table pdm.materials: ~3 rows (approximately)
 DELETE FROM `materials`;
 /*!40000 ALTER TABLE `materials` DISABLE KEYS */;
 INSERT INTO `materials` (`id`, `name`, `modified`, `created`) VALUES
@@ -296,6 +297,50 @@ INSERT INTO `materials` (`id`, `name`, `modified`, `created`) VALUES
 	(6, 'steell420', '2012-05-23 10:03:35', '2012-05-23 10:03:35'),
 	(7, 'Steel416', '2012-05-24 10:47:09', '2012-05-24 10:47:09');
 /*!40000 ALTER TABLE `materials` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.pletter
+DROP TABLE IF EXISTS `pletter`;
+CREATE TABLE IF NOT EXISTS `pletter` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) DEFAULT NULL,
+  `description` text,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.pletter: ~3 rows (approximately)
+DELETE FROM `pletter`;
+/*!40000 ALTER TABLE `pletter` DISABLE KEYS */;
+INSERT INTO `pletter` (`id`, `name`, `description`, `created`, `modified`) VALUES
+	(4, 'A', 'Rifle drawings', '2012-05-29 12:00:53', '2012-05-29 12:02:17'),
+	(5, 'R', 'R and D drowings', '2012-05-29 12:01:27', '2012-05-29 12:01:27'),
+	(6, 'T', 'tooling drawing', '2012-05-29 12:01:43', '2012-05-29 12:01:43');
+/*!40000 ALTER TABLE `pletter` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.pletter_projects
+DROP TABLE IF EXISTS `pletter_projects`;
+CREATE TABLE IF NOT EXISTS `pletter_projects` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `project_id` int(10) DEFAULT NULL,
+  `pletter_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.pletter_projects: ~7 rows (approximately)
+DELETE FROM `pletter_projects`;
+/*!40000 ALTER TABLE `pletter_projects` DISABLE KEYS */;
+INSERT INTO `pletter_projects` (`id`, `project_id`, `pletter_id`) VALUES
+	(1, 1, 4),
+	(2, 2, 4),
+	(3, 3, 4),
+	(4, 1, 5),
+	(5, 2, 5),
+	(6, 3, 5),
+	(7, 4, 6);
+/*!40000 ALTER TABLE `pletter_projects` ENABLE KEYS */;
 
 
 -- Dumping structure for table pdm.projects
@@ -308,15 +353,16 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.projects: ~3 rows (approximately)
+-- Dumping data for table pdm.projects: ~4 rows (approximately)
 DELETE FROM `projects`;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
 INSERT INTO `projects` (`id`, `name`, `tray_id`, `description`, `created`, `modified`) VALUES
 	(1, 'KS-11', 2, 'Descr KM-11', '2012-03-11 13:30:14', '2012-04-01 10:50:18'),
 	(2, 'KM-11', 2, 'Desc KM-11', '2012-03-21 12:39:43', '2012-04-01 10:54:43'),
-	(3, 'TR-11', 2, 'Tactical rifle', '2012-04-01 10:49:17', '2012-04-01 10:49:17');
+	(3, 'TR-11', 2, 'Tactical rifle', '2012-04-01 10:49:17', '2012-04-01 10:49:17'),
+	(4, 'TOOL', 9, 'Tooling dev', '2012-05-29 06:59:49', '2012-05-29 07:00:24');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 
 
@@ -401,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.users: ~3 rows (approximately)
+-- Dumping data for table pdm.users: ~6 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `group_id`, `password`, `name`, `email`, `last_login`, `created`, `modified`) VALUES

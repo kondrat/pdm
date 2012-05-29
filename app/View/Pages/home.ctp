@@ -12,6 +12,10 @@
         <li><?php echo $this->Html->link(__('Tooling\'s Trays'), array('controller' => 'trays', 'action' => 'index',9)); ?></li>
         <li>Job cards</li>
         <li><?php echo $this->Html->link(__('Job Cards'), array('controller' => 'jobcards', 'action' => 'index')); ?></li>
+        <li>Projects</li>
+        <li><?php echo $this->Html->link(__('Projects'), array('controller' => 'projects', 'action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link(__('Projects Letter'), array('controller' => 'pletters', 'action' => 'index')); ?></li>
+     
     </ul>
 </div>
 <div class="actions">

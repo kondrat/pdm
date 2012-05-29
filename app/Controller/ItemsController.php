@@ -8,23 +8,20 @@ App::uses('AppController', 'Controller');
  * @property Item $Item
  */
 class ItemsController extends AppController {
-    
-    
     /*
      * before filter
      */
+
     public function beforeFilter() {
         parent::beforeFilter();
         //$this->Auth->allow(array('getItemsForPrj','getAtaCode'));
         $this->Auth->allow();
-        
-         if ($this->request->is('ajax')) {
-             $this->Security->validatePost = false;
-             $this->Security->csrfCheck = false;
-         } 
-        
-        
-    }    
+
+        if ($this->request->is('ajax')) {
+            $this->Security->validatePost = false;
+            $this->Security->csrfCheck = false;
+        }
+    }
 
     /**
      * index method
@@ -79,136 +76,107 @@ class ItemsController extends AppController {
             'conditions' => array('ItemsProject.project_id' => 1),
             'contain' => array(
                 //'Item'
-            'Item'=>array('SubItem')
+                'Item' => array('SubItem')
             )
                 )
         );
         $this->set('gg', $gg);
-        
-
     }
 
     private $projectItmes = array();
 
-    private $finalTree = array();
 
-    public function todel(){
-                $kk = $this->Item->Tray->find("threaded",
-                array(
-                    //'fields'=>array('Tray.id','Tray.name','Tray.parent_id'),
-                    'contain'=>'Item'
-                ));
-        $this->set('kk',$kk);
-        
+    /**
+     * Geting items in tree view
+     */
+
+    public function todel() {
+
+
         $neededProject = NULL;
+        //to get from url later
         $neededProject = 1;
-        $ll = $this->Item->find('all',array(
+        
+        //getting only items which belongs for choosen prj.
+        
+        $itemsForCurPrj = $this->Item->find('all', array(
             //'conditions'=>array('Item.id'=>21),
-            'fields'=>array('Item.id','Item.tray_id','Item.name','Item.drwnbr'),
-            'contain'=>array(
-                'SubItem'=>array('fields'=>array('SubItem.id','SubItem.tray_id','SubItem.name','SubItem.drwnbr')),
-                'Project'=>array('conditions'=>array('Project.id'=>$neededProject),'fields'=>array('Project.id'))
-                
-                )
-        ));
-        //$this->set('ll',$ll);
-        
-        //removing parts not from demanded project
-        
-        $newArray = array();
-        
-        foreach($ll as $k=>$v){
-            if($v['Project'] != array()){
-                
-               $tempArr = array();
-               
-               
-               $tempArr['Item'] = $v['Item'];
-               $tempArr['SubItem'] = array();;
-               
-               foreach($v['SubItem'] as $vp){
-                   $tempArr['SubItem'][] = $vp['id'];
-               }
-               
-               $newArray[] = $tempArr; 
-               
-            }
+            'fields' => array('Item.id', 'Item.tray_id', 'Item.name', 'Item.drwnbr'),
+            'contain' => array(
+                'SubItem' => array('fields' => array('SubItem.id', 'SubItem.tray_id', 'SubItem.name', 'SubItem.drwnbr')),
+                'Project' => array('conditions' => array('Project.id' => $neededProject), 'fields' => array('Project.id'))
+            )
+                ));
 
+        
+        //removing parts not from current project, consturcting new array with IDs on subItems.
+
+        $newArray = array();
+
+        foreach ($itemsForCurPrj as $k => $v) {
+            if ($v['Project'] != array()) {
+                $tempArr = array();
+                $tempArr['Item'] = $v['Item'];
+                $tempArr['SubItem'] = array();
+                
+                foreach ($v['SubItem'] as $vp) {
+                    $tempArr['SubItem'][] = $vp['id'];
+                }
+                $newArray[] = $tempArr;
+            }
         }
-        
-        $this->set('ll',$newArray);
-        
+
+        //$this->set('testToSeeItems', $newArray);
+
         $this->projectItmes = $newArray;
-        
+
         //make tree of items
-        
+
         $rootItem = NULL;
+        //to get in later from DB.
         $rootItemId = 23;
         $rootItemPos = NULL;
-        
-        //getting first tree Item fo final Tree
-        foreach ($newArray as $kk => $vv){
-            if($vv['Item']['id'] == $rootItemId){
-//                $this->finalTree[0]['Item'] = $vv['Item'];
-//                $this->finalTree[0]['Children'] = $vv['SubItem'];
+
+        //getting key of first tree Item for final Tree
+        foreach ($newArray as $kk => $vv) {
+            if ($vv['Item']['id'] == $rootItemId) {
                 $rootItemPos = $kk;
                 break;
             }
         }
-        
-        
-        //creating fo final tree
-       //debug($this->finalTree);
-        //debug($this->newM);
-        
-       
+
+
+        $newK = array(0 => array('Item' => $newArray[$rootItemPos]['Item'], 'SubItem' => $newArray[$rootItemPos]['SubItem']));
+
+        $itmesInTree[0] = $this->makeTree($newK[0]);
+        $this->set('itmesInTree', $itmesInTree);
+    }
+
+    private function makeTree($getChild = array()) {
+
+        $toWork = $getChild['SubItem'];
+        unset($getChild['SubItem']);
+        $res = $getChild;
+
+        foreach ($toWork as $k => $v) {
+
+            foreach ($this->projectItmes as $k2 => $v2) {
+
+                if ($v == $v2['Item']['id']) {
+
+                    $res['Child'][$k] = $this->makeTree($v2);
+
+                    break;
+                }
+            }
+        }
+
+        return $res;
+    }
+
+    
  
-       
-
-       
-       $newK = array(0=>array('Item'=>$newArray[$rootItemPos]['Item'],'SubItem'=>$newArray[$rootItemPos]['SubItem'] ));
-       
-       $lala[0] = $this->mT($newK[0]);
-       $this->set('lala',$lala);
-       
-    }  
-
-
-    private function mT($getChild = array()){
-        
-           $toWork = $getChild['SubItem'];
-           unset ($getChild['SubItem']);
-           $res = $getChild;
-        
-           foreach ($toWork as $k=>$v){
-               
-               foreach ($this->projectItmes as $k2=>$v2){
-                   
-                   if($v == $v2['Item']['id']){
-                       
-                       
-                       $res['Child'][$k] = $this->mT($v2);
-                       
-                       
-                       break;
-                   }
-               }
-           }
-
-           return $res;
-    }        
     
-
-
-
-
-    
-
-
-           
-
-
-   
     
     public function getItemsForPrj() {
         if ($this->request->is('ajax')) {
