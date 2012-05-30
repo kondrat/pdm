@@ -32,6 +32,16 @@
     color: red;
 }
 
+.item-pletter{
+    font-size: smaller;
+}
+.item-pletter select{
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
 
 .hideMe{
     display: none;
@@ -43,4 +53,5 @@
 .hideNode{
     color: red;
 }
+
 

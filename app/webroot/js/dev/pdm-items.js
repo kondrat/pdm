@@ -105,7 +105,7 @@ jQuery(document).ready(function(){
     /*
      * tipsy code
      */
-    $("#item-ataCodeTip, #item-drwNbrTip, #item-suffixTip, #item-issueTip").tipsy({
+    $("#item-ataCodeTip, #item-drwNbrTip, #item-suffixTip, #item-issueTip, #item-pLetterTip").tipsy({
         live:true,
         gravity: 's'
     });

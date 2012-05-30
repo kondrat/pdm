@@ -54,7 +54,9 @@ class Item extends AppModel {
         )
     );
     public $hasMany = array(
-        'ItemsProject'
+        'ItemsProject',
+        'Itemversion',
+        'Itemissue'
     );
 
 }

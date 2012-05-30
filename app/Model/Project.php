@@ -18,7 +18,8 @@ class Project extends AppModel {
             'foreignKey' => 'project_id'
         ),
 
-        'ItemsProject'
+        'ItemsProject',
+        'PlettersProject'
 
     );
 
@@ -46,8 +47,25 @@ class Project extends AppModel {
                 'finderQuery'            => '',
                 'deleteQuery'            => '',
                 'insertQuery'            => ''
-            )
-    );    
+            ),
+        'Pletter' => array(
+			'className' => 'Pletter',
+			'joinTable' => 'pletter_projects',
+			'foreignKey' => 'project_id',
+			'associationForeignKey' => 'pletter_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
+		)
+    ); 
+    
+    
     
 }
 ?>

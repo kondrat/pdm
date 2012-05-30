@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-05-29 16:10:13
+-- Date/time:                    2012-05-30 17:58:20
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -122,6 +122,23 @@ INSERT INTO `groups_users` (`id`, `group_id`, `user_id`) VALUES
 /*!40000 ALTER TABLE `groups_users` ENABLE KEYS */;
 
 
+-- Dumping structure for table pdm.itemissues
+DROP TABLE IF EXISTS `itemissues`;
+CREATE TABLE IF NOT EXISTS `itemissues` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(11) NOT NULL DEFAULT '0',
+  `issue` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.itemissues: ~0 rows (approximately)
+DELETE FROM `itemissues`;
+/*!40000 ALTER TABLE `itemissues` DISABLE KEYS */;
+/*!40000 ALTER TABLE `itemissues` ENABLE KEYS */;
+
+
 -- Dumping structure for table pdm.items
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
@@ -205,6 +222,23 @@ INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
 	(21, 31, 1),
 	(22, 32, 1);
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.itemversions
+DROP TABLE IF EXISTS `itemversions`;
+CREATE TABLE IF NOT EXISTS `itemversions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(11) NOT NULL DEFAULT '0',
+  `version` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.itemversions: ~0 rows (approximately)
+DELETE FROM `itemversions`;
+/*!40000 ALTER TABLE `itemversions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `itemversions` ENABLE KEYS */;
 
 
 -- Dumping structure for table pdm.item_types
@@ -308,15 +342,16 @@ CREATE TABLE IF NOT EXISTS `pletter` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.pletter: ~3 rows (approximately)
+-- Dumping data for table pdm.pletter: ~4 rows (approximately)
 DELETE FROM `pletter`;
 /*!40000 ALTER TABLE `pletter` DISABLE KEYS */;
 INSERT INTO `pletter` (`id`, `name`, `description`, `created`, `modified`) VALUES
 	(4, 'A', 'Rifle drawings', '2012-05-29 12:00:53', '2012-05-29 12:02:17'),
 	(5, 'R', 'R and D drowings', '2012-05-29 12:01:27', '2012-05-29 12:01:27'),
-	(6, 'T', 'tooling drawing', '2012-05-29 12:01:43', '2012-05-29 12:01:43');
+	(6, 'T', 'tooling drawing', '2012-05-29 12:01:43', '2012-05-29 12:01:43'),
+	(7, 'M', 'Manufacture drawings', '2012-05-30 12:29:06', '2012-05-30 12:29:06');
 /*!40000 ALTER TABLE `pletter` ENABLE KEYS */;
 
 
@@ -327,9 +362,9 @@ CREATE TABLE IF NOT EXISTS `pletter_projects` (
   `project_id` int(10) DEFAULT NULL,
   `pletter_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.pletter_projects: ~7 rows (approximately)
+-- Dumping data for table pdm.pletter_projects: ~10 rows (approximately)
 DELETE FROM `pletter_projects`;
 /*!40000 ALTER TABLE `pletter_projects` DISABLE KEYS */;
 INSERT INTO `pletter_projects` (`id`, `project_id`, `pletter_id`) VALUES
@@ -339,7 +374,10 @@ INSERT INTO `pletter_projects` (`id`, `project_id`, `pletter_id`) VALUES
 	(4, 1, 5),
 	(5, 2, 5),
 	(6, 3, 5),
-	(7, 4, 6);
+	(7, 4, 6),
+	(8, 1, 7),
+	(9, 2, 7),
+	(10, 3, 7);
 /*!40000 ALTER TABLE `pletter_projects` ENABLE KEYS */;
 
 

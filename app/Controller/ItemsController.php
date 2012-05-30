@@ -279,6 +279,9 @@ class ItemsController extends AppController {
 
         $subItems = $this->Item->find('list');
         $this->set(compact('subItems'));
+        
+
+        
     }
 
     /**
@@ -303,6 +306,31 @@ class ItemsController extends AppController {
                 return;
             }
 
+            //getting project letter
+            $prjId = 1;//$this->request->data["prjId"];
+            
+//            $pl = $this->Item->Project->PletterProject->find('all',
+//                    array(
+//                        'conditions'=>array('PletterProject.Project_id' => $prjId)
+//                    ));
+            
+            $pl = $this->Item->Project->Pletter->find('all',
+                    array(
+                        //'conditions'=>array('PletterProject.Project_id' => $prjId)
+                        'contain'=>array("Project"=>array('conditions'=>array('Project.id'=>$prjId)))
+                    ));
+            
+            $pletters = array();
+            //debug($pl);
+            foreach ($pl as $k => $v){
+                if($v["Project"] != array()){
+                    $pletters[$v['Pletter']['id']] = $v["Pletter"]["name"];
+                }
+            }
+            $this->set('pletters',($pletters));
+            
+            
+            
             $this->set('ataCache', $ataData['Tray']['ata_cache']);
             $this->set('itemType', $ataData['ItemType']['suffix']);
 
