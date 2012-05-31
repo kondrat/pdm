@@ -18,8 +18,8 @@ class ItemsController extends AppController {
         $this->Auth->allow();
 
         if ($this->request->is('ajax')) {
-            $this->Security->validatePost = false;
-            $this->Security->csrfCheck = false;
+            //$this->Security->validatePost = false;
+            //$this->Security->csrfCheck = false;
         }
     }
 
@@ -233,17 +233,21 @@ class ItemsController extends AppController {
         if ($this->request->is('post')) {
 
 
-
             //$this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
             $this->request->data["Item"]["tray_id"] = $this->request->data['Item']['tray'];
             $this->request->data["Project"]["id"] = $this->request->data["Item"]["projects"];
             $this->request->data["Item"]["drwnbr"] = $this->request->data['drwnbr'];
             $this->request->data["Item"]["name"] = $this->request->data['name'];
 
+            $this->request->data["Itemversion"]["version"] = "200";//$this->request->data['name'];
             //debug($this->request->data);
 
             $this->Item->create();
             if ($this->Item->save($this->request->data)) {
+                
+                $this->request->data["Itemversion"]["item_id"] = $this->Item->id;
+                $this->Item->Itemversion->save($this->request->data);
+                
                 $this->Session->setFlash(__('The item has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -277,10 +281,12 @@ class ItemsController extends AppController {
         $this->set(compact('trays'));
         $this->set('trayName', $trayName);
 
-        $subItems = $this->Item->find('list');
-        $this->set(compact('subItems'));
+        $itemTypes = $this->Item->ItemType->find('list');
+        $this->set('itemTypes',$itemTypes);
         
 
+        $itemVersions = $this->Item->Itemversion->find('all');
+        $this->set('itemversions',$itemVersions);
         
     }
 
@@ -334,8 +340,15 @@ class ItemsController extends AppController {
             $this->set('ataCache', $ataData['Tray']['ata_cache']);
             $this->set('itemType', $ataData['ItemType']['suffix']);
 
-            $subItems = $this->Item->find('list');
-            $this->set(compact('subItems'));
+            $subItems = $this->Item->Itemversion->find('all');
+            $subItemsVers = array();
+            foreach ($subItems as $k => $v){
+                $subItemsVers[$k] = $v['Item']['drwnbr'].' - '.$v['Itemversion']['version'].' ('.$v['Item']['name'].')';
+            }
+            
+            $this->set('subItemsVers',$subItemsVers);
+            
+
         }
     }
 

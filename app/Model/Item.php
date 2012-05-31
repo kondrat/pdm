@@ -51,6 +51,10 @@ class Item extends AppModel {
         'Tray' => array(
             'className' => 'Tray',
             'foreignKey' => 'tray_id'
+        ),
+        'ItemType'=>array(
+            'className' => 'ItemType',
+            'foreignKey' => 'item_type_id'
         )
     );
     public $hasMany = array(

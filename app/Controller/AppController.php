@@ -5,7 +5,7 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
     public $components = array(
-        'Security',
+        //'Security',
         'Session',
         'Cookie',
         'RequestHandler',
