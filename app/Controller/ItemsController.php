@@ -191,7 +191,7 @@ class ItemsController extends AppController {
                         //'conditions'=>array('Project.project_id'=>$prjId)
                         ));
 
-                debug($itemOfPrj);
+                //debug($itemOfPrj);
             } else {
                 return;
             }
@@ -222,6 +222,10 @@ class ItemsController extends AppController {
      */
     public function add() {
 
+        if (!isset ($this->params['named']['prj']) && $this->params['named']['prj'] == null) {
+            throw new NotFoundException(__('Invalid project'));
+        }
+        
         $trayId = $this->request->params['named']['trd'];
 
 
@@ -256,12 +260,12 @@ class ItemsController extends AppController {
         }
 
 
-        $projects = $this->Item->Project->find('list', array(
-            'condition' => array(),
-            'fields' => array('Project.id', 'Project.name'),
-            'contain' => false
-                ));
-        $this->set(compact('projects'));
+//        $projects = $this->Item->Project->find('list', array(
+//            'condition' => array(),
+//            'fields' => array('Project.id', 'Project.name'),
+//            'contain' => false
+//                ));
+        $this->set('projectId',$this->params['named']['prj']);
 
 
         $traysData = array();

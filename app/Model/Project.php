@@ -19,7 +19,7 @@ class Project extends AppModel {
         ),
 
         'ItemsProject',
-        'PlettersProject'
+        'PletterProject'
 
     );
 

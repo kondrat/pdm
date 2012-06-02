@@ -76,7 +76,7 @@ jQuery(document).ready(function(){
         });;
     }
 
-    func_getItem(item_currentPrjId);
+    //func_getItem(item_currentPrjId);
 
     $item_Prj.change(function(){
         $thisCurrentPrjId = $(this).val();

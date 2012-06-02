@@ -42,7 +42,17 @@
     vertical-align: middle;
 }
 
-
+form div.moretest{
+    float: left;
+}
+form div.moretest2{
+    float: left;
+    clear: none;
+}
+form div.wrap{
+    float: left;
+    width: 600px;
+}
 .hideMe{
     display: none;
 }

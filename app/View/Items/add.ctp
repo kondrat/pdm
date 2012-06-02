@@ -3,9 +3,24 @@
     <?php echo $this->Form->create('Item'); ?>
     <fieldset>
         <legend><?php echo __('Add New item to ') . $trayName; ?></legend>
-        <?php echo $this->Form->input('projects', array()); ?>
-        <?php echo $this->Form->input('tray', array("id" => "item-trayListAdd")); ?>
-        <?php echo $this->Form->input('ItemType');?>
+        <?php echo $this->Form->input('project', array(
+            'value'=>$projectId,
+            'type'=>'hidden'          
+        )); ?>
+        <div class="wrap">
+            <div class="moretest">
+                <?php echo $this->Form->input('tray', array(
+                    "id" => "item-trayListAdd",
+                    'class'=>'test',
+                    'div'=>FALSE
+                    )); ?>
+            </div>
+            <div class="moretest2">
+                <?php echo $this->Form->input('ItemType',array(
+                     'div'=>FALSE
+                ));?>
+            </div>
+        </div>
         <div id="tem"></div>
 
     </fieldset>
