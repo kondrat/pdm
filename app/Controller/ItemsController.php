@@ -286,12 +286,6 @@ class ItemsController extends AppController {
         $this->set(compact('trays'));
         $this->set('trayName', $trayName);
 
-        $itemTypes = $this->Item->ItemType->find('list');
-        $this->set('itemTypes',$itemTypes);
-        
-
-        //$itemVersions = $this->Item->Itemversion->find('all');
-        //$this->set('itemversions',$itemVersions);
         
     }
 
@@ -354,8 +348,12 @@ class ItemsController extends AppController {
             }
             
             $this->set('subItemsVers',$subItemsVers);
-            
 
+            $itemTypes = $this->Item->ItemType->find('list');
+            $this->set('itemTypes',$itemTypes);
+            $itemSuffixes = $this->Item->ItemType->find('list', array('fields' => array('ItemType.id', 'ItemType.suffix')));
+            $itemSuffixes = json_encode($itemSuffixes);
+            $this->set('itemSuffixes', $itemSuffixes);
         }
     }
 

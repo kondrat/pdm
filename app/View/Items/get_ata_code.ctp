@@ -18,8 +18,15 @@
             "title" => "Drawing Number, 5 digits"));
         echo $this->Form->input('ata',array('type'=>'hidden','value'=>$ataCache));
         ?>-
-    <span id="item-suffixTip" title="Suffix"><?php echo $itemType; ?></span> - <span id="item-issueTip" title="Issue: new drawing under development">A01</span>
+    <span id="item-suffixTip" title="Suffix" data-itemSuffixs = <?php echo $itemSuffixes;?>><?php echo $itemType; ?></span> - <span id="item-issueTip" title="Issue: new drawing under development">A01</span>
     <span id="item-drwNbrCounter" class="item-drwNumberCounter">5</span>
 </div>
+                <div class="moretest2">
+                <?php echo $this->Form->input('ItemType',array(
+                     'div'=>FALSE,
+                    'label'=>FALSE,
+                    'id'=>'item-ItemType'
+                ));?>
+            </div>
 
 <?php echo $this->Form->input('name', array("class" => "item-addNewItemName")); ?>

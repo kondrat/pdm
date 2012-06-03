@@ -5,6 +5,7 @@
 jQuery(document).ready(function(){
     
     var $item_Tray = $("#item-trayListAdd");
+    var traySuffixData;
     
     $item_Tray.change(function(){
         
@@ -30,6 +31,8 @@ jQuery(document).ready(function(){
                         strictMax: false,
                         overClass: 'item-drwNbrTipOver'
                     });
+                    
+                    traySuffixData = $("#titem-suffixTip").data("itemsuffixs");
                     
                 }
                 
@@ -101,7 +104,35 @@ jQuery(document).ready(function(){
             el.addClass("hideMe");
         }
     });
+
+
+    // Item type suffix managent
+    //var traySuffixData = $("#titem-suffixTip").data("itemsuffixs");
+    var suffixVal = $("#item-ItemType").val();
     
+    if(traySuffixData != undefined){
+        //console.log(traySuffixData);
+        $.each(traySuffixData,function(index){
+            if(index == suffixVal){
+                var siffixText = this+'';
+                $("#titem-suffixTip").text(siffixText);
+                return;
+            }
+        });
+    
+        $("#item-ItemType").change(function(){
+            var thisVal = $(this).val();
+            $.each(traySuffixData,function(index){
+            
+                if(index == thisVal){
+                    //alert(this);
+                    var siffixText = this+'';
+                    $("#item-suffixTip").text(siffixText);
+                    return;
+                }
+            });       
+        });
+    }
     /*
      * tipsy code
      */

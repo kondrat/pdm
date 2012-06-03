@@ -15,11 +15,7 @@
                     'div'=>FALSE
                     )); ?>
             </div>
-            <div class="moretest2">
-                <?php echo $this->Form->input('ItemType',array(
-                     'div'=>FALSE
-                ));?>
-            </div>
+
         </div>
         <div id="tem"></div>
 

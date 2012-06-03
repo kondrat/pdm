@@ -48,6 +48,7 @@ form div.moretest{
 form div.moretest2{
     float: left;
     clear: none;
+    margin-left: 12px;
 }
 form div.wrap{
     float: left;
