@@ -1,3 +1,11 @@
+
+<?php if(isset($subItemsVers) && $subItemsVers == array() ):?>
+    <div><?php echo 'You must create upper assembly first';?></div>
+<?php else: ?>
+    <?php  echo $this->Form->input('SubItemsVer',array('label'=>'Upper assy','empty'=>'choose one'));?>
+<?php endif ?>
+
+
 <div class="item-newItemNbr">
     <span id="item-pLetterTip" title="Project Letter" class="item-pletter">
         <?php echo $this->Form->input('Pletter',array('label'=>false,'div'=>false)) ;?>
@@ -15,4 +23,3 @@
 </div>
 
 <?php echo $this->Form->input('name', array("class" => "item-addNewItemName")); ?>
-<?php echo $this->Form->input('SubItemsVer'); ?>

@@ -2,7 +2,7 @@
 
     <?php echo $this->Form->create('Item'); ?>
     <fieldset>
-        <legend><?php echo __('Add New item to ') . $trayName; ?></legend>
+        <legend><?php echo __('Add New item to ') . $trayName.' '.$projectName; ?></legend>
         <?php echo $this->Form->input('project', array(
             'value'=>$projectId,
             'type'=>'hidden'          

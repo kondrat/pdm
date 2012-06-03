@@ -260,11 +260,12 @@ class ItemsController extends AppController {
         }
 
 
-//        $projects = $this->Item->Project->find('list', array(
-//            'condition' => array(),
-//            'fields' => array('Project.id', 'Project.name'),
-//            'contain' => false
-//                ));
+        $project = $this->Item->Project->find('first', array(
+            'condition' => array('Project.id'=>$this->params['named']['prj']),
+            'fields' => array('Project.id', 'Project.name'),
+            'contain' => false
+                ));
+        $this->set('projectName',$project['Project']['name']);
         $this->set('projectId',$this->params['named']['prj']);
 
 
@@ -289,8 +290,8 @@ class ItemsController extends AppController {
         $this->set('itemTypes',$itemTypes);
         
 
-        $itemVersions = $this->Item->Itemversion->find('all');
-        $this->set('itemversions',$itemVersions);
+        //$itemVersions = $this->Item->Itemversion->find('all');
+        //$this->set('itemversions',$itemVersions);
         
     }
 
@@ -344,7 +345,9 @@ class ItemsController extends AppController {
             $this->set('ataCache', $ataData['Tray']['ata_cache']);
             $this->set('itemType', $ataData['ItemType']['suffix']);
 
-            $subItems = $this->Item->Itemversion->find('all');
+            $subItems = $this->Item->Itemversion->find('all',array(
+                //'conditions'=>array('Itemversion.id'=>111)
+            ));
             $subItemsVers = array();
             foreach ($subItems as $k => $v){
                 $subItemsVers[$k] = $v['Item']['drwnbr'].' - '.$v['Itemversion']['version'].' ('.$v['Item']['name'].')';

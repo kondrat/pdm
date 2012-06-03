@@ -52,6 +52,8 @@ form div.moretest2{
 form div.wrap{
     float: left;
     width: 600px;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 .hideMe{
     display: none;
