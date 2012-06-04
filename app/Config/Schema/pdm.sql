@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-05-31 17:55:54
+-- Date/time:                    2012-06-04 17:55:58
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -145,6 +145,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tray_id` int(11) DEFAULT NULL,
   `item_type_id` int(11) DEFAULT NULL,
+  `responscode_id` int(11) DEFAULT NULL,
   `status_id` int(11) DEFAULT NULL,
   `drwnbr` varchar(36) NOT NULL DEFAULT '',
   `name` varchar(36) DEFAULT NULL,
@@ -156,20 +157,20 @@ CREATE TABLE IF NOT EXISTS `items` (
 -- Dumping data for table pdm.items: 13 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `status_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
-	(30, 27, NULL, NULL, 'A00-second1-000', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
-	(29, 27, NULL, NULL, 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
-	(28, 27, NULL, NULL, 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
-	(27, 27, NULL, NULL, 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
-	(26, 3, NULL, NULL, 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
-	(25, 27, NULL, NULL, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
-	(24, 5, NULL, NULL, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
-	(23, 3, NULL, NULL, 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
-	(31, 27, NULL, NULL, 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
-	(32, 27, NULL, NULL, 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02'),
-	(33, 3, NULL, NULL, 'sdf', '', '2012-05-31 11:09:04', '2012-05-31 11:09:04'),
-	(34, 5, NULL, NULL, 'asd', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
-	(35, 27, NULL, NULL, 'A-140-12456', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38');
+INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `responscode_id`, `status_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
+	(30, 27, NULL, NULL, NULL, 'A00-second1-000', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
+	(29, 27, NULL, NULL, NULL, 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
+	(28, 27, NULL, NULL, NULL, 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
+	(27, 27, NULL, NULL, NULL, 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
+	(26, 3, NULL, NULL, NULL, 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
+	(25, 27, NULL, NULL, NULL, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
+	(24, 5, NULL, NULL, NULL, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
+	(23, 3, NULL, NULL, NULL, 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
+	(31, 27, NULL, NULL, NULL, 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
+	(32, 27, NULL, NULL, NULL, 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02'),
+	(33, 3, NULL, NULL, NULL, 'sdf', '', '2012-05-31 11:09:04', '2012-05-31 11:09:04'),
+	(34, 5, NULL, NULL, NULL, 'asd', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
+	(35, 27, NULL, NULL, NULL, 'A-140-12456', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -449,6 +450,28 @@ CREATE TABLE IF NOT EXISTS `project_plans` (
 DELETE FROM `project_plans`;
 /*!40000 ALTER TABLE `project_plans` DISABLE KEYS */;
 /*!40000 ALTER TABLE `project_plans` ENABLE KEYS */;
+
+
+-- Dumping structure for table pdm.responscode
+DROP TABLE IF EXISTS `responscode`;
+CREATE TABLE IF NOT EXISTS `responscode` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) DEFAULT NULL,
+  `description` varchar(256) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- Dumping data for table pdm.responscode: ~0 rows (approximately)
+DELETE FROM `responscode`;
+/*!40000 ALTER TABLE `responscode` DISABLE KEYS */;
+INSERT INTO `responscode` (`id`, `name`, `description`, `created`, `modified`) VALUES
+	(1, '0', 'TADS in house', '2012-06-04 11:06:16', '2012-06-04 11:06:16'),
+	(2, '1', 'TPI responsable', '2012-06-04 11:06:47', '2012-06-04 11:06:47'),
+	(3, '2', 'Outside, in UAE', '2012-06-04 11:07:13', '2012-06-04 11:07:13'),
+	(4, '3', 'Outside UAE', '2012-06-04 11:07:25', '2012-06-04 11:07:25');
+/*!40000 ALTER TABLE `responscode` ENABLE KEYS */;
 
 
 -- Dumping structure for table pdm.trays

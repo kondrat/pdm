@@ -5,7 +5,7 @@
 jQuery(document).ready(function(){
     
     var $item_Tray = $("#item-trayListAdd");
-    var traySuffixData;
+
     
     $item_Tray.change(function(){
         
@@ -32,7 +32,7 @@ jQuery(document).ready(function(){
                         overClass: 'item-drwNbrTipOver'
                     });
                     
-                    traySuffixData = $("#titem-suffixTip").data("itemsuffixs");
+                    
                     
                 }
                 
@@ -106,13 +106,16 @@ jQuery(document).ready(function(){
     });
 
 
-    // Item type suffix managent
-    //var traySuffixData = $("#titem-suffixTip").data("itemsuffixs");
+    /**
+     * Item type suffix managent
+     */
+    
+    var itemSuffixData = $("#item-suffixTip").data("itemsuffixs");
     var suffixVal = $("#item-ItemType").val();
     
-    if(traySuffixData != undefined){
+    if(itemSuffixData != undefined){
         //console.log(traySuffixData);
-        $.each(traySuffixData,function(index){
+        $.each(itemSuffixData,function(index){
             if(index == suffixVal){
                 var siffixText = this+'';
                 $("#titem-suffixTip").text(siffixText);
@@ -121,8 +124,9 @@ jQuery(document).ready(function(){
         });
     
         $("#item-ItemType").change(function(){
+            
             var thisVal = $(this).val();
-            $.each(traySuffixData,function(index){
+            $.each(itemSuffixData,function(index){
             
                 if(index == thisVal){
                     //alert(this);
@@ -136,9 +140,9 @@ jQuery(document).ready(function(){
     /*
      * tipsy code
      */
-    $("#item-ataCodeTip, #item-drwNbrTip, #item-suffixTip, #item-issueTip, #item-pLetterTip").tipsy({
+    $("#item-ataCodeTip, #item-drwNbrTip, #item-suffixTip, #item-issueTip, #item-pLetterTip, #item-resCodeTip").tipsy({
         live:true,
-        gravity: 's'
+        gravity: 'n'
     });
 //$("#item-test").tipsy();
 });

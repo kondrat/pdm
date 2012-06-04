@@ -55,7 +55,8 @@ class Item extends AppModel {
         'ItemType'=>array(
             'className' => 'ItemType',
             'foreignKey' => 'item_type_id'
-        )
+        ),
+        'Responscode'
     );
     public $hasMany = array(
         'ItemsProject',

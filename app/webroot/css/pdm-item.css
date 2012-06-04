@@ -11,6 +11,10 @@
     font-size: large; 
     position: relative;
 }
+.item-newItemNbrDis{
+    color: lightgray;
+    background-color: #eee;
+}
 .item-addNewItemNbr{
     font-size: smaller;
     margin: 0 10px;
@@ -31,7 +35,10 @@
 .item-drwNbrTipOver{
     color: red;
 }
-
+.item-respCode select{
+    vertical-align: middle;
+    font-size: smaller;
+}
 .item-pletter{
     font-size: smaller;
 }
@@ -41,6 +48,7 @@
     padding: 0;
     vertical-align: middle;
 }
+
 
 form div.moretest{
     float: left;

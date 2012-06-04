@@ -85,20 +85,18 @@ class ItemsController extends AppController {
 
     private $projectItmes = array();
 
-
     /**
      * Geting items in tree view
      */
-
     public function todel() {
 
 
         $neededProject = NULL;
         //to get from url later
         $neededProject = 1;
-        
+
         //getting only items which belongs for choosen prj.
-        
+
         $itemsForCurPrj = $this->Item->find('all', array(
             //'conditions'=>array('Item.id'=>21),
             'fields' => array('Item.id', 'Item.tray_id', 'Item.name', 'Item.drwnbr'),
@@ -108,7 +106,7 @@ class ItemsController extends AppController {
             )
                 ));
 
-        
+
         //removing parts not from current project, consturcting new array with IDs on subItems.
 
         $newArray = array();
@@ -118,7 +116,7 @@ class ItemsController extends AppController {
                 $tempArr = array();
                 $tempArr['Item'] = $v['Item'];
                 $tempArr['SubItem'] = array();
-                
+
                 foreach ($v['SubItem'] as $vp) {
                     $tempArr['SubItem'][] = $vp['id'];
                 }
@@ -174,10 +172,6 @@ class ItemsController extends AppController {
         return $res;
     }
 
-    
- 
-    
-    
     public function getItemsForPrj() {
         if ($this->request->is('ajax')) {
 
@@ -221,19 +215,26 @@ class ItemsController extends AppController {
      * @return void
      */
     public function add() {
+        /**
+         * checking params named
+         */
+        $prjId = $this->params['named']['prj'];
+        $this->Item->Project->id = $prjId;
 
-        if (!isset ($this->params['named']['prj']) && $this->params['named']['prj'] == null) {
+        if (!$this->Item->Project->exists()) {
             throw new NotFoundException(__('Invalid project'));
         }
-        
+
         $trayId = $this->request->params['named']['trd'];
-
-
         $this->Item->Tray->id = $trayId;
+
         if (!$this->Item->Tray->exists()) {
             throw new NotFoundException(__('Invalid tray'));
         }
 
+        /**
+         * workign with the post datas
+         */
         if ($this->request->is('post')) {
 
 
@@ -243,15 +244,15 @@ class ItemsController extends AppController {
             $this->request->data["Item"]["drwnbr"] = $this->request->data['drwnbr'];
             $this->request->data["Item"]["name"] = $this->request->data['name'];
 
-            $this->request->data["Itemversion"]["version"] = "200";//$this->request->data['name'];
+            $this->request->data["Itemversion"]["version"] = "200"; //$this->request->data['name'];
             //debug($this->request->data);
 
             $this->Item->create();
             if ($this->Item->save($this->request->data)) {
-                
+
                 $this->request->data["Itemversion"]["item_id"] = $this->Item->id;
                 $this->Item->Itemversion->save($this->request->data);
-                
+
                 $this->Session->setFlash(__('The item has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -259,16 +260,23 @@ class ItemsController extends AppController {
             }
         }
 
-
+        /**
+         * setting needed data for view
+         */
+        /**
+         * setting params named for project
+         */
         $project = $this->Item->Project->find('first', array(
-            'condition' => array('Project.id'=>$this->params['named']['prj']),
+            'conditions' => array('Project.id' => $this->params['named']['prj']),
             'fields' => array('Project.id', 'Project.name'),
             'contain' => false
                 ));
-        $this->set('projectName',$project['Project']['name']);
-        $this->set('projectId',$this->params['named']['prj']);
+        $this->set('projectName', $project['Project']['name']);
+        $this->set('projectId', $this->params['named']['prj']);
 
-
+        /**
+         * setting params named for tray
+         */
         $traysData = array();
         $riflesTrays = array();
 
@@ -286,13 +294,81 @@ class ItemsController extends AppController {
         $this->set(compact('trays'));
         $this->set('trayName', $trayName);
 
+        /**
+         * setting params named for ItemVersions (upper assy for item to be added
+         */
+        $subItems = $this->Item->Itemversion->find('all', array(
+                //'conditions'=>array('Itemversion.id'=>111)
+                ));
+        $subItemsVers = array();
+        foreach ($subItems as $k => $v) {
+            $subItemsVers[$k] = $v['Item']['drwnbr'] . ' - ' . $v['Itemversion']['version'] . ' (' . $v['Item']['name'] . ')';
+        }
+
+        $this->set('subItemsVers', $subItemsVers);
+
+        /**
+         * setting params named for project letter
+         */
+        $pl = $this->Item->Project->Pletter->find('all', array(
+            'contain' => array("Project" => array('conditions' => array('Project.id' => $prjId)))
+                ));
+
+        $pletters = array();
+        //debug($pl);
+        foreach ($pl as $k => $v) {
+            if ($v["Project"] != array()) {
+                $pletters[$v['Pletter']['id']] = $v["Pletter"]["name"];
+            }
+        }
+        $this->set('pletters', ($pletters));
+
+        /**
+         * setting params responablity code
+         */
+        
+        $responscodes = $this->Item->Responscode->find('list');
+        //debug($Responscode);
+        $this->set('responscodes',$responscodes);
+        
+        /**
+         * setting params named for ata code
+         */
+        $ataData = array();
+        $ataId = null;
+
+        $ataId = $this->request->params['named']['trd'];
+
+        if ($ataId != null) {
+
+            $ataData = $this->Item->Tray->find('first', array(
+                'conditions' => array('Tray.id' => $ataId)
+                    ));
+
+            //debug($ataData);
+        } else {
+            return;
+        }
+        
+        $this->set('ataCache', $ataData['Tray']['ata_cache']);
+        $this->set('itemType', $ataData['ItemType']['suffix']);
+        
+        /**
+         * setting params named item suffix
+         */
+            $itemTypes = $this->Item->ItemType->find('list');
+            $this->set('itemTypes', $itemTypes);
+            $itemSuffixes = $this->Item->ItemType->find('list', array('fields' => array('ItemType.id', 'ItemType.suffix')));
+            $itemSuffixes = json_encode($itemSuffixes);
+            $this->set('itemSuffixes', $itemSuffixes);        
         
     }
 
     /**
-     * 
+     * providing ata code to drw number creating
      */
     public function getAtaCode() {
+        
         if ($this->request->is('ajax')) {
 
             $ataData = array();
@@ -311,49 +387,21 @@ class ItemsController extends AppController {
                 return;
             }
 
-            //getting project letter
-            $prjId = 1;//$this->request->data["prjId"];
-            
-//            $pl = $this->Item->Project->PletterProject->find('all',
-//                    array(
-//                        'conditions'=>array('PletterProject.Project_id' => $prjId)
-//                    ));
-            
-            $pl = $this->Item->Project->Pletter->find('all',
-                    array(
-                        //'conditions'=>array('PletterProject.Project_id' => $prjId)
-                        'contain'=>array("Project"=>array('conditions'=>array('Project.id'=>$prjId)))
-                    ));
-            
-            $pletters = array();
-            //debug($pl);
-            foreach ($pl as $k => $v){
-                if($v["Project"] != array()){
-                    $pletters[$v['Pletter']['id']] = $v["Pletter"]["name"];
-                }
-            }
-            $this->set('pletters',($pletters));
-            
-            
-            
             $this->set('ataCache', $ataData['Tray']['ata_cache']);
-            $this->set('itemType', $ataData['ItemType']['suffix']);
+            //$this->set('itemType', $ataData['ItemType']['suffix']);
 
-            $subItems = $this->Item->Itemversion->find('all',array(
-                //'conditions'=>array('Itemversion.id'=>111)
-            ));
-            $subItemsVers = array();
-            foreach ($subItems as $k => $v){
-                $subItemsVers[$k] = $v['Item']['drwnbr'].' - '.$v['Itemversion']['version'].' ('.$v['Item']['name'].')';
-            }
             
-            $this->set('subItemsVers',$subItemsVers);
+            $subItems = $this->Item->Itemversion->find('all', array(
+                    //'conditions'=>array('Itemversion.id'=>111)
+                    ));
+            $subItemsVers = array();
+            foreach ($subItems as $k => $v) {
+                $subItemsVers[$k] = $v['Item']['drwnbr'] . ' - ' . $v['Itemversion']['version'] . ' (' . $v['Item']['name'] . ')';
+            }
 
-            $itemTypes = $this->Item->ItemType->find('list');
-            $this->set('itemTypes',$itemTypes);
-            $itemSuffixes = $this->Item->ItemType->find('list', array('fields' => array('ItemType.id', 'ItemType.suffix')));
-            $itemSuffixes = json_encode($itemSuffixes);
-            $this->set('itemSuffixes', $itemSuffixes);
+            $this->set('subItemsVers', $subItemsVers);
+
+
         }
     }
 
