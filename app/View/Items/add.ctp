@@ -15,13 +15,14 @@
                 echo $this->Form->input('tray', array(
                     "id" => "item-trayListAdd",
                     'class' => 'test',
-                    'div' => FALSE
+                    'div' => FALSE,
+                    'empty'=>'choose one'
                 ));
                 ?>
             </div>
 
         </div>
-        <div id="tem_to_change">
+        <div id="tem_to_change" style="display: none;">
 
             <?php if (isset($subItemsVers) && $subItemsVers == array()): ?>
                 <div><?php echo 'You must create upper assembly first'; ?></div>
@@ -33,7 +34,7 @@
                     'disabled' => TRUE
                 ));
                 ?>
-<?php endif ?>
+            <?php endif ?>
 
 
             <div class="item-newItemNbr  item-newItemNbrDis">
@@ -79,15 +80,15 @@
                 'disabled'=>TRUE
                 )); ?>        
 
-        </div>
+ 
 
 
 
 
-<?php echo $this->Form->end(__('Submit')); ?>
+            <?php echo $this->Form->end(__('Submit')); ?>
 
     </fieldset>
-
+      
 
 </div>
 <div class="actions">

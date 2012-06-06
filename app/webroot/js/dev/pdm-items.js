@@ -9,6 +9,11 @@ jQuery(document).ready(function(){
     
     $item_Tray.change(function(){
         
+        $("#tem_to_change").css({"display":"block"});
+        
+        $("select").prop('disabled', false);
+
+        
         var thisTray = $(this);
         
         $.ajax({
@@ -16,7 +21,8 @@ jQuery(document).ready(function(){
             url: "\/items\/getAtaCode",
             type: "POST",
             data: {
-                "data[ataId]":thisTray.val()       
+                "data[ataId]":thisTray.val(),
+                "data[prjId]":$("#ItemProject").val()
             },
             success:function (data) {               
                 //console.log(data)

@@ -10,6 +10,7 @@
     float: left;
     font-size: large; 
     position: relative;
+    margin-left: 7px;
 }
 .item-newItemNbrDis{
     color: lightgray;
@@ -38,8 +39,7 @@
 .item-respCode select{
     vertical-align: middle;
     font-size: smaller;
-}
-.item-pletter{
+}.item-pletter{
     font-size: smaller;
 }
 .item-pletter select{

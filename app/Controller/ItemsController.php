@@ -375,7 +375,9 @@ class ItemsController extends AppController {
             $ataId = null;
 
             $ataId = $this->request->data["ataId"];
+            $prjId = $this->request->data["prjId"];
 
+            
             if ($ataId != null) {
 
                 $ataData = $this->Item->Tray->find('first', array(
@@ -387,13 +389,23 @@ class ItemsController extends AppController {
                 return;
             }
 
-            $this->set('ataCache', $ataData['Tray']['ata_cache']);
-            //$this->set('itemType', $ataData['ItemType']['suffix']);
+            //$this->set('ataCache', $ataData['Tray']['ata_cache']);
+            
+            $items = $this->Item->find('all',array(
+                //'conditions'=>array('Item.id'=>34),
+                'contain'=>array(
+                    'Project'=>array('conditions'=>array('Project.id'=>$prjId)),
+                    'Itemversion'
+                    )
+            ));
+            debug($items);
 
             
             $subItems = $this->Item->Itemversion->find('all', array(
                     //'conditions'=>array('Itemversion.id'=>111)
+                    
                     ));
+            debug($subItems);
             $subItemsVers = array();
             foreach ($subItems as $k => $v) {
                 $subItemsVers[$k] = $v['Item']['drwnbr'] . ' - ' . $v['Itemversion']['version'] . ' (' . $v['Item']['name'] . ')';
