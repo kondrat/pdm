@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
         var thisTray = $(this);
         
         $.ajax({
-            dataType:"html",
+            dataType:"json",
             url: "\/items\/getAtaCode",
             type: "POST",
             data: {
@@ -25,18 +25,18 @@ jQuery(document).ready(function(){
                 "data[prjId]":$("#ItemProject").val()
             },
             success:function (data) {               
-                //console.log(data)
+                console.log(data)
                 if(data) {
                     
-                    $("#tem").empty().append(data);
+                    //$("#tem").empty().append(data);
                     
                     // Countablel plugin code                   
-                    $("#item-drwNbrTip").simplyCountable({
-                        counter: '#item-drwNbrCounter',
-                        maxCount: 5,
-                        strictMax: false,
-                        overClass: 'item-drwNbrTipOver'
-                    });
+//                    $("#item-drwNbrTip").simplyCountable({
+//                        counter: '#item-drwNbrCounter',
+//                        maxCount: 5,
+//                        strictMax: false,
+//                        overClass: 'item-drwNbrTipOver'
+//                    });
                     
                     
                     

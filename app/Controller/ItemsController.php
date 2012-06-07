@@ -370,29 +370,61 @@ class ItemsController extends AppController {
     public function getAtaCode() {
         
         if ($this->request->is('ajax')) {
-
+            
+            Configure::write('debug', 0);
+            $this->autoLayout = false;
+            $this->autoRender = FALSE;
+            
             $ataData = array();
             $ataId = null;
 
             $ataId = $this->request->data["ataId"];
             $prjId = $this->request->data["prjId"];
 
-            
-            if ($ataId != null) {
+                $this->Item->Project->id = $prjId;
+                if (!$this->Item->Project->exists()) {
+                    //add invalid project
+                    return;
+                }
+                
+                
+                $this->Item->Tray->id = $ataId;
+                if (!$this->Item->Tray->exists()) {
+                    //add invalid tray
+                    return;
+                }
+                
 
-                $ataData = $this->Item->Tray->find('first', array(
-                    'conditions' => array('Tray.id' => $ataId)
-                        ));
+                
 
-                //debug($ataData);
-            } else {
-                return;
-            }
+                $parentTray = $this->Item->Tray->getParentNode($ataId);
+               
+                if($parentTray['Tray']['id'] == 'root tray id'){
+                    $rootTray = TRUE;
+                } else {
+                    $rootTray = FALSE;
+                }
+                
+                $toReturn['rootTray'] = $rootTray;
+                $toReturn = json_encode($toReturn);
+                return $toReturn;
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+                
+ 
 
             //$this->set('ataCache', $ataData['Tray']['ata_cache']);
             
             $items = $this->Item->find('all',array(
-                //'conditions'=>array('Item.id'=>34),
+                'conditions'=>array('Item.id'=>array($ataId,$parentTray['Tray']['id'])),
                 'contain'=>array(
                     'Project'=>array('conditions'=>array('Project.id'=>$prjId)),
                     'Itemversion'
@@ -400,12 +432,19 @@ class ItemsController extends AppController {
             ));
             debug($items);
 
+            $itemsRes = array();
+            foreach ($items as $k=>$v){
+                if($v['Project'] != array()){
+                    $itemsRes[] = $v;
+                }
+            }
+            debug($itemsRes);
             
             $subItems = $this->Item->Itemversion->find('all', array(
                     //'conditions'=>array('Itemversion.id'=>111)
                     
                     ));
-            debug($subItems);
+            //debug($subItems);
             $subItemsVers = array();
             foreach ($subItems as $k => $v) {
                 $subItemsVers[$k] = $v['Item']['drwnbr'] . ' - ' . $v['Itemversion']['version'] . ' (' . $v['Item']['name'] . ')';
