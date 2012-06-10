@@ -28,14 +28,14 @@
                 <div><?php echo 'You must create upper assembly first'; ?></div>
             <?php else: ?>
                 <?php
-                    if($parentTray == FALSE){
+                    if(isset($parentTray) && $parentTray == FALSE){
                         echo $this->Form->input('SubItemsVer', array(
                             'label' => 'Upper assy',
                             'empty' => 'choose one',
                             'disabled' => TRUE
                         ));
                     } else {
-                        echo __('Create a root Assy');
+                        echo '<div>'.__('Create a root Assy').'</div>';
                     }
                 
                 ?>

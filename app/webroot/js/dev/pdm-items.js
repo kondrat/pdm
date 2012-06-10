@@ -37,9 +37,7 @@ jQuery(document).ready(function(){
 //                        strictMax: false,
 //                        overClass: 'item-drwNbrTipOver'
 //                    });
-                    
-                    
-                    
+                                       
                 }
                 
             },
