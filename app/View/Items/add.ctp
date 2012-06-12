@@ -24,22 +24,7 @@
         </div>
         <div id="tem_to_change" style="display: none;">
 
-            <?php if (isset($subItemsVers) && $subItemsVers == array()): ?>
-                <div><?php echo 'You must create upper assembly first'; ?></div>
-            <?php else: ?>
-                <?php
-                    if(isset($parentTray) && $parentTray == FALSE){
-                        echo $this->Form->input('SubItemsVer', array(
-                            'label' => 'Upper assy',
-                            'empty' => 'choose one',
-                            'disabled' => TRUE
-                        ));
-                    } else {
-                        echo '<div>'.__('Create a root Assy').'</div>';
-                    }
-                
-                ?>
-            <?php endif ?>
+            <div id="item-upperAssy"></div>
 
 
             <div class="item-newItemNbr  item-newItemNbrDis">

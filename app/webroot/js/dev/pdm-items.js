@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
         var thisTray = $(this);
         
         $.ajax({
-            dataType:"json",
+            dataType:"html",
             url: "\/items\/getAtaCode",
             type: "POST",
             data: {
@@ -28,6 +28,8 @@ jQuery(document).ready(function(){
                 console.log(data)
                 if(data) {
                     
+                    
+                    $("#item-upperAssy").empty().append(data);
                     //$("#tem").empty().append(data);
                     
                     // Countablel plugin code                   

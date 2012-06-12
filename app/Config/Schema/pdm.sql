@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-06-04 17:55:58
+-- Date/time:                    2012-06-12 17:43:51
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -158,19 +158,19 @@ CREATE TABLE IF NOT EXISTS `items` (
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `responscode_id`, `status_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
-	(30, 27, NULL, NULL, NULL, 'A00-second1-000', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
-	(29, 27, NULL, NULL, NULL, 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
-	(28, 27, NULL, NULL, NULL, 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
-	(27, 27, NULL, NULL, NULL, 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
-	(26, 3, NULL, NULL, NULL, 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
-	(25, 27, NULL, NULL, NULL, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
-	(24, 5, NULL, NULL, NULL, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
-	(23, 3, NULL, NULL, NULL, 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
-	(31, 27, NULL, NULL, NULL, 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
-	(32, 27, NULL, NULL, NULL, 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02'),
-	(33, 3, NULL, NULL, NULL, 'sdf', '', '2012-05-31 11:09:04', '2012-05-31 11:09:04'),
-	(34, 5, NULL, NULL, NULL, 'asd', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
-	(35, 27, NULL, NULL, NULL, 'A-140-12456', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38');
+	(30, 27, 1, NULL, NULL, 'A00-second1-000', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
+	(29, 27, 1, NULL, NULL, 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
+	(28, 27, 1, NULL, NULL, 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
+	(27, 27, 1, NULL, NULL, 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
+	(26, 3, 1, NULL, NULL, 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
+	(25, 27, 1, NULL, NULL, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
+	(24, 5, 1, NULL, NULL, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
+	(23, 3, 1, NULL, NULL, 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
+	(31, 27, 1, NULL, NULL, 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
+	(32, 27, 1, NULL, NULL, 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02'),
+	(33, 3, 1, NULL, NULL, 'sdf', '', '2012-05-31 11:09:04', '2012-05-31 11:09:04'),
+	(34, 5, 1, NULL, NULL, 'asd', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
+	(35, 27, 1, NULL, NULL, 'A-140-12456', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -232,7 +232,9 @@ INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
 	(22, 32, 1),
 	(23, 33, 1),
 	(24, 34, 1),
-	(25, 35, 1);
+	(25, 35, 1),
+	(26, 25, 2),
+	(27, 35, 2);
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
 
 
@@ -463,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `responscode` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.responscode: ~0 rows (approximately)
+-- Dumping data for table pdm.responscode: ~4 rows (approximately)
 DELETE FROM `responscode`;
 /*!40000 ALTER TABLE `responscode` DISABLE KEYS */;
 INSERT INTO `responscode` (`id`, `name`, `description`, `created`, `modified`) VALUES

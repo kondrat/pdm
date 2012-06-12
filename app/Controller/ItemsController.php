@@ -369,9 +369,9 @@ class ItemsController extends AppController {
 
         if ($this->request->is('ajax')) {
 
-            Configure::write('debug', 0);
-            $this->autoLayout = false;
-            $this->autoRender = FALSE;
+//            Configure::write('debug', 0);
+//            $this->autoLayout = false;
+//            $this->autoRender = FALSE;
 
             $ataData = array();
             $ataId = null;
@@ -379,24 +379,36 @@ class ItemsController extends AppController {
             $ataId = $this->request->data["ataId"];
             $prjId = $this->request->data["prjId"];
 
+            //getting needed project and cheking it
+            
             $this->Item->Project->id = $prjId;
             if (!$this->Item->Project->exists()) {
                 //add invalid project
                 return;
             }
 
+            //checking needed tray id
 
             $this->Item->Tray->id = $ataId;
             if (!$this->Item->Tray->exists()) {
                 //add invalid tray
                 return;
+            } else {
+                
+                $ataData = $this->Item->Tray->find('first',array(
+                    'conditions'=>array('Tray.id'=>$ataId),
+                    'contain'=>FALSE
+                ));
+                                
             }
-
-
-
+            debug($ataData);
+            //$this->set('ataCache', $ataData['Tray']['ata_cache']);
+        
+            //checking parent tray info
 
             $parentTray = $this->Item->Tray->getParentNode($ataId);
 
+            //debug($parentTray);
             $toReturn['parentTray'] = $parentTray;
             
             if ($parentTray['Tray']['id'] == $ataId) {
@@ -406,50 +418,42 @@ class ItemsController extends AppController {
             }
 
             $toReturn['rootTray'] = $rootTray;
-            $toReturn = json_encode($toReturn);
-            return $toReturn;
+            
+            $this->set('rootTray',$rootTray);
+  
 
 
 
 
-
-
-
-
-
-
-
-
-
-            //$this->set('ataCache', $ataData['Tray']['ata_cache']);
 
             $items = $this->Item->find('all', array(
-                'conditions' => array('Item.id' => array($ataId, $parentTray['Tray']['id'])),
+                
+                'conditions'=>array(
+                    'Item.tray_id'=>array($ataId, $parentTray['Tray']['id']),
+                    'Item.item_type_id'=>1
+                    ),
                 'contain' => array(
                     'Project' => array('conditions' => array('Project.id' => $prjId)),
                     'Itemversion'
                 )
-                    ));
-            debug($items);
+            ));
+            //debug($items);
 
+            //get items only for needed project
+             
             $itemsRes = array();
             foreach ($items as $k => $v) {
                 if ($v['Project'] != array()) {
-                    $itemsRes[] = $v;
+                    
+                    foreach ($v['Itemversion'] as $k1=>$v1){
+                        $itemsRes[$v1['id']] = $v['Item']['drwnbr'].' - '.$v1['version']. ' (' . $v['Item']['name'] . ')';
+                    }
+                    
                 }
             }
-            debug($itemsRes);
 
-            $subItems = $this->Item->Itemversion->find('all', array(
-                    //'conditions'=>array('Itemversion.id'=>111)
-                    ));
-            //debug($subItems);
-            $subItemsVers = array();
-            foreach ($subItems as $k => $v) {
-                $subItemsVers[$k] = $v['Item']['drwnbr'] . ' - ' . $v['Itemversion']['version'] . ' (' . $v['Item']['name'] . ')';
-            }
 
-            $this->set('subItemsVers', $subItemsVers);
+            $this->set('subItemsVers', $itemsRes);
         }
     }
 
