@@ -24,7 +24,7 @@
         </div>
         <div id="tem_to_change" style="display: none;">
 
-            <div id="item-upperAssy"></div>
+            <div id="item-upperAssyWrp"></div>
 
 
             <div class="item-newItemNbr  item-newItemNbrDis">
@@ -38,6 +38,11 @@
                             'div'=>FALSE,
                             'label'=>false,
                             'disabled' => TRUE
+                        ));
+                        echo $this->Form->input('Resp',array(
+                            'type'=>'hidden',
+                            'id'=>'item-itemResp',
+                            'value'=>$this->Form->value('Responscode.name')
                         ));
                 ?></span>             
                 <?php

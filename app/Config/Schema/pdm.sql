@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-06-12 17:43:51
+-- Date/time:                    2012-06-13 17:52:10
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -128,10 +128,12 @@ CREATE TABLE IF NOT EXISTS `itemissues` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(11) NOT NULL DEFAULT '0',
   `issue` int(11) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `item_id_issue_number` (`item_id`,`issue`,`number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dumping data for table pdm.itemissues: ~0 rows (approximately)
 DELETE FROM `itemissues`;
@@ -147,30 +149,34 @@ CREATE TABLE IF NOT EXISTS `items` (
   `item_type_id` int(11) DEFAULT NULL,
   `responscode_id` int(11) DEFAULT NULL,
   `status_id` int(11) DEFAULT NULL,
+  `letter` varchar(36) NOT NULL DEFAULT '',
+  `ata` varchar(36) NOT NULL DEFAULT '',
+  `resp` varchar(36) NOT NULL DEFAULT '',
   `drwnbr` varchar(36) NOT NULL DEFAULT '',
   `name` varchar(36) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `letter_ata_resp_drwnbr` (`letter`,`ata`,`resp`,`drwnbr`)
 ) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table pdm.items: 13 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `responscode_id`, `status_id`, `drwnbr`, `name`, `created`, `modified`) VALUES
-	(30, 27, 1, NULL, NULL, 'A00-second1-000', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
-	(29, 27, 1, NULL, NULL, 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
-	(28, 27, 1, NULL, NULL, 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
-	(27, 27, 1, NULL, NULL, 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
-	(26, 3, 1, NULL, NULL, 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
-	(25, 27, 1, NULL, NULL, 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
-	(24, 5, 1, NULL, NULL, 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
-	(23, 3, 1, NULL, NULL, 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
-	(31, 27, 1, NULL, NULL, 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
-	(32, 27, 1, NULL, NULL, 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02'),
-	(33, 3, 1, NULL, NULL, 'sdf', '', '2012-05-31 11:09:04', '2012-05-31 11:09:04'),
-	(34, 5, 1, NULL, NULL, 'asd', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
-	(35, 27, 1, NULL, NULL, 'A-140-12456', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38');
+INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `responscode_id`, `status_id`, `letter`, `ata`, `resp`, `drwnbr`, `name`, `created`, `modified`) VALUES
+	(30, 27, 1, NULL, NULL, '', '', '', 'A00-second1-000', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
+	(29, 27, 1, NULL, NULL, '', '', '', 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
+	(28, 27, 1, NULL, NULL, '', '', '', 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
+	(27, 27, 1, NULL, NULL, '', '', '', 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
+	(26, 3, 1, NULL, NULL, '', '', '', 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
+	(25, 27, 1, NULL, NULL, '', '', '', 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
+	(24, 5, 1, NULL, NULL, '', '', '', 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
+	(23, 3, 1, NULL, NULL, '', '', '', 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
+	(31, 27, 1, NULL, NULL, '', '', '', 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
+	(32, 27, 1, NULL, NULL, '', '', '', 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02'),
+	(33, 3, 1, NULL, NULL, '', '', '', 'sdf', '', '2012-05-31 11:09:04', '2012-05-31 11:09:04'),
+	(34, 5, 1, NULL, NULL, '', '', '', 'asd', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
+	(35, 27, 1, NULL, NULL, '', '', '', 'A-140-12456', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -214,9 +220,9 @@ CREATE TABLE IF NOT EXISTS `items_projects` (
   `item_id` int(11) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table pdm.items_projects: 13 rows
+-- Dumping data for table pdm.items_projects: 15 rows
 DELETE FROM `items_projects`;
 /*!40000 ALTER TABLE `items_projects` DISABLE KEYS */;
 INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES

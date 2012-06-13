@@ -318,7 +318,7 @@ class ItemsController extends AppController {
         //debug($pl);
         foreach ($pl as $k => $v) {
             if ($v["Project"] != array()) {
-                $pletters[$v['Pletter']['id']] = $v["Pletter"]["name"];
+                $pletters[$v['Pletter']['name']] = $v["Pletter"]["name"];
             }
         }
         $this->set('pletters', ($pletters));
@@ -401,59 +401,66 @@ class ItemsController extends AppController {
                 ));
                                 
             }
-            debug($ataData);
-            //$this->set('ataCache', $ataData['Tray']['ata_cache']);
+            
+            $at['ataCache'] = $ataData['Tray']['ata_cache'];
+            
+
         
             //checking parent tray info
 
             $parentTray = $this->Item->Tray->getParentNode($ataId);
 
             //debug($parentTray);
-            $toReturn['parentTray'] = $parentTray;
-            
-            if ($parentTray['Tray']['id'] == $ataId) {
-                $rootTray = TRUE;
+  
+            //debug($parentTray['Tray']['id']);
+            if($parentTray['Tray']['id'] == 1) {
+                $rootTray = 'root';
             } else {
-                $rootTray = FALSE;
+                $rootTray = 'notroot';
             }
-
-            $toReturn['rootTray'] = $rootTray;
             
             $this->set('rootTray',$rootTray);
   
 
-
-
-
-
-            $items = $this->Item->find('all', array(
-                
-                'conditions'=>array(
-                    'Item.tray_id'=>array($ataId, $parentTray['Tray']['id']),
-                    'Item.item_type_id'=>1
-                    ),
-                'contain' => array(
-                    'Project' => array('conditions' => array('Project.id' => $prjId)),
-                    'Itemversion'
-                )
-            ));
-            //debug($items);
-
-            //get items only for needed project
-             
             $itemsRes = array();
-            foreach ($items as $k => $v) {
-                if ($v['Project'] != array()) {
-                    
-                    foreach ($v['Itemversion'] as $k1=>$v1){
-                        $itemsRes[$v1['id']] = $v['Item']['drwnbr'].' - '.$v1['version']. ' (' . $v['Item']['name'] . ')';
-                    }
-                    
-                }
-            }
+            
+            if($rootTray == 'notroot'){
 
+                $items = $this->Item->find('all', array(
+
+                    'conditions'=>array(
+                        'Item.tray_id'=>array($ataId, $parentTray['Tray']['id']),
+                        'Item.item_type_id'=>1
+                        ),
+                    'contain' => array(
+                        'Project' => array('conditions' => array('Project.id' => $prjId)),
+                        'Itemversion'
+                    )
+                ));
+                //debug($items);
+
+                //get items only for needed project
+
+                
+                foreach ($items as $k => $v) {
+                    if ($v['Project'] != array()) {
+
+                        foreach ($v['Itemversion'] as $k1=>$v1){
+                            $itemsRes[$v1['id']] = $v['Item']['drwnbr'].' - '.$v1['version']. ' (' . $v['Item']['name'] . ')';
+                        }
+
+                    }
+                }
+            } 
 
             $this->set('subItemsVers', $itemsRes);
+            
+            if($itemsRes != array() || $rootTray == 'root'){
+                $at['form'] = 1;
+            }
+            $at = json_encode($at);
+            
+            $this->set('at', $at);
         }
     }
 

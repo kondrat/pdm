@@ -9,9 +9,11 @@ jQuery(document).ready(function(){
     
     $item_Tray.change(function(){
         
+        var mm = null;
+        
         $("#tem_to_change").css({"display":"block"});
         
-        $("select").prop('disabled', false);
+        $("#item-itemResp").val('mm');
 
         
         var thisTray = $(this);
@@ -25,11 +27,25 @@ jQuery(document).ready(function(){
                 "data[prjId]":$("#ItemProject").val()
             },
             success:function (data) {               
-                console.log(data)
+                //console.log(data)
+                
                 if(data) {
                     
+                    $("#item-upperAssyWrp").empty().append(data);
                     
-                    $("#item-upperAssy").empty().append(data);
+                    mm = $("#item-upperAssyList").data("at");
+                   
+                    $("#item-ataCodeTip").text(mm.ataCache);   
+                    
+                    if(mm.form == 1){
+                        $("#tem_to_change").find("select,input").prop('disabled', false);
+                        $(".item-newItemNbr").removeClass("item-newItemNbrDis");
+                    } else {
+                        $(".item-newItemNbr").addClass("item-newItemNbrDis");
+                         $("#tem_to_change").find("select,input").prop('disabled', true);
+                    }
+                    
+                    
                     //$("#tem").empty().append(data);
                     
                     // Countablel plugin code                   
@@ -148,7 +164,7 @@ jQuery(document).ready(function(){
      */
     $("#item-ataCodeTip, #item-drwNbrTip, #item-suffixTip, #item-issueTip, #item-pLetterTip, #item-resCodeTip").tipsy({
         live:true,
-        gravity: 'n'
+        gravity: 's'
     });
 //$("#item-test").tipsy();
 });
