@@ -330,6 +330,7 @@ class ItemsController extends AppController {
         //debug($Responscode);
         $this->set('responscodes', $responscodes);
 
+
         /**
          * setting params named for ata code
          */
@@ -464,6 +465,24 @@ class ItemsController extends AppController {
         }
     }
 
+    /**
+     * providing the sugesstion for the number
+     */
+    public function getDrwNbr() {
+        
+        //if ($this->request->is('ajax')) {
+            $items = $this->Item->find('all',array(
+               'conditions'=>array(
+//                   'Item.latter'=> $this->request->data["Item"]["Pletter"],
+//                   'Item.ata' => $this->request->data["Item"]["ata"],
+//                   'Item.resp'=>'bla-bla'
+                ) 
+            ));
+            debug($items);
+        //}        
+        
+        
+    }
     /**
      * edit method
      *

@@ -38,12 +38,7 @@
                             'div'=>FALSE,
                             'label'=>false,
                             'disabled' => TRUE
-                        ));
-                        echo $this->Form->input('Resp',array(
-                            'type'=>'hidden',
-                            'id'=>'item-itemResp',
-                            'value'=>$this->Form->value('Responscode.name')
-                        ));
+                        ));                       
                 ?></span>             
                 <?php
                 echo $this->Form->input('drwnbr', array(
@@ -86,6 +81,7 @@
       
 
 </div>
+ 
 <div class="actions">
     <h3><?php echo __('Actions'); ?></h3>
     <ul>
