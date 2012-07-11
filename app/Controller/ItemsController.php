@@ -471,14 +471,18 @@ class ItemsController extends AppController {
     public function getDrwNbr() {
         
         //if ($this->request->is('ajax')) {
-            $items = $this->Item->find('all',array(
-               'conditions'=>array(
-//                   'Item.latter'=> $this->request->data["Item"]["Pletter"],
+            $items = $this->Item->find('first',array(
+              'conditions'=>array(
+                   'Item.letter'=> '',// $this->request->data["Item"]["Pletter"],
 //                   'Item.ata' => $this->request->data["Item"]["ata"],
 //                   'Item.resp'=>'bla-bla'
-                ) 
+               ),
+               'order'=>('Item.drwnbr DESC'),
+               'contain' => false
             ));
-            debug($items);
+            
+            $suggested = $items['Item']['drwnbr'] + 10;
+            debug($suggested);
         //}        
         
         
