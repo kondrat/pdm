@@ -158,9 +158,6 @@ class ErrorHandler {
 		}
 		$errorConfig = Configure::read('Error');
 		list($error, $log) = self::mapErrorCode($code);
-		if ($log === LOG_ERR) {
-			return self::handleFatalError($code, $description, $file, $line);
-		}
 
 		$debug = Configure::read('debug');
 		if ($debug) {
@@ -187,36 +184,6 @@ class ErrorHandler {
 	}
 
 /**
- * Generate an error page when some fatal error happens.
- *
- * @param integer $code Code of error
- * @param string $description Error description
- * @param string $file File on which error occurred
- * @param integer $line Line that triggered the error
- * @return boolean
- */
-	public static function handleFatalError($code, $description, $file, $line) {
-		$logMessage = 'Fatal Error (' . $code . '): ' . $description . ' in [' . $file . ', line ' . $line . ']';
-		CakeLog::write(LOG_ERR, $logMessage);
-
-		$exceptionHandler = Configure::read('Exception.handler');
-		if (!is_callable($exceptionHandler)) {
-			return false;
-		}
-
-		if (ob_get_level()) {
-			ob_clean();
-		}
-
-		if (Configure::read('debug')) {
-			call_user_func($exceptionHandler, new FatalErrorException($description, 500, $file, $line));
-		} else {
-			call_user_func($exceptionHandler, new InternalErrorException());
-		}
-		return false;
-	}
-
-/**
  * Map an error code into an Error word, and log location.
  *
  * @param integer $code Error code to map
@@ -231,7 +198,7 @@ class ErrorHandler {
 			case E_COMPILE_ERROR:
 			case E_USER_ERROR:
 				$error = 'Fatal Error';
-				$log = LOG_ERR;
+				$log = LOG_ERROR;
 			break;
 			case E_WARNING:
 			case E_USER_WARNING:

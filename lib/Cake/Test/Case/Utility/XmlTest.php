@@ -39,8 +39,8 @@ class XmlArticle extends CakeTestModel {
  * @var array
  */
 	public $belongsTo = array(
-		'User' => array(
-			'className' => 'XmlUser',
+		'XmlUser' => array(
+			'className' => 'XmlArticle',
 			'foreignKey' => 'user_id'
 		)
 	);
@@ -65,11 +65,7 @@ class XmlUser extends CakeTestModel {
  *
  * @var array
  */
-	public $hasMany = array(
-		'Article' => array(
-			'className' => 'XmlArticle'
-		)
-	);
+	public $hasMany = array('Article');
 }
 
 /**

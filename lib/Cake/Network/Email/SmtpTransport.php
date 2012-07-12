@@ -168,16 +168,7 @@ class SmtpTransport extends AbstractTransport {
 
 		$headers = $this->_cakeEmail->getHeaders(array('from', 'sender', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'subject'));
 		$headers = $this->_headersToString($headers);
-		$lines = $this->_cakeEmail->message();
-		$messages = array();
-		foreach ($lines as $line) {
-			if ((!empty($line)) && ($line[0] === '.')) {
-				$messages[] = '.' . $line;
-			} else {
-				$messages[] = $line;
-			}
-		}
-		$message = implode("\r\n", $messages);
+		$message = implode("\r\n", $this->_cakeEmail->message());
 		$this->_smtpSend($headers . "\r\n\r\n" . $message . "\r\n\r\n\r\n.");
 		$this->_content = array('headers' => $headers, 'message' => $message);
 	}
@@ -207,7 +198,7 @@ class SmtpTransport extends AbstractTransport {
  * Protected method for sending data to SMTP connection
  *
  * @param string $data data to be sent to SMTP server
- * @param string|boolean $checkCode code to check for in server response, false to skip
+ * @param mixed $checkCode code to check for in server response, false to skip
  * @return void
  * @throws SocketException
  */

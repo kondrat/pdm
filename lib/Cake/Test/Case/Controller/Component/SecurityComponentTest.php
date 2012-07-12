@@ -86,7 +86,7 @@ class SecurityTestController extends Controller {
 /**
  * redirect method
  *
- * @param string|array $url
+ * @param mixed $option
  * @param mixed $code
  * @param mixed $exit
  * @return void

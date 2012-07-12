@@ -1829,8 +1829,6 @@ class ValidationTest extends CakeTestCase {
 		$this->assertFalse(Validation::inList('three', array('one', 'two')));
 		$this->assertFalse(Validation::inList('1one', array(0, 1, 2, 3)));
 		$this->assertFalse(Validation::inList('one', array(0, 1, 2, 3)));
-		$this->assertFalse(Validation::inList('2', array(1, 2, 3)));
-		$this->assertTrue(Validation::inList('2', array(1, 2, 3), false));
 	}
 
 /**
@@ -1941,8 +1939,6 @@ class ValidationTest extends CakeTestCase {
 		$this->assertFalse(Validation::multiple(array('foo', 'bar', 'baz', 'squirrel'), array('min' => 10)));
 
 		$this->assertTrue(Validation::multiple(array(0, 5, 9), array('in' => range(0, 10), 'max' => 5)));
-		$this->assertFalse(Validation::multiple(array('0', '5', '9'), array('in' => range(0, 10), 'max' => 5)));
-		$this->assertTrue(Validation::multiple(array('0', '5', '9'), array('in' => range(0, 10), 'max' => 5), false));
 		$this->assertFalse(Validation::multiple(array(0, 5, 9, 8, 6, 2, 1), array('in' => range(0, 10), 'max' => 5)));
 		$this->assertFalse(Validation::multiple(array(0, 5, 9, 8, 11), array('in' => range(0, 10), 'max' => 5)));
 
@@ -1965,27 +1961,6 @@ class ValidationTest extends CakeTestCase {
 		$this->assertTrue(Validation::numeric(2));
 		$this->assertTrue(Validation::numeric(2.2));
 		$this->assertTrue(Validation::numeric('2.2'));
-	}
-
-/**
- * testNaturalNumber method
- *
- * @return void
- */
-	public function testNaturalNumber() {
-		$this->assertFalse(Validation::naturalNumber('teststring'));
-		$this->assertFalse(Validation::naturalNumber('5.4'));
-		$this->assertFalse(Validation::naturalNumber(99.004));
-		$this->assertFalse(Validation::naturalNumber('0,05'));
-		$this->assertFalse(Validation::naturalNumber('-2'));
-		$this->assertFalse(Validation::naturalNumber(-2));
-		$this->assertFalse(Validation::naturalNumber('0'));
-		$this->assertFalse(Validation::naturalNumber('050'));
-
-		$this->assertTrue(Validation::naturalNumber('2'));
-		$this->assertTrue(Validation::naturalNumber(49));
-		$this->assertTrue(Validation::naturalNumber('0', true));
-		$this->assertTrue(Validation::naturalNumber(0, true));
 	}
 
 /**
@@ -2173,45 +2148,4 @@ class ValidationTest extends CakeTestCase {
 		$this->assertFalse(Validation::datetime('31 11 2006 1:00pm', 'dmy'));
 	}
 
-/**
- * testMimeType method
- *
- * @return void
- */
-	public function testMimeType() {
-		$image = CORE_PATH . 'Cake' . DS . 'Test' . DS . 'test_app' . DS . 'webroot' . DS . 'img' . DS . 'cake.power.gif';
-		$File = new File($image, false);
-		$this->skipIf(!$File->mime(), 'Cannot determine mimeType');
-		$this->assertTrue(Validation::mimeType($image, array('image/gif')));
-		$this->assertTrue(Validation::mimeType(array('tmp_name' => $image), array('image/gif')));
-
-		$this->assertFalse(Validation::mimeType($image, array('image/png')));
-		$this->assertFalse(Validation::mimeType(array('tmp_name' => $image), array('image/png')));
-	}
-
-/**
- * testMimeTypeFalse method
- *
- * @expectedException CakeException
- * @return void
- */
-	public function testMimeTypeFalse() {
-		$image = CORE_PATH . 'Cake' . DS . 'Test' . DS . 'test_app' . DS . 'webroot' . DS . 'img' . DS . 'cake.power.gif';
-		$File = new File($image, false);
-		$this->skipIf($File->mime(), 'mimeType can be determined, no Exception will be thrown');
-		Validation::mimeType($image, array('image/gif'));
-	}
-
-/**
- * testMimeType method
- *
- * @return void
- */
-	public function testUploadError() {
-		$this->assertTrue(Validation::uploadError(0));
-		$this->assertTrue(Validation::uploadError(array('error' => 0)));
-
-		$this->assertFalse(Validation::uploadError(2));
-		$this->assertFalse(Validation::uploadError(array('error' => 2)));
-	}
 }

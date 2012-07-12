@@ -63,8 +63,6 @@ class DigestAuthenticate extends BaseAuthenticate {
  * - `userModel` The model name of the User, defaults to User.
  * - `scope` Additional conditions to use when looking up and authenticating users,
  *    i.e. `array('User.is_active' => 1).`
- * - `recursive` The value of the recursive key passed to find(). Defaults to 0.
- * - `contain` Extra models to contain and store in session.
  * - `realm` The realm authentication is for, Defaults to the servername.
  * - `nonce` A nonce used for authentication.  Defaults to `uniqid()`.
  * - `qop` Defaults to auth, no other values are supported at this time.
@@ -81,7 +79,6 @@ class DigestAuthenticate extends BaseAuthenticate {
 		'userModel' => 'User',
 		'scope' => array(),
 		'recursive' => 0,
-		'contain' => null,
 		'realm' => '',
 		'qop' => 'auth',
 		'nonce' => '',

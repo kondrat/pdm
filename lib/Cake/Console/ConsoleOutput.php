@@ -128,16 +128,12 @@ class ConsoleOutput {
  * @var array
  */
 	protected static $_styles = array(
-		'emergency' => array('text' => 'red', 'underline' => true),
-		'alert' => array('text' => 'red', 'underline' => true),
-		'critical' => array('text' => 'red', 'underline' => true),
 		'error' => array('text' => 'red', 'underline' => true),
 		'warning' => array('text' => 'yellow'),
 		'info' => array('text' => 'cyan'),
-		'debug' => array('text' => 'yellow'),
 		'success' => array('text' => 'green'),
 		'comment' => array('text' => 'blue'),
-		'question' => array('text' => 'magenta'),
+		'question' => array('text' => "magenta"),
 	);
 
 /**
@@ -160,7 +156,7 @@ class ConsoleOutput {
  * Outputs a single or multiple messages to stdout. If no parameters
  * are passed, outputs just a newline.
  *
- * @param string|array $message A string or a an array of strings to output
+ * @param mixed $message A string or a an array of strings to output
  * @param integer $newlines Number of newlines to append
  * @return integer Returns the number of bytes returned from writing to stdout.
  */
@@ -248,7 +244,7 @@ class ConsoleOutput {
  * `$this->output->styles('annoy', false);`
  *
  * @param string $style The style to get or create.
- * @param array $definition The array definition of the style to change or create a style
+ * @param mixed $definition The array definition of the style to change or create a style
  *   or false to remove a style.
  * @return mixed If you are getting styles, the style or null will be returned. If you are creating/modifying
  *   styles true will be returned.

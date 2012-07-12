@@ -147,12 +147,8 @@ class ExceptionRenderer {
 		}
 		$response = new CakeResponse(array('charset' => Configure::read('App.encoding')));
 		try {
-			if (class_exists('AppController')) {
-				$controller = new CakeErrorController($request, $response);
-			}
+			$controller = new CakeErrorController($request, $response);
 		} catch (Exception $e) {
-		}
-		if (empty($controller)) {
 			$controller = new Controller($request, $response);
 			$controller->viewPath = 'Errors';
 		}
@@ -286,11 +282,10 @@ class ExceptionRenderer {
  * @return void
  */
 	protected function _outputMessageSafe($template) {
-		$this->controller->layoutPath = null;
-		$this->controller->subDir = null;
+		$this->controller->layoutPath = '';
+		$this->controller->subDir = '';
 		$this->controller->viewPath = 'Errors/';
 		$this->controller->viewClass = 'View';
-		$this->controller->layout = 'error';
 		$this->controller->helpers = array('Form', 'Html', 'Session');
 
 		$this->controller->render($template);

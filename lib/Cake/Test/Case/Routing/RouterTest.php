@@ -1235,46 +1235,15 @@ class RouterTest extends CakeTestCase {
 	}
 
 /**
- * testParseExtensions method
+ * testExtensionParsingSetting method
  *
  * @return void
  */
-	public function testParseExtensions() {
+	public function testExtensionParsingSetting() {
 		$this->assertEquals(array(), Router::extensions());
 
 		Router::parseExtensions('rss');
-		$this->assertEquals(array('rss'), Router::extensions());
-	}
-
-/**
- * testSetExtensions method
- *
- * @return void
- */
-	public function testSetExtensions() {
-		Router::setExtensions(array('rss'));
-		$this->assertEquals(array('rss'), Router::extensions());
-
-		require CAKE . 'Config' . DS . 'routes.php';
-		$result = Router::parse('/posts.rss');
-		$this->assertFalse(isset($result['ext']));
-
-		Router::parseExtensions();
-		$result = Router::parse('/posts.rss');
-		$this->assertEquals('rss', $result['ext']);
-
-		$result = Router::parse('/posts.xml');
-		$this->assertFalse(isset($result['ext']));
-
-		Router::setExtensions(array('xml'));
-		$result = Router::extensions();
-		$this->assertEquals(array('rss', 'xml'), $result);
-
-		$result = Router::parse('/posts.xml');
-		$this->assertEquals('xml', $result['ext']);
-
-		$result = Router::setExtensions(array('pdf'), false);
-		$this->assertEquals(array('pdf'), $result);
+		$this->assertEquals(Router::extensions(), array('rss'));
 	}
 
 /**
@@ -2518,7 +2487,7 @@ class RouterTest extends CakeTestCase {
  */
 	public function testResourceMap() {
 		$default = Router::resourceMap();
-		$expected = array(
+		$exepcted = array(
 			array('action' => 'index',	'method' => 'GET',		'id' => false),
 			array('action' => 'view',	'method' => 'GET',		'id' => true),
 			array('action' => 'add',	'method' => 'POST',		'id' => false),
@@ -2526,7 +2495,7 @@ class RouterTest extends CakeTestCase {
 			array('action' => 'delete',	'method' => 'DELETE',	'id' => true),
 			array('action' => 'edit',	'method' => 'POST', 	'id' => true)
 		);
-		$this->assertEquals($default, $expected);
+		$this->assertEquals($default, $exepcted);
 
 		$custom = array(
 			array('action' => 'index',	'method' => 'GET',		'id' => false),
@@ -2586,8 +2555,8 @@ class RouterTest extends CakeTestCase {
 		$routeClass = 'TestDefaultRouteClass';
 		Router::defaultRouteClass($routeClass);
 
-		$this->assertEquals($routeClass, Router::defaultRouteClass());
-		$this->assertEquals($routeClass, Router::defaultRouteClass(null));
+		$this->assertEqual($routeClass, Router::defaultRouteClass());
+		$this->assertEqual($routeClass, Router::defaultRouteClass(null));
 	}
 
 /**

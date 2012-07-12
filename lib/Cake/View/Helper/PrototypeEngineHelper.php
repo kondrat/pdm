@@ -229,7 +229,7 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 /**
  * Create an Ajax or Ajax.Updater call.
  *
- * @param string|array $url
+ * @param mixed $url
  * @param array $options
  * @return string The completed ajax call.
  */

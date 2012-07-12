@@ -456,7 +456,7 @@ class ModelIntegrationTest extends BaseModelTest {
 		$result = $TestModel->find('all');
 		$this->assertEquals($expected, $result);
 
-		$result = Hash::extract($TestModel->User->find('all'), '{n}.User.id');
+		$result = Set::extract($TestModel->User->find('all'), '{n}.User.id');
 		$this->assertEquals(array('1', '2', '3', '4'), $result);
 		$this->assertEquals($expected, $TestModel->find('all'));
 
@@ -836,14 +836,14 @@ class ModelIntegrationTest extends BaseModelTest {
 
 		$players = $Player->find('all');
 		$this->assertEquals(4 , count($players));
-		$playersGuilds = Hash::extract($players, '{n}.Guild.{n}.GuildsPlayer');
+		$playersGuilds = Set::extract('/Guild/GuildsPlayer', $players);
 		$this->assertEquals(3 , count($playersGuilds));
-		$playersArmors = Hash::extract($players, '{n}.Armor.{n}.ArmorsPlayer');
+		$playersArmors = Set::extract('/Armor/ArmorsPlayer', $players);
 		$this->assertEquals(3 , count($playersArmors));
 		unset($players);
 
 		$larry = $Player->findByName('larry');
-		$larrysArmor = Hash::extract($larry, 'Armor.{n}.ArmorsPlayer');
+		$larrysArmor = Set::extract('/Armor/ArmorsPlayer', $larry);
 		$this->assertEquals(1 , count($larrysArmor));
 
 		$larry['Guild']['Guild'] = array(1, 3); // larry joins another guild
@@ -852,20 +852,21 @@ class ModelIntegrationTest extends BaseModelTest {
 		unset($larry);
 
 		$larry = $Player->findByName('larry');
-		$larrysGuild = Hash::extract($larry, 'Guild.{n}.GuildsPlayer');
+		$larrysGuild = Set::extract('/Guild/GuildsPlayer', $larry);
 		$this->assertEquals(2 , count($larrysGuild));
-		$larrysArmor = Hash::extract($larry, 'Armor.{n}.ArmorsPlayer');
+		$larrysArmor = Set::extract('/Armor/ArmorsPlayer', $larry);
 		$this->assertEquals(2 , count($larrysArmor));
 
-		$larrysArmorsPlayersIds = Hash::extract($larry, 'Armor.{n}.ArmorsPlayer.id');
+		$larrysArmorsPlayersIds = Set::extract('/Armor/ArmorsPlayer/id', $larry);
 
 		$Player->ArmorsPlayer->id = 3;
 		$Player->ArmorsPlayer->saveField('broken', true); // larry's cloak broke
 
 		$larry = $Player->findByName('larry');
-		$larrysCloak = Hash::extract($larry, 'Armor.{n}.ArmorsPlayer[armor_id=3]', $larry);
+		$larrysArmor = Set::extract('/Armor/ArmorsPlayer', $larry);
+		$larrysCloak = Set::extract('/ArmorsPlayer[armor_id=3]', $larrysArmor);
 		$this->assertNotEmpty($larrysCloak);
-		$this->assertTrue($larrysCloak[0]['broken']); // still broken
+		$this->assertTrue($larrysCloak[0]['ArmorsPlayer']['broken']); // still broken
 	}
 
 /**
@@ -897,7 +898,7 @@ class ModelIntegrationTest extends BaseModelTest {
 		$this->assertEquals($columns, array_keys($result));
 
 		$types = array('integer', 'integer', 'string', 'text', 'string', 'datetime', 'datetime');
-		$this->assertEquals(Hash::extract(array_values($result), '{n}.type'), $types);
+		$this->assertEquals(Set::extract(array_values($result), '{n}.type'), $types);
 
 		$result = $Post->schema('body');
 		$this->assertEquals('text', $result['type']);

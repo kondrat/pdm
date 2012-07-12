@@ -24,7 +24,9 @@ jQuery(document).ready(function(){
             type: "POST",
             data: {
                 "data[ataId]":thisTray.val(),
-                "data[prjId]":$("#ItemProject").val()
+                "data[prjId]":$("#ItemProject").val(),
+                "data[prjLet]":$("#ItemPletter").val(),
+                "data[prjRes]":$("#ItemResponscode").val()
             },
             success:function (data) {               
                 //console.log(data)

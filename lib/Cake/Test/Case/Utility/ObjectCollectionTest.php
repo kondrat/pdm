@@ -117,8 +117,8 @@ class ObjectCollectionTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		parent::tearDown();
 		unset($this->Objects);
+		parent::tearDown();
 	}
 
 /**

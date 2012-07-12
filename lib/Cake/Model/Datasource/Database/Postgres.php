@@ -34,6 +34,17 @@ class Postgres extends DboSource {
 	public $description = "PostgreSQL DBO Driver";
 
 /**
+ * Index of basic SQL commands
+ *
+ * @var array
+ */
+	protected $_commands = array(
+		'begin'    => 'BEGIN',
+		'commit'   => 'COMMIT',
+		'rollback' => 'ROLLBACK'
+	);
+
+/**
  * Base driver configuration settings.  Merged with user settings.
  *
  * @var array
@@ -275,7 +286,7 @@ class Postgres extends DboSource {
 /**
  * Gets the associated sequence for the given table/field
  *
- * @param string|Model $table Either a full table name (with prefix) as a string, or a model object
+ * @param mixed $table Either a full table name (with prefix) as a string, or a model object
  * @param string $field Name of the ID database field. Defaults to "id"
  * @return string The associated sequence name from the sequence map, defaults to "{$table}_{$field}_seq"
  */
@@ -293,7 +304,7 @@ class Postgres extends DboSource {
 /**
  * Deletes all the records in a table and drops all associated auto-increment sequences
  *
- * @param string|Model $table A string or model class representing the table to be truncated
+ * @param mixed $table A string or model class representing the table to be truncated
  * @param boolean $reset true for resetting the sequence, false to leave it as is.
  *    and if 1, sequences are not modified
  * @return boolean	SQL TRUNCATE TABLE statement, false if not applicable.
@@ -410,7 +421,7 @@ class Postgres extends DboSource {
 			$match[1] = $this->name($match[1]);
 		} elseif (!$constant) {
 			$parts = explode('.', $match[1]);
-			if (!Hash::numeric($parts)) {
+			if (!Set::numeric($parts)) {
 				$match[1] = $this->name($match[1]);
 			}
 		}
@@ -893,15 +904,6 @@ class Postgres extends DboSource {
  */
 	public function getSchemaName() {
 		return $this->config['schema'];
-	}
-
-/**
- * Check if the server support nested transactions
- *
- * @return boolean
- */
-	public function nestedTransactionSupported() {
-		return $this->useNestedTransactions && version_compare($this->getVersion(), '8.0', '>=');
 	}
 
 }

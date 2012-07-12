@@ -76,7 +76,7 @@ class TestShellDispatcher extends ShellDispatcher {
 /**
  * getShell
  *
- * @param string $shell
+ * @param mixed $shell
  * @return mixed
  */
 	public function getShell($shell) {
@@ -86,7 +86,7 @@ class TestShellDispatcher extends ShellDispatcher {
 /**
  * _getShell
  *
- * @param string $plugin
+ * @param mixed $plugin
  * @return mixed
  */
 	protected function _getShell($shell) {

@@ -38,7 +38,4 @@ class TestAppCacheEngine extends CacheEngine {
 
 	public function clear($check) {
 	}
-
-	public function clearGroup($group) {
-	}
 }

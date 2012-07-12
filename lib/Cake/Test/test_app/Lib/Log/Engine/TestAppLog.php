@@ -17,11 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('BaseLog', 'Log/Engine');
+App::uses('CakeLogInterface', 'Log');
 
-class TestAppLog extends BaseLog {
+class TestAppLog implements CakeLogInterface {
 
 	public function write($type, $message) {
 	}
-
 }

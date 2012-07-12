@@ -19,7 +19,6 @@
 
 App::uses('Component', 'Controller');
 App::uses('String', 'Utility');
-App::uses('Hash', 'Utility');
 App::uses('Security', 'Utility');
 
 /**
@@ -444,7 +443,7 @@ class SecurityComponent extends Component {
 		$unlocked = explode('|', $unlocked);
 
 		$lockedFields = array();
-		$fields = Hash::flatten($check);
+		$fields = Set::flatten($check);
 		$fieldList = array_keys($fields);
 		$multi = array();
 

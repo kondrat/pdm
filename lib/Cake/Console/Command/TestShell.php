@@ -334,9 +334,9 @@ class TestShell extends Shell {
 /**
  * Find the test case for the passed file. The file could itself be a test.
  *
- * @param string $file
- * @param string $category 
- * @param boolean $throwOnMissingFile 
+ * @param mixed $file
+ * @param mixed $category 
+ * @param mixed $throwOnMissingFile 
  * @access protected
  * @return array(type, case)
  * @throws Exception
@@ -412,7 +412,7 @@ class TestShell extends Shell {
 /**
  * For the given file, what category of test is it? returns app, core or the name of the plugin
  *
- * @param string $file
+ * @param mixed $file
  * @access protected
  * @return string
  */

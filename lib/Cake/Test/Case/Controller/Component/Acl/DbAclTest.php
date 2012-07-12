@@ -21,8 +21,6 @@ App::uses('ComponentCollection', 'Controller');
 App::uses('AclComponent', 'Controller/Component');
 App::uses('DbAcl', 'Controller/Component/Acl');
 App::uses('AclNode', 'Model');
-App::uses('Permission', 'Model');
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . DS . 'Model' . DS . 'models.php';
 
 /**
  * AclNodeTwoTestBase class
@@ -109,7 +107,7 @@ class AcoTwoTest extends AclNodeTwoTestBase {
  *
  * @package       Cake.Test.Case.Controller.Component.Acl
  */
-class PermissionTwoTest extends Permission {
+class PermissionTwoTest extends CakeTestModel {
 
 /**
  * name property
@@ -164,10 +162,6 @@ class DbAclTwoTest extends DbAcl {
 		$this->Aro->Permission = new PermissionTwoTest();
 		$this->Aco = new AcoTwoTest();
 		$this->Aro->Permission = new PermissionTwoTest();
-
-		$this->Permission = $this->Aro->Permission;
-		$this->Permission->Aro = $this->Aro;
-		$this->Permission->Aco = $this->Aco;
 	}
 
 }
@@ -534,7 +528,7 @@ class DbAclTest extends CakeTestCase {
  * Used by debug to format strings used in the data dump
  *
  * @param string $string
- * @param integer $len
+ * @param int $len
  * @return void
  */
 	protected function __pad($string = '', $len = 14) {

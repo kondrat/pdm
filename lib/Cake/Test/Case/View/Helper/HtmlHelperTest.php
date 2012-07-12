@@ -333,10 +333,6 @@ class HtmlHelperTest extends CakeTestCase {
 			'/a'
 		);
 		$this->assertTags($result, $expected);
-
-		$result = $this->Html->link('http://www.example.org?param1=value1&param2=value2');
-		$expected = array('a' => array('href' => 'http://www.example.org?param1=value1&amp;param2=value2'), 'http://www.example.org?param1=value1&amp;param2=value2', '/a');
-		$this->assertTags($result, $expected);
 	}
 
 /**
@@ -1507,18 +1503,6 @@ class HtmlHelperTest extends CakeTestCase {
  */
 	public function testTableHeaders() {
 		$result = $this->Html->tableHeaders(array('ID', 'Name', 'Date'));
-		$expected = array('<tr', '<th', 'ID', '/th', '<th', 'Name', '/th', '<th', 'Date', '/th', '/tr');
-		$this->assertTags($result, $expected);
-
-		$result = $this->Html->tableHeaders(array('ID', array('Name' => array('class' => 'highlight')), 'Date'));
-		$expected = array('<tr', '<th', 'ID', '/th', '<th class="highlight"', 'Name', '/th', '<th', 'Date', '/th', '/tr');
-		$this->assertTags($result, $expected);
-
-		$result = $this->Html->tableHeaders(array('ID', array('Name' => array('class' => 'highlight', 'width' => '120px')), 'Date'));
-		$expected = array('<tr', '<th', 'ID', '/th', '<th class="highlight" width="120px"', 'Name', '/th', '<th', 'Date', '/th', '/tr');
-		$this->assertTags($result, $expected);
-
-		$result = $this->Html->tableHeaders(array('ID', array('Name' => array()), 'Date'));
 		$expected = array('<tr', '<th', 'ID', '/th', '<th', 'Name', '/th', '<th', 'Date', '/th', '/tr');
 		$this->assertTags($result, $expected);
 	}

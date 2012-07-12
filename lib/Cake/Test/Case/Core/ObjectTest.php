@@ -305,7 +305,6 @@ class ObjectTest extends CakeTestCase {
  * @return void
  */
 	public function setUp() {
-		parent::setUp();
 		$this->object = new TestObject();
 	}
 
@@ -315,7 +314,7 @@ class ObjectTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		parent::tearDown();
+		App::build();
 		CakePlugin::unload();
 		unset($this->object);
 	}

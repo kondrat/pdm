@@ -229,7 +229,7 @@ class Debugger {
 			case E_COMPILE_ERROR:
 			case E_USER_ERROR:
 				$error = 'Fatal Error';
-				$level = LOG_ERR;
+				$level = LOG_ERROR;
 			break;
 			case E_WARNING:
 			case E_USER_WARNING:
@@ -290,7 +290,7 @@ class Debugger {
 			'scope'		=> null,
 			'exclude'	=> array('call_user_func_array', 'trigger_error')
 		);
-		$options = Hash::merge($defaults, $options);
+		$options = Set::merge($defaults, $options);
 
 		$backtrace = debug_backtrace();
 		$count = count($backtrace);

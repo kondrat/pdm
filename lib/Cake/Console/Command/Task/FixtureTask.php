@@ -362,9 +362,6 @@ class FixtureTask extends BakeTask {
 			$values = array();
 			foreach ($record as $field => $value) {
 				$val = var_export($value, true);
-				if ($val === 'NULL') {
-					$val = 'null';
-				}
 				$values[] = "\t\t\t'$field' => $val";
 			}
 			$out .= "\t\tarray(\n";

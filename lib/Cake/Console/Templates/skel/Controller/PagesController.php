@@ -30,6 +30,13 @@
 class PagesController extends AppController {
 
 /**
+ * Default helper
+ *
+ * @var array
+ */
+	public $helpers = array('Html');
+
+/**
  * This controller does not use a model
  *
  * @var array
@@ -39,7 +46,7 @@ class PagesController extends AppController {
 /**
  * Displays a view
  *
- * @param string What page to display
+ * @param mixed What page to display
  */
 	public function display() {
 		$path = func_get_args();

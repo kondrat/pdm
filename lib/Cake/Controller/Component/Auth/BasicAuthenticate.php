@@ -50,7 +50,6 @@ class BasicAuthenticate extends BaseAuthenticate {
  * - `scope` Additional conditions to use when looking up and authenticating users,
  *    i.e. `array('User.is_active' => 1).`
  * - `recursive` The value of the recursive key passed to find(). Defaults to 0.
- * - `contain` Extra models to contain and store in session.
  * - `realm` The realm authentication is for.  Defaults the server name.
  *
  * @var array
@@ -63,7 +62,6 @@ class BasicAuthenticate extends BaseAuthenticate {
 		'userModel' => 'User',
 		'scope' => array(),
 		'recursive' => 0,
-		'contain' => null,
 		'realm' => '',
 	);
 

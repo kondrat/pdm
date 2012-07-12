@@ -21,24 +21,11 @@ App::uses('IniReader', 'Configure');
 class IniReaderTest extends CakeTestCase {
 
 /**
- * Test data to serialize and unserialize.
+ * The test file that will be read.
  *
- * @var array
+ * @var string
  */
-	public $testData = array(
-		'One' => array(
-			'two' => 'value',
-			'three' => array(
-				'four' => 'value four'
-			),
-			'is_null' => null,
-			'bool_false' => false,
-			'bool_true' => true,
-		),
-		'Asset' => array(
-			'timestamp' => 'force'
-		),
-	);
+	public $file;
 
 /**
  * setup
@@ -105,8 +92,6 @@ class IniReaderTest extends CakeTestCase {
 		$this->assertTrue(isset($config['database']['db']['username']));
 		$this->assertEquals('mark', $config['database']['db']['username']);
 		$this->assertEquals(3, $config['nesting']['one']['two']['three']);
-		$this->assertFalse(isset($config['database.db.username']));
-		$this->assertFalse(isset($config['database']['db.username']));
 	}
 
 /**
@@ -140,49 +125,4 @@ class IniReaderTest extends CakeTestCase {
 		$config = $reader->read('nested');
 		$this->assertTrue($config['bools']['test_on']);
 	}
-
-/**
- * test dump method.
- *
- * @return void
- */
-	public function testDump() {
-		$reader = new IniReader(TMP);
-		$result = $reader->dump('test.ini', $this->testData);
-		$this->assertTrue($result > 0);
-
-		$expected = <<<INI
-[One]
-two = value
-three.four = value four
-is_null = null
-bool_false = false
-bool_true = true
-[Asset]
-timestamp = force
-INI;
-		$file = TMP . 'test.ini';
-		$result = file_get_contents($file);
-		unlink($file);
-
-		$this->assertTextEquals($expected, $result);
-	}
-
-/**
- * Test that dump() makes files read() can read.
- *
- * @return void
- */
-	public function testDumpRead() {
-		$reader = new IniReader(TMP);
-		$reader->dump('test.ini', $this->testData);
-		$result = $reader->read('test.ini');
-		unlink(TMP . 'test.ini');
-
-		$expected = $this->testData;
-		$expected['One']['is_null'] = false;
-
-		$this->assertEquals($expected, $result);
-	}
-
 }

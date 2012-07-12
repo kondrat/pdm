@@ -12,7 +12,6 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('Hash', 'Utility');
 
 /**
  * Abstract base authorization adapter for AuthComponent.
@@ -70,7 +69,7 @@ abstract class BaseAuthorize {
 		$this->_Collection = $collection;
 		$controller = $collection->getController();
 		$this->controller($controller);
-		$this->settings = Hash::merge($this->settings, $settings);
+		$this->settings = Set::merge($this->settings, $settings);
 	}
 
 /**
@@ -85,7 +84,7 @@ abstract class BaseAuthorize {
 /**
  * Accessor to the controller object.
  *
- * @param Controller $controller null to get, a controller to set.
+ * @param mixed $controller null to get, a controller to set.
  * @return mixed
  * @throws CakeException
  */
@@ -139,7 +138,7 @@ abstract class BaseAuthorize {
  * permissions lookup.  When using with DbAcl, you'll have to add additional _admin type columns
  * to the `aros_acos` table.
  *
- * @param array $map Either an array of mappings, or undefined to get current values.
+ * @param mixed $map Either an array of mappings, or undefined to get current values.
  * @return mixed Either the current mappings or null when setting.
  * @see AuthComponent::mapActions()
  */

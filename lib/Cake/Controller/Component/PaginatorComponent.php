@@ -16,7 +16,6 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('Hash', 'Utility');
 
 /**
  * This component is used to handle automatic model data pagination.  The primary way to use this
@@ -101,8 +100,8 @@ class PaginatorComponent extends Component {
 /**
  * Handles automatic pagination of model records.
  *
- * @param Model|string $object Model to paginate (e.g: model instance, or 'Model', or 'Model.InnerModel')
- * @param string|array $scope Additional find conditions to use while paginating
+ * @param mixed $object Model to paginate (e.g: model instance, or 'Model', or 'Model.InnerModel')
+ * @param mixed $scope Additional find conditions to use while paginating
  * @param array $whitelist List of allowed fields for ordering.  This allows you to prevent ordering
  *   on non-indexed, or undesirable columns.
  * @return array Model query results
@@ -196,7 +195,7 @@ class PaginatorComponent extends Component {
 			'pageCount' => $pageCount,
 			'order' => $order,
 			'limit' => $limit,
-			'options' => Hash::diff($options, $defaults),
+			'options' => Set::diff($options, $defaults),
 			'paramType' => $options['paramType']
 		);
 		if (!isset($this->Controller->request['paging'])) {
@@ -219,7 +218,7 @@ class PaginatorComponent extends Component {
 /**
  * Get the object pagination will occur on.
  *
- * @param string|Model $object The object you are looking for.
+ * @param mixed $object The object you are looking for.
  * @return mixed The model object to paginate on.
  */
 	protected function _getObject($object) {

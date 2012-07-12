@@ -496,7 +496,7 @@ cake mycommand method [-h] [--connection]
 --connection      Db connection.
 
 TEXT;
-		$this->assertTextEquals($expected, $result, 'Help is not correct.');
+		$this->assertEquals($expected, $result, 'Help is not correct.');
 	}
 
 /**

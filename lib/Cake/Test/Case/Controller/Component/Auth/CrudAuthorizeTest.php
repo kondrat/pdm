@@ -31,8 +31,9 @@ class CrudAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function setUp() {
-		parent::setUp();
 		Configure::write('Routing.prefixes', array());
+
+		parent::setUp();
 
 		$this->Acl = $this->getMock('AclComponent', array(), array(), '', false);
 		$this->Components = $this->getMock('ComponentCollection');

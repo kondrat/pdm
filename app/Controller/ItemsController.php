@@ -459,18 +459,28 @@ class ItemsController extends AppController {
             if($itemsRes != array() || $rootTray == 'root'){
                 $at['form'] = 1;
             }
+            
+            
+            $nbr = $this->giveDrwNbr();
+            $at['nbr'] = $nbr;
+            
+            
             $at = json_encode($at);
             
             $this->set('at', $at);
+            
+            
+            
+            
         }
     }
 
     /**
      * providing the sugesstion for the number
      */
-    public function getDrwNbr() {
+    private function giveDrwNbr() {
         
-        //if ($this->request->is('ajax')) {
+        
             $items = $this->Item->find('first',array(
               'conditions'=>array(
                    'Item.letter'=> '',// $this->request->data["Item"]["Pletter"],
@@ -482,8 +492,9 @@ class ItemsController extends AppController {
             ));
             
             $suggested = $items['Item']['drwnbr'] + 10;
-            debug($suggested);
-        //}        
+            //debug($suggested);
+            return $suggested;
+        
         
         
     }

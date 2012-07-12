@@ -38,7 +38,6 @@ class AllRoutingTest extends PHPUnit_Framework_TestSuite {
 
 		$suite->addTestDirectory($libs . 'Routing');
 		$suite->addTestDirectory($libs . 'Routing' . DS . 'Route');
-		$suite->addTestDirectory($libs . 'Routing' . DS . 'Filter');
 		return $suite;
 	}
 }
