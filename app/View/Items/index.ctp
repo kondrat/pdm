@@ -4,7 +4,7 @@
     <?php
     echo $this->Form->input('Project', array(
         'label' => __('Select project'),
-        'selected' => $this->request->params['named']['prj'],
+        //'selected' => $this->request->params['named']['prj'],
         'id' => 'item-currentPrj'
     ));
     $projectId = null;
@@ -13,10 +13,10 @@
 
     <table cellpadding="0" cellspacing="0">
         <tr>
-            <th><?php echo $this->Paginator->sort('drwnbr'); ?></th>
-            <th><?php echo $this->Paginator->sort('name'); ?></th>
+            <th><?php echo __('Drw number'); ?></th>
+            <th><?php echo __('Name');?></th>
 
-            <th><?php echo $this->Paginator->sort('tray.name'); ?></th>
+            <th><?php echo __('Tray Name'); ?></th>
             <th class="actions" style="text-align: center;"><?php echo __('Actions'); ?></th>
         </tr>
         <?php
@@ -36,20 +36,7 @@
             </tr>
         <?php endforeach; ?>
     </table>
-    <p>
-        <?php
-        echo $this->Paginator->counter(array(
-            'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-        ));
-        ?>	</p>
 
-    <div class="paging">
-        <?php
-        echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-        echo $this->Paginator->numbers(array('separator' => ''));
-        echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-        ?>
-    </div>
 </div>
 <div class="actions">
     <ul>

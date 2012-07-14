@@ -47,7 +47,7 @@ jQuery(document).ready(function(){
                          $("#tem_to_change").find("select,input").prop('disabled', true);
                     }
                     
-                    
+                    $("#item-drwNbrTip").val(mm.nbr);
                     //$("#tem").empty().append(data);
                     
                     // Countablel plugin code                   

@@ -1,9 +1,9 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.1.40-community - MySQL Community Server (GPL)
--- Server OS:                    Win32
+-- Server version:               5.1.63-0ubuntu0.11.04.1 - (Ubuntu)
+-- Server OS:                    debian-linux-gnu
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-06-19 16:25:29
+-- Date/time:                    2012-07-14 22:44:00
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -158,25 +158,27 @@ CREATE TABLE IF NOT EXISTS `items` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `letter_ata_resp_drwnbr` (`letter`,`ata`,`resp`,`drwnbr`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items: 13 rows
+-- Dumping data for table pdm.items: 15 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `responscode_id`, `status_id`, `letter`, `ata`, `resp`, `drwnbr`, `name`, `created`, `modified`) VALUES
-	(30, 27, 1, NULL, NULL, '', '', '', 'A00-second1-000', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
-	(29, 27, 1, NULL, NULL, '', '', '', 'first3', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
-	(28, 27, 1, NULL, NULL, '', '', '', 'forth1', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
-	(27, 27, 1, NULL, NULL, '', '', '', 'third2', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
-	(26, 3, 1, NULL, NULL, '', '', '', 'third1', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
-	(25, 27, 1, NULL, NULL, '', '', '', 'first2', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
-	(24, 5, 1, NULL, NULL, '', '', '', 'first1', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
-	(23, 3, 1, NULL, NULL, '', '', '', 'root', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
-	(31, 27, 1, NULL, NULL, '', '', '', 'second2', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
-	(32, 27, 1, NULL, NULL, '', '', '', 'second3', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02'),
-	(33, 3, 1, NULL, NULL, '', '', '', 'sdf', '', '2012-05-31 11:09:04', '2012-05-31 11:09:04'),
-	(34, 5, 1, NULL, NULL, '', '', '', 'asd', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
-	(35, 27, 1, NULL, NULL, '', '', '', 'A-140-12456', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38');
+	(30, 27, 1, NULL, NULL, '', '', '', '0067', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
+	(29, 27, 1, NULL, NULL, '', '', '', '0057', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
+	(28, 27, 1, NULL, NULL, '', '', '', '0047', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
+	(27, 27, 1, NULL, NULL, '', '', '', '0037', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
+	(26, 3, 1, NULL, NULL, '', '', '', '0027', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
+	(25, 27, 1, NULL, NULL, '', '', '', '0026', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
+	(24, 5, 1, NULL, NULL, '', '', '', '0025', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
+	(23, 3, 1, NULL, NULL, '', '', '', '0000', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
+	(31, 27, 1, NULL, NULL, '', '', '', '0077', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
+	(32, 27, 1, NULL, NULL, '', '', '', '0087', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02'),
+	(33, 3, 7, NULL, NULL, '', '', '', '0097', 'Name name', '2012-05-31 11:09:04', '2012-07-14 18:15:35'),
+	(34, 5, 1, NULL, NULL, '', '', '', '0107', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
+	(35, 27, 1, NULL, NULL, '', '', '', '0109', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38'),
+	(36, 2, NULL, NULL, NULL, '', '000', '', '0119', 'root', '2012-07-13 17:54:22', '2012-07-13 17:54:22'),
+	(37, 27, NULL, NULL, NULL, '', '000', '', '0010', 'rdyrd', '2012-07-13 18:20:10', '2012-07-13 18:20:10');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -253,14 +255,16 @@ CREATE TABLE IF NOT EXISTS `itemversions` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.itemversions: ~2 rows (approximately)
+-- Dumping data for table pdm.itemversions: ~4 rows (approximately)
 DELETE FROM `itemversions`;
 /*!40000 ALTER TABLE `itemversions` DISABLE KEYS */;
 INSERT INTO `itemversions` (`id`, `item_id`, `version`, `created`, `modified`) VALUES
 	(7, 35, 202, '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
-	(8, 35, 200, '2012-05-31 11:13:38', '2012-05-31 11:13:38');
+	(8, 35, 200, '2012-05-31 11:13:38', '2012-05-31 11:13:38'),
+	(9, 36, 200, '2012-07-13 17:54:22', '2012-07-13 17:54:22'),
+	(10, 37, 200, '2012-07-13 18:20:10', '2012-07-13 18:20:10');
 /*!40000 ALTER TABLE `itemversions` ENABLE KEYS */;
 
 
@@ -288,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `item_types` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dumping data for table pdm.item_types: ~4 rows (approximately)
 DELETE FROM `item_types`;
@@ -297,7 +301,8 @@ INSERT INTO `item_types` (`id`, `name`, `suffix`, `created`, `modified`) VALUES
 	(1, 'Assy', '000', '2012-01-26 10:32:48', '2012-02-22 10:10:42'),
 	(2, 'Part', '200', '2012-01-26 10:33:00', '2012-02-22 10:06:58'),
 	(3, 'Std', 'std', '2012-01-26 10:33:20', '2012-02-20 23:13:20'),
-	(6, 'EQpart', 'eqp', '2012-01-29 11:43:06', '2012-02-22 09:46:12');
+	(6, 'EQpart', 'eqp', '2012-01-29 11:43:06', '2012-02-22 09:46:12'),
+	(7, NULL, NULL, '2012-07-14 18:15:35', '2012-07-14 18:15:35');
 /*!40000 ALTER TABLE `item_types` ENABLE KEYS */;
 
 
@@ -538,23 +543,24 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(32) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
+  `last_prj_id` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dumping data for table pdm.users: ~6 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `group_id`, `password`, `name`, `email`, `last_login`, `created`, `modified`) VALUES
-	(1, NULL, '1234', 'AlexeyKondratyev', 'aa@mm.ru', NULL, '2012-05-21 09:39:04', '2012-05-21 09:39:04'),
-	(3, NULL, '1234', 'aa2', 'aa2@mm.ru', NULL, '2012-05-21 11:12:33', '2012-05-21 11:12:33'),
-	(4, NULL, '1234', 'aa3', 'aa3@mm.ru', NULL, '2012-05-22 06:34:01', '2012-05-22 06:34:01'),
-	(5, NULL, '1234', 'worker1', '', NULL, '2012-05-24 09:17:39', '2012-05-24 09:17:39'),
-	(7, NULL, '1234', 'worker2', 'worker2@mm.ru', NULL, '2012-05-24 09:18:32', '2012-05-24 09:18:32'),
-	(8, NULL, '1234', 'drafter1', 'drafter1@mm.ru', NULL, '2012-05-24 10:18:37', '2012-05-24 10:18:37');
+INSERT INTO `users` (`id`, `group_id`, `password`, `name`, `email`, `last_login`, `last_prj_id`, `created`, `modified`) VALUES
+	(1, NULL, '1234', 'alexeykondratyev', 'aa@mm.ru', '2012-07-14 07:09:11', 1, '2012-05-21 09:39:04', '2012-07-14 19:09:11'),
+	(3, NULL, '1234', 'aa2', 'aa2@mm.ru', NULL, NULL, '2012-05-21 11:12:33', '2012-05-21 11:12:33'),
+	(4, NULL, '1234', 'aa3', 'aa3@mm.ru', NULL, NULL, '2012-05-22 06:34:01', '2012-05-22 06:34:01'),
+	(5, NULL, '1234', 'worker1', '', NULL, NULL, '2012-05-24 09:17:39', '2012-05-24 09:17:39'),
+	(7, NULL, '1234', 'worker2', 'worker2@mm.ru', NULL, NULL, '2012-05-24 09:18:32', '2012-05-24 09:18:32'),
+	(8, NULL, '1234', 'drafter1', 'drafter1@mm.ru', NULL, NULL, '2012-05-24 10:18:37', '2012-05-24 10:18:37');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

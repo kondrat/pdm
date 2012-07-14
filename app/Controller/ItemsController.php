@@ -30,13 +30,20 @@ class ItemsController extends AppController {
      */
     public function index() {
         //$this->Item->recursive = 0;
-        $projects = $this->Item->Project->find('list', array('fields' => array('Project.id', 'Project.name')));
+        $projects = $this->Item->Project->find('all',array(
+            'fields' => array('Project.id', 'Project.name')
+            )               
+        );
+        
+        $lastUserPrjId = null;
+        if($this->Session->read('Auth.User.User.curprj')){
+            $lastUserPrjId = $this->Session->read('Auth.User.User.curprj');
+        }
+        
         $this->set('projects', $projects);
 
 
-
         $traysData = array();
-        $riflesTrays = array();
 
         $traysData = $this->Item->Tray->find('first', array(
             'conditions' => array('Tray.id' => 2),
@@ -45,15 +52,22 @@ class ItemsController extends AppController {
         );
         if ($traysData != array()) {
             $trayName = $traysData['Tray']['name'];
-            $riflesTrays = $this->Item->Tray->generateTreeList(
-                    array('Tray.lft >=' => $traysData['Tray']['lft'], 'Tray.rght <=' => $traysData['Tray']['rght']), null, null, '....');
+
         }
 
-        $this->set('riflesTrays', $riflesTrays);
         $this->set('trayName', $trayName);
-        $this->set('items', $this->paginate());
 
+        $items = $this->Item->find('all',array(
+            'conditions' => array(),
+            'contain' => array(
+                'Project' => array('conditions' => array('Project.id' => 1, 'Project.id !=' => NULL)),
+                'SubItem',
+                'Tray'
+            )
+               
+        ));
 
+        $this->set('items',$items);
 
 
 
@@ -241,8 +255,8 @@ class ItemsController extends AppController {
             //$this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
             $this->request->data["Item"]["tray_id"] = $this->request->data['Item']['tray'];
             $this->request->data["Project"]["id"] = $this->request->data["Item"]["projects"];
-            $this->request->data["Item"]["drwnbr"] = $this->request->data['drwnbr'];
-            $this->request->data["Item"]["name"] = $this->request->data['name'];
+            //$this->request->data["Item"]["drwnbr"] = $this->request->data['drwnbr'];
+            //$this->request->data["Item"]["name"] = $this->request->data['name'];
 
             $this->request->data["Itemversion"]["version"] = "200"; //$this->request->data['name'];
             //debug($this->request->data);
@@ -461,7 +475,7 @@ class ItemsController extends AppController {
             }
             
             
-            $nbr = $this->giveDrwNbr();
+            $nbr = $this->giveDrwNbr('ata');
             $at['nbr'] = $nbr;
             
             
@@ -478,21 +492,31 @@ class ItemsController extends AppController {
     /**
      * providing the sugesstion for the number
      */
-    private function giveDrwNbr() {
+    private function giveDrwNbr($ata=null) {
         
         
             $items = $this->Item->find('first',array(
               'conditions'=>array(
                    'Item.letter'=> '',// $this->request->data["Item"]["Pletter"],
-//                   'Item.ata' => $this->request->data["Item"]["ata"],
+                   'Item.ata' => $ata,
 //                   'Item.resp'=>'bla-bla'
                ),
                'order'=>('Item.drwnbr DESC'),
                'contain' => false
             ));
-            
+
+            if($items == array()){
+                $suggested = 0000;
+            }
             $suggested = $items['Item']['drwnbr'] + 10;
             //debug($suggested);
+            $suggested = sprintf("%04d", $suggested);
+            
+            $sugLength = strlen($suggested);
+            if($sugLength > 4){
+                $suggested = '';
+            }
+            
             return $suggested;
         
         
