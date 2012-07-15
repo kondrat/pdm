@@ -1,15 +1,7 @@
 <div class="items index">
     <h2><?php echo __('Items'); ?></h2>
 
-    <?php
-    echo $this->Form->input('Project', array(
-        'label' => __('Select project'),
-        //'selected' => $this->request->params['named']['prj'],
-        'id' => 'item-currentPrj'
-    ));
-    $projectId = null;
-    $projectId = key($projects);
-    ?>
+    <?php echo __('Project: '). $userPrj;?>
 
     <table cellpadding="0" cellspacing="0">
         <tr>
@@ -40,6 +32,10 @@
 </div>
 <div class="actions">
     <ul>
-        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add', 'trd' => 2, 'prj' => $projectId)); ?></li>
+        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add', 'trd' => 2)); ?></li>        
     </ul>
+    <ul>
+    <?php foreach($allPrj as $k=>$v):?>
+        <li><?php echo $v['Project']['name'];?></li>
+    <?php endforeach;?>
 </div>

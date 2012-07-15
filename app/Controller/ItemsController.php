@@ -31,7 +31,8 @@ class ItemsController extends AppController {
     public function index() {
         //$this->Item->recursive = 0;
         $projects = $this->Item->Project->find('all',array(
-            'fields' => array('Project.id', 'Project.name')
+            'fields' => array('Project.id', 'Project.name'),
+            'contain'=>FALSE
             )               
         );
         
@@ -39,6 +40,18 @@ class ItemsController extends AppController {
         if($this->Session->read('Auth.User.User.curprj')){
             $lastUserPrjId = $this->Session->read('Auth.User.User.curprj');
         }
+        
+        $userCurPrj = NULL;
+        $allPrj = array();
+        foreach ($projects as $k=>$v){
+            if($v['Project']['id'] == $lastUserPrjId){
+                $userCurPrj = $v;
+            }else{
+                $allPrj[] = $v;
+            }
+        }
+        $this->set('userPrj',$userCurPrj['Project']['name']);
+        $this->set('allPrj',$allPrj);
         
         $this->set('projects', $projects);
 
