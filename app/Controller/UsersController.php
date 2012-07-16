@@ -55,6 +55,7 @@ class UsersController extends AppController {
                 $this->User->save($this->request->data);
                 
                 $this->Session->write('Auth.User.User.curprj', $user['User']['last_prj_id']);
+                $this->Session->write('Auth.User.User.id', $user['User']['id']);
                 $this->redirect($this->Auth->redirect());
             } else {
                 $this->Session->setFlash('Your username or password was incorrect!');

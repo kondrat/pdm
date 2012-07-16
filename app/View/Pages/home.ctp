@@ -5,7 +5,7 @@
     
     <ul>
         <li>Items and Types</li>
-        <li><?php echo $this->Html->link(__('Rifle Items'), array('controller' => 'items', 'action' => 'index','prj'=>1)); ?></li>
+        <li><?php echo $this->Html->link(__('Rifle Items'), array('controller' => 'items', 'action' => 'index','prj'=>$this->Session->read('Auth.User.User.curprj'))); ?></li>
         <li><?php echo $this->Html->link(__('ItemTypes'), array('controller' => 'itemTypes', 'action' => 'index')); ?></li>
         <li>Trays</li>        
         <li><?php echo $this->Html->link(__('Rifle\'s Trays'), array('controller' => 'trays', 'action' => 'index',2)); ?></li>

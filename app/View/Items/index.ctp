@@ -1,7 +1,7 @@
 <div class="items index">
     <h2><?php echo __('Items'); ?></h2>
 
-    <?php echo __('Project: '). $userPrj;?>
+    <?php echo __('Project: '). $userPrj['Project']['name'].__(' Total of items: ').$itemsCount;?>
 
     <table cellpadding="0" cellspacing="0">
         <tr>
@@ -32,10 +32,11 @@
 </div>
 <div class="actions">
     <ul>
-        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add', 'trd' => 2)); ?></li>        
+        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add', 'trd' => 2,'prj'=>$userPrj['Project']['id'])); ?></li>        
     </ul>
+    <div style="margin-bottom: 5px;"><?php echo __('Other projects:');?></div>
     <ul>
     <?php foreach($allPrj as $k=>$v):?>
-        <li><?php echo $v['Project']['name'];?></li>
+        <li><?php echo $this->Html->link($v['Project']['name'], array('controller'=>'items','action'=>'index','prj'=>$v['Project']['id']));?></li>
     <?php endforeach;?>
 </div>

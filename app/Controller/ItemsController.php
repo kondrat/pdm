@@ -29,7 +29,16 @@ class ItemsController extends AppController {
      * @return void
      */
     public function index() {
-        //$this->Item->recursive = 0;
+        //set current project for logged in User:
+        if(isset($this->request->params['named']['prj']) && $this->request->params['named']['prj'] != $this->Session->read('Auth.User.User')){
+            $this->Session->write('Auth.User.User.curprj',$this->request->params['named']['prj']);
+            $this->loadModel('User');
+            $this->request->data['User']['id'] = 1;
+            $this->request->data['User']['last_prj_id'] = $this->request->params['named']['prj'];
+            $this->User->save($this->request->data);
+        }
+        
+        
         $projects = $this->Item->Project->find('all',array(
             'fields' => array('Project.id', 'Project.name'),
             'contain'=>FALSE
@@ -42,33 +51,23 @@ class ItemsController extends AppController {
         }
         
         $userCurPrj = NULL;
+        $prjTray = null;
         $allPrj = array();
         foreach ($projects as $k=>$v){
             if($v['Project']['id'] == $lastUserPrjId){
                 $userCurPrj = $v;
+                
             }else{
                 $allPrj[] = $v;
             }
         }
-        $this->set('userPrj',$userCurPrj['Project']['name']);
+        $this->set('userPrj',$userCurPrj);
         $this->set('allPrj',$allPrj);
         
-        $this->set('projects', $projects);
 
 
-        $traysData = array();
 
-        $traysData = $this->Item->Tray->find('first', array(
-            'conditions' => array('Tray.id' => 2),
-            'fields' => array('Tray.lft', 'Tray.rght', 'Tray.name'),
-            'contain' => false)
-        );
-        if ($traysData != array()) {
-            $trayName = $traysData['Tray']['name'];
 
-        }
-
-        $this->set('trayName', $trayName);
 
         $items = $this->Item->find('all',array(
             'conditions' => array(),
@@ -79,35 +78,27 @@ class ItemsController extends AppController {
             )
                
         ));
+        
+        $curPrjItems = array();
+        
+        foreach ($items as $k=>$v){
+            foreach ($v['Project'] as $k2=>$v2){
+                if($v2['id'] == $lastUserPrjId){
+                    $curPrjItems[] = $v;
+                    break;
+                }
+            }
+        }
 
-        $this->set('items',$items);
+        $this->set('itemsCount',  count($curPrjItems));
+        $this->set('items',$curPrjItems);
 
 
 
 
-        $ii = $this->Item->find('all', array(
-            'conditions' => array(),
-            'contain' => array(
-                'Project' => array('conditions' => array('Project.id' => 2, 'Project.id !=' => NULL)),
-                'SubItem',
-                'Tray'
-            )
-                )
-        );
 
-        //$ii = Set::extract('/Project[id=1]',$ii);
 
-        $this->set('ii', $ii);
 
-        $gg = $this->Item->ItemsProject->find('all', array(
-            'conditions' => array('ItemsProject.project_id' => 1),
-            'contain' => array(
-                //'Item'
-                'Item' => array('SubItem')
-            )
-                )
-        );
-        $this->set('gg', $gg);
     }
 
     private $projectItmes = array();
