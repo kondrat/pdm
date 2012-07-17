@@ -1,9 +1,9 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.1.63-0ubuntu0.11.04.1 - (Ubuntu)
--- Server OS:                    debian-linux-gnu
+-- Server version:               5.1.40-community - MySQL Community Server (GPL)
+-- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-07-14 22:44:00
+-- Date/time:                    2012-07-17 17:59:52
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -158,9 +158,9 @@ CREATE TABLE IF NOT EXISTS `items` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `letter_ata_resp_drwnbr` (`letter`,`ata`,`resp`,`drwnbr`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items: 15 rows
+-- Dumping data for table pdm.items: 22 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `responscode_id`, `status_id`, `letter`, `ata`, `resp`, `drwnbr`, `name`, `created`, `modified`) VALUES
@@ -178,7 +178,14 @@ INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `responscode_id`, `status_
 	(34, 5, 1, NULL, NULL, '', '', '', '0107', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
 	(35, 27, 1, NULL, NULL, '', '', '', '0109', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38'),
 	(36, 2, NULL, NULL, NULL, '', '000', '', '0119', 'root', '2012-07-13 17:54:22', '2012-07-13 17:54:22'),
-	(37, 27, NULL, NULL, NULL, '', '000', '', '0010', 'rdyrd', '2012-07-13 18:20:10', '2012-07-13 18:20:10');
+	(37, 27, NULL, NULL, NULL, '', '000', '', '0010', 'rdyrd', '2012-07-13 18:20:10', '2012-07-13 18:20:10'),
+	(39, 27, NULL, NULL, NULL, '', '000', '', '0012', 'Hello', '2012-07-17 10:39:50', '2012-07-17 10:39:50'),
+	(40, 27, NULL, NULL, NULL, 'A', '000', '', '0010', 'Goode', '2012-07-17 12:11:18', '2012-07-17 12:11:18'),
+	(41, 27, NULL, NULL, NULL, 'A', '150', '', '0010', 'Most', '2012-07-17 12:13:28', '2012-07-17 12:13:28'),
+	(42, 27, NULL, 2, NULL, 'A', '150', '0', '0010', 'More', '2012-07-17 13:51:26', '2012-07-17 13:51:26'),
+	(43, 27, NULL, 2, NULL, 'A', '150', '1', '0010', 'More', '2012-07-17 13:52:14', '2012-07-17 13:52:14'),
+	(44, 27, NULL, 3, NULL, 'A', '150', '2', '0010', 'More2', '2012-07-17 13:53:54', '2012-07-17 13:53:54'),
+	(45, 27, 1, 1, NULL, 'A', '150', '0', '0014', 'hello', '2012-07-17 13:59:16', '2012-07-17 13:59:16');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -191,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `items_items` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items_items: 17 rows
+-- Dumping data for table pdm.items_items: 0 rows
 DELETE FROM `items_items`;
 /*!40000 ALTER TABLE `items_items` DISABLE KEYS */;
 INSERT INTO `items_items` (`id`, `item_id`, `sub_item_id`) VALUES
@@ -222,9 +229,9 @@ CREATE TABLE IF NOT EXISTS `items_projects` (
   `item_id` int(11) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table pdm.items_projects: 15 rows
+-- Dumping data for table pdm.items_projects: 0 rows
 DELETE FROM `items_projects`;
 /*!40000 ALTER TABLE `items_projects` DISABLE KEYS */;
 INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
@@ -242,7 +249,14 @@ INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
 	(24, 34, 1),
 	(25, 35, 1),
 	(26, 25, 2),
-	(27, 35, 2);
+	(27, 35, 2),
+	(28, 39, 1),
+	(29, 40, 1),
+	(30, 41, 1),
+	(31, 42, 1),
+	(32, 43, 1),
+	(33, 44, 1),
+	(34, 45, 1);
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
 
 
@@ -255,16 +269,24 @@ CREATE TABLE IF NOT EXISTS `itemversions` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.itemversions: ~4 rows (approximately)
+-- Dumping data for table pdm.itemversions: ~2 rows (approximately)
 DELETE FROM `itemversions`;
 /*!40000 ALTER TABLE `itemversions` DISABLE KEYS */;
 INSERT INTO `itemversions` (`id`, `item_id`, `version`, `created`, `modified`) VALUES
 	(7, 35, 202, '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
 	(8, 35, 200, '2012-05-31 11:13:38', '2012-05-31 11:13:38'),
 	(9, 36, 200, '2012-07-13 17:54:22', '2012-07-13 17:54:22'),
-	(10, 37, 200, '2012-07-13 18:20:10', '2012-07-13 18:20:10');
+	(10, 37, 200, '2012-07-13 18:20:10', '2012-07-13 18:20:10'),
+	(11, 0, NULL, '2012-07-17 10:28:41', '2012-07-17 10:28:41'),
+	(12, 39, 200, '2012-07-17 10:39:50', '2012-07-17 10:39:50'),
+	(13, 40, 200, '2012-07-17 12:11:18', '2012-07-17 12:11:18'),
+	(14, 41, 200, '2012-07-17 12:13:28', '2012-07-17 12:13:28'),
+	(15, 42, 200, '2012-07-17 13:51:26', '2012-07-17 13:51:26'),
+	(16, 43, 200, '2012-07-17 13:52:14', '2012-07-17 13:52:14'),
+	(17, 44, 200, '2012-07-17 13:53:54', '2012-07-17 13:53:54'),
+	(18, 45, 200, '2012-07-17 13:59:16', '2012-07-17 13:59:16');
 /*!40000 ALTER TABLE `itemversions` ENABLE KEYS */;
 
 
@@ -549,13 +571,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dumping data for table pdm.users: ~6 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `group_id`, `password`, `name`, `email`, `last_login`, `last_prj_id`, `created`, `modified`) VALUES
-	(1, NULL, '1234', 'alexeykondratyev', 'aa@mm.ru', '2012-07-14 07:09:11', 1, '2012-05-21 09:39:04', '2012-07-14 19:09:11'),
+	(1, NULL, '1234', 'AlexeyKondratyev', 'aa@mm.ru', '2012-07-17 06:41:37', 1, '2012-05-21 09:39:04', '2012-07-17 12:46:07'),
 	(3, NULL, '1234', 'aa2', 'aa2@mm.ru', NULL, NULL, '2012-05-21 11:12:33', '2012-05-21 11:12:33'),
 	(4, NULL, '1234', 'aa3', 'aa3@mm.ru', NULL, NULL, '2012-05-22 06:34:01', '2012-05-22 06:34:01'),
 	(5, NULL, '1234', 'worker1', '', NULL, NULL, '2012-05-24 09:17:39', '2012-05-24 09:17:39'),

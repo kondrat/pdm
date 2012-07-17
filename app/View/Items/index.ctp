@@ -1,7 +1,7 @@
 <div class="items index">
     <h2><?php echo __('Items'); ?></h2>
 
-    <?php echo __('Project: '). $userPrj['Project']['name'].__(' Total of items: ').$itemsCount;?>
+    <?php echo __('Project: '). $userPrj['Project']['name'].__(' Total of items: ').$itemsCount.__(' Tray name: ').$userPrj['Project']['tray_name'];?>
 
     <table cellpadding="0" cellspacing="0">
         <tr>
@@ -16,7 +16,7 @@
         foreach ($items as $item):
             ?>
             <tr>
-                <td><?php echo h($item['Item']['drwnbr']); ?>&nbsp;</td>
+                <td><?php echo h($item['Item']['full_drwname']); ?>&nbsp;</td>
                 <td><?php echo h($item['Item']['name']); ?>&nbsp;</td>
 
                 <td><?php echo h($item['Tray']['name']); ?>&nbsp;</td>
@@ -32,7 +32,7 @@
 </div>
 <div class="actions">
     <ul>
-        <li><?php echo $this->Html->link(__('New Rifle Item'), array('action' => 'add', 'trd' => 2,'prj'=>$userPrj['Project']['id'])); ?></li>        
+        <li><?php echo $this->Html->link(__('New ').$userPrj['Project']['tray_name'].' '.__('Item'), array('action' => 'add', 'trd' => $userPrj['Project']['tray_id'],'prj'=>$userPrj['Project']['id'])); ?></li>        
     </ul>
     <div style="margin-bottom: 5px;"><?php echo __('Other projects:');?></div>
     <ul>

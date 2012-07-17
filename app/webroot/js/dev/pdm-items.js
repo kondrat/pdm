@@ -38,7 +38,7 @@ jQuery(document).ready(function(){
                     mm = $("#item-upperAssyList").data("at");
                    
                     $("#item-ataCodeTip").text(mm.ataCache);   
-                    
+                    $("#item-ataCode").val(mm.ataCache);
                     if(mm.form == 1){
                         $("#tem_to_change").find("select,input").prop('disabled', false);
                         $(".item-newItemNbr").removeClass("item-newItemNbrDis");

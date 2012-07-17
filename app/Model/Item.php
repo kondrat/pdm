@@ -24,9 +24,9 @@ class Item extends AppModel {
     public $actsAs = array('Containable');
     
 
-//    public $virtualFields = array(
-//        'full_drwname' => 'CONCAT(Item.letter, " ", Item.ata, " ", Item.resp, " ", Item.drwnbr)'
-//    );
+    public $virtualFields = array(
+        'full_drwname' => 'CONCAT(letter, " ", ata, " ", resp, " ", drwnbr)'
+    );
     
     public $hasAndBelongsToMany = array(
         'SubItem' => array(

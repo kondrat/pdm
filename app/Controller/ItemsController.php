@@ -40,18 +40,19 @@ class ItemsController extends AppController {
         
         
         $projects = $this->Item->Project->find('all',array(
-            'fields' => array('Project.id', 'Project.name'),
+            'fields' => array('Project.id', 'Project.name','Project.tray_id'),
             'contain'=>FALSE
             )               
         );
+        
         
         $lastUserPrjId = null;
         if($this->Session->read('Auth.User.User.curprj')){
             $lastUserPrjId = $this->Session->read('Auth.User.User.curprj');
         }
         
-        $userCurPrj = NULL;
-        $prjTray = null;
+        $userCurPrj = array();
+        $prjTray = array();
         $allPrj = array();
         foreach ($projects as $k=>$v){
             if($v['Project']['id'] == $lastUserPrjId){
@@ -61,6 +62,17 @@ class ItemsController extends AppController {
                 $allPrj[] = $v;
             }
         }
+        $userCurPrj['Project']['tray_name'] = null;
+
+        if($userCurPrj != array()){
+            $prjTray = $this->Item->Tray->find('first',array(
+                'conditions'=>array('Tray.id'=>$userCurPrj['Project']['tray_id']),
+                'contain'=>false
+            ));
+            $userCurPrj['Project']['tray_name'] = $prjTray['Tray']['name'];
+        }
+        
+        
         $this->set('userPrj',$userCurPrj);
         $this->set('allPrj',$allPrj);
         
@@ -254,16 +266,27 @@ class ItemsController extends AppController {
          * workign with the post datas
          */
         if ($this->request->is('post')) {
+                
 
+            
 
-            //$this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
+            $this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
             $this->request->data["Item"]["tray_id"] = $this->request->data['Item']['tray'];
-            $this->request->data["Project"]["id"] = $this->request->data["Item"]["projects"];
+            $this->request->data["Project"]["id"] = $this->request->data["Item"]["project"];
+            $this->request->data['Item']['letter'] = $this->request->data['Item']['Pletter'];
+            $this->request->data['Item']['responscode_id'] = $this->request->data['Item']['Responscode'];
+            $resp = $this->Item->Responscode->find('first',array(
+                'conditions'=>array('Responscode.id'=>$this->request->data['Item']['Responscode']),
+                'contain'=>FALSE
+            ));
+            
+            $this->request->data['Item']['resp'] = $resp['Responscode']['name'];
+            $this->request->data['Item']['item_type_id'] = $this->request->data['Item']['ItemType'];
             //$this->request->data["Item"]["drwnbr"] = $this->request->data['drwnbr'];
             //$this->request->data["Item"]["name"] = $this->request->data['name'];
 
             $this->request->data["Itemversion"]["version"] = "200"; //$this->request->data['name'];
-            //debug($this->request->data);
+//            debug($this->request->data);
 
             $this->Item->create();
             if ($this->Item->save($this->request->data)) {

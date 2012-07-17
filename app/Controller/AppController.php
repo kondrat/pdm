@@ -16,7 +16,7 @@ class AppController extends Controller {
             'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
         ),
         //'Acl',
-        'DebugKit.Toolbar'
+        'DebugKit.Toolbar'=>array('panels' => array('history' => false))
     );
 
     function beforeFilter() {
