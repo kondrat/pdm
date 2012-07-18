@@ -27,6 +27,8 @@ class Item extends AppModel {
     public $virtualFields = array(
         'full_drwname' => 'CONCAT(letter, " ", ata, " ", resp, " ", drwnbr)'
     );
+
+    
     
     public $hasAndBelongsToMany = array(
         'SubItem' => array(

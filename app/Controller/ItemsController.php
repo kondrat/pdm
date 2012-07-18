@@ -84,7 +84,7 @@ class ItemsController extends AppController {
         $items = $this->Item->find('all',array(
             'conditions' => array(),
             'contain' => array(
-                'Project' => array('conditions' => array('Project.id' => 1, 'Project.id !=' => NULL)),
+                'Project' => array('conditions' => array('Project.id' => $userCurPrj['Project']['id'], 'Project.id !=' => NULL)),
                 'SubItem',
                 'Tray'
             )
@@ -245,6 +245,7 @@ class ItemsController extends AppController {
      * @return void
      */
     public function add() {
+        
         /**
          * checking params named
          */
@@ -261,15 +262,14 @@ class ItemsController extends AppController {
         if (!$this->Item->Tray->exists()) {
             throw new NotFoundException(__('Invalid tray'));
         }
+        
 
+       
         /**
          * workign with the post datas
          */
         if ($this->request->is('post')) {
                 
-
-            
-
             $this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
             $this->request->data["Item"]["tray_id"] = $this->request->data['Item']['tray'];
             $this->request->data["Project"]["id"] = $this->request->data["Item"]["project"];
@@ -282,11 +282,13 @@ class ItemsController extends AppController {
             
             $this->request->data['Item']['resp'] = $resp['Responscode']['name'];
             $this->request->data['Item']['item_type_id'] = $this->request->data['Item']['ItemType'];
-            //$this->request->data["Item"]["drwnbr"] = $this->request->data['drwnbr'];
-            //$this->request->data["Item"]["name"] = $this->request->data['name'];
+            
+            $itemVersion = $this->Item->ItemType->find('first',array(
+                'conditions'=>array('ItemType.id'=>$this->request->data['Item']['ItemType']),
+                'contain'=>false
+            ));
+            $this->request->data["Itemversion"]["version"] = $itemVersion['ItemType']['suffix']; 
 
-            $this->request->data["Itemversion"]["version"] = "200"; //$this->request->data['name'];
-//            debug($this->request->data);
 
             $this->Item->create();
             if ($this->Item->save($this->request->data)) {
@@ -418,6 +420,7 @@ class ItemsController extends AppController {
             $ataData = array();
             $ataId = null;
 
+            $letter = $this->request->data["prjLet"];
             $ataId = $this->request->data["ataId"];
             $prjId = $this->request->data["prjId"];
 
@@ -479,16 +482,13 @@ class ItemsController extends AppController {
                         'Itemversion'
                     )
                 ));
-                //debug($items);
 
-                //get items only for needed project
-
-                
+                //get items only for needed project             
                 foreach ($items as $k => $v) {
                     if ($v['Project'] != array()) {
 
                         foreach ($v['Itemversion'] as $k1=>$v1){
-                            $itemsRes[$v1['id']] = $v['Item']['drwnbr'].' - '.$v1['version']. ' (' . $v['Item']['name'] . ')';
+                            $itemsRes[$v1['id']] =$v['Item']['letter'].'-'.$v['Item']['ata'].'-'.$v['Item']['resp'].'-'. $v['Item']['drwnbr'].'-'.$v1['version']. ' (' . $v['Item']['name'] . ')';
                         }
 
                     }
@@ -502,7 +502,7 @@ class ItemsController extends AppController {
             }
             
             
-            $nbr = $this->giveDrwNbr('ata');
+            $nbr = $this->giveDrwNbr($letter,$at['ataCache']);
             $at['nbr'] = $nbr;
             
             
@@ -510,8 +510,7 @@ class ItemsController extends AppController {
             
             $this->set('at', $at);
             
-            
-            
+
             
         }
     }
@@ -519,31 +518,32 @@ class ItemsController extends AppController {
     /**
      * providing the sugesstion for the number
      */
-    private function giveDrwNbr($ata=null) {
+    private function giveDrwNbr($letter=null,$ata=null) {
         
         
             $items = $this->Item->find('first',array(
               'conditions'=>array(
-                   'Item.letter'=> '',// $this->request->data["Item"]["Pletter"],
+                   'Item.letter'=> $letter,
                    'Item.ata' => $ata,
-//                   'Item.resp'=>'bla-bla'
+//                 'Item.resp'=>'bla-bla'
                ),
                'order'=>('Item.drwnbr DESC'),
                'contain' => false
             ));
 
-            if($items == array()){
-                $suggested = 0000;
+            if($items == FALSE){
+                $suggested = '0000';
+            } else {
+                
+
+                $suggested = $items['Item']['drwnbr'] + 10;
+                $suggested = sprintf("%04d", $suggested);
+
+                $sugLength = strlen($suggested);
+                if($sugLength > 4){
+                    $suggested = '';
+                }
             }
-            $suggested = $items['Item']['drwnbr'] + 10;
-            //debug($suggested);
-            $suggested = sprintf("%04d", $suggested);
-            
-            $sugLength = strlen($suggested);
-            if($sugLength > 4){
-                $suggested = '';
-            }
-            
             return $suggested;
         
         

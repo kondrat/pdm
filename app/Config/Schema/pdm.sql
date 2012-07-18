@@ -3,7 +3,7 @@
 -- Server version:               5.1.40-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-07-17 17:59:52
+-- Date/time:                    2012-07-18 17:50:17
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -157,35 +157,12 @@ CREATE TABLE IF NOT EXISTS `items` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `letter_ata_resp_drwnbr` (`letter`,`ata`,`resp`,`drwnbr`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `letter_ata_resp_drwnbr` (`letter`,`ata`,`drwnbr`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items: 22 rows
+-- Dumping data for table pdm.items: 0 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `responscode_id`, `status_id`, `letter`, `ata`, `resp`, `drwnbr`, `name`, `created`, `modified`) VALUES
-	(30, 27, 1, NULL, NULL, '', '', '', '0067', 'second1', '2012-04-23 09:46:26', '2012-05-29 11:28:09'),
-	(29, 27, 1, NULL, NULL, '', '', '', '0057', 'first3', '2012-04-23 09:44:23', '2012-04-23 09:57:33'),
-	(28, 27, 1, NULL, NULL, '', '', '', '0047', 'forth1', '2012-04-22 11:25:58', '2012-04-22 11:34:52'),
-	(27, 27, 1, NULL, NULL, '', '', '', '0037', 'third2', '2012-04-22 11:23:32', '2012-04-22 11:23:32'),
-	(26, 3, 1, NULL, NULL, '', '', '', '0027', 'third1', '2012-04-19 13:33:34', '2012-04-22 11:26:14'),
-	(25, 27, 1, NULL, NULL, '', '', '', '0026', 'first2', '2012-04-19 13:22:23', '2012-04-23 09:57:13'),
-	(24, 5, 1, NULL, NULL, '', '', '', '0025', 'first1', '2012-04-19 13:22:05', '2012-04-23 09:53:20'),
-	(23, 3, 1, NULL, NULL, '', '', '', '0000', 'root', '2012-04-19 13:21:45', '2012-04-23 09:52:52'),
-	(31, 27, 1, NULL, NULL, '', '', '', '0077', 'second2', '2012-04-23 09:46:43', '2012-04-23 09:46:43'),
-	(32, 27, 1, NULL, NULL, '', '', '', '0087', 'second3', '2012-04-23 09:47:02', '2012-04-23 09:47:02'),
-	(33, 3, 7, NULL, NULL, '', '', '', '0097', 'Name name', '2012-05-31 11:09:04', '2012-07-14 18:15:35'),
-	(34, 5, 1, NULL, NULL, '', '', '', '0107', '', '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
-	(35, 27, 1, NULL, NULL, '', '', '', '0109', 'sdfg22', '2012-05-31 11:13:38', '2012-05-31 11:13:38'),
-	(36, 2, NULL, NULL, NULL, '', '000', '', '0119', 'root', '2012-07-13 17:54:22', '2012-07-13 17:54:22'),
-	(37, 27, NULL, NULL, NULL, '', '000', '', '0010', 'rdyrd', '2012-07-13 18:20:10', '2012-07-13 18:20:10'),
-	(39, 27, NULL, NULL, NULL, '', '000', '', '0012', 'Hello', '2012-07-17 10:39:50', '2012-07-17 10:39:50'),
-	(40, 27, NULL, NULL, NULL, 'A', '000', '', '0010', 'Goode', '2012-07-17 12:11:18', '2012-07-17 12:11:18'),
-	(41, 27, NULL, NULL, NULL, 'A', '150', '', '0010', 'Most', '2012-07-17 12:13:28', '2012-07-17 12:13:28'),
-	(42, 27, NULL, 2, NULL, 'A', '150', '0', '0010', 'More', '2012-07-17 13:51:26', '2012-07-17 13:51:26'),
-	(43, 27, NULL, 2, NULL, 'A', '150', '1', '0010', 'More', '2012-07-17 13:52:14', '2012-07-17 13:52:14'),
-	(44, 27, NULL, 3, NULL, 'A', '150', '2', '0010', 'More2', '2012-07-17 13:53:54', '2012-07-17 13:53:54'),
-	(45, 27, 1, 1, NULL, 'A', '150', '0', '0014', 'hello', '2012-07-17 13:59:16', '2012-07-17 13:59:16');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -201,24 +178,6 @@ CREATE TABLE IF NOT EXISTS `items_items` (
 -- Dumping data for table pdm.items_items: 0 rows
 DELETE FROM `items_items`;
 /*!40000 ALTER TABLE `items_items` DISABLE KEYS */;
-INSERT INTO `items_items` (`id`, `item_id`, `sub_item_id`) VALUES
-	(34, 24, 31),
-	(32, 23, 24),
-	(39, 25, 31),
-	(38, 25, 30),
-	(33, 24, 30),
-	(19, 26, 28),
-	(31, 23, 25),
-	(30, 23, 29),
-	(35, 24, 32),
-	(43, 30, 26),
-	(42, 30, 27),
-	(40, 29, 31),
-	(41, 29, 32),
-	(44, 35, 30),
-	(45, 35, 29),
-	(46, 35, 28),
-	(47, 35, 27);
 /*!40000 ALTER TABLE `items_items` ENABLE KEYS */;
 
 
@@ -229,34 +188,11 @@ CREATE TABLE IF NOT EXISTS `items_projects` (
   `item_id` int(11) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table pdm.items_projects: 0 rows
 DELETE FROM `items_projects`;
 /*!40000 ALTER TABLE `items_projects` DISABLE KEYS */;
-INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
-	(15, 25, 1),
-	(14, 24, 1),
-	(13, 23, 1),
-	(16, 26, 1),
-	(17, 27, 1),
-	(18, 28, 1),
-	(19, 29, 1),
-	(20, 30, 1),
-	(21, 31, 1),
-	(22, 32, 1),
-	(23, 33, 1),
-	(24, 34, 1),
-	(25, 35, 1),
-	(26, 25, 2),
-	(27, 35, 2),
-	(28, 39, 1),
-	(29, 40, 1),
-	(30, 41, 1),
-	(31, 42, 1),
-	(32, 43, 1),
-	(33, 44, 1),
-	(34, 45, 1);
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
 
 
@@ -265,28 +201,15 @@ DROP TABLE IF EXISTS `itemversions`;
 CREATE TABLE IF NOT EXISTS `itemversions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(11) NOT NULL DEFAULT '0',
-  `version` int(11) DEFAULT NULL,
+  `version` varchar(36) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.itemversions: ~2 rows (approximately)
+-- Dumping data for table pdm.itemversions: ~0 rows (approximately)
 DELETE FROM `itemversions`;
 /*!40000 ALTER TABLE `itemversions` DISABLE KEYS */;
-INSERT INTO `itemversions` (`id`, `item_id`, `version`, `created`, `modified`) VALUES
-	(7, 35, 202, '2012-05-31 11:10:48', '2012-05-31 11:10:48'),
-	(8, 35, 200, '2012-05-31 11:13:38', '2012-05-31 11:13:38'),
-	(9, 36, 200, '2012-07-13 17:54:22', '2012-07-13 17:54:22'),
-	(10, 37, 200, '2012-07-13 18:20:10', '2012-07-13 18:20:10'),
-	(11, 0, NULL, '2012-07-17 10:28:41', '2012-07-17 10:28:41'),
-	(12, 39, 200, '2012-07-17 10:39:50', '2012-07-17 10:39:50'),
-	(13, 40, 200, '2012-07-17 12:11:18', '2012-07-17 12:11:18'),
-	(14, 41, 200, '2012-07-17 12:13:28', '2012-07-17 12:13:28'),
-	(15, 42, 200, '2012-07-17 13:51:26', '2012-07-17 13:51:26'),
-	(16, 43, 200, '2012-07-17 13:52:14', '2012-07-17 13:52:14'),
-	(17, 44, 200, '2012-07-17 13:53:54', '2012-07-17 13:53:54'),
-	(18, 45, 200, '2012-07-17 13:59:16', '2012-07-17 13:59:16');
 /*!40000 ALTER TABLE `itemversions` ENABLE KEYS */;
 
 
@@ -314,9 +237,9 @@ CREATE TABLE IF NOT EXISTS `item_types` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.item_types: ~4 rows (approximately)
+-- Dumping data for table pdm.item_types: ~5 rows (approximately)
 DELETE FROM `item_types`;
 /*!40000 ALTER TABLE `item_types` DISABLE KEYS */;
 INSERT INTO `item_types` (`id`, `name`, `suffix`, `created`, `modified`) VALUES
@@ -324,7 +247,7 @@ INSERT INTO `item_types` (`id`, `name`, `suffix`, `created`, `modified`) VALUES
 	(2, 'Part', '200', '2012-01-26 10:33:00', '2012-02-22 10:06:58'),
 	(3, 'Std', 'std', '2012-01-26 10:33:20', '2012-02-20 23:13:20'),
 	(6, 'EQpart', 'eqp', '2012-01-29 11:43:06', '2012-02-22 09:46:12'),
-	(7, NULL, NULL, '2012-07-14 18:15:35', '2012-07-14 18:15:35');
+	(8, NULL, NULL, '2012-07-18 08:07:53', '2012-07-18 08:07:53');
 /*!40000 ALTER TABLE `item_types` ENABLE KEYS */;
 
 
@@ -464,7 +387,7 @@ DELETE FROM `projects`;
 INSERT INTO `projects` (`id`, `name`, `tray_id`, `description`, `created`, `modified`) VALUES
 	(1, 'KS-11', 2, 'Descr KM-11', '2012-03-11 13:30:14', '2012-04-01 10:50:18'),
 	(2, 'KM-11', 2, 'Desc KM-11', '2012-03-21 12:39:43', '2012-04-01 10:54:43'),
-	(3, 'TR-11', 2, 'Tactical rifle', '2012-04-01 10:49:17', '2012-04-01 10:49:17'),
+	(3, 'STR-12', 2, 'Tactical rifle', '2012-04-01 10:49:17', '2012-07-18 13:34:22'),
 	(4, 'TOOL', 9, 'Tooling dev', '2012-05-29 06:59:49', '2012-05-29 07:00:24');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 
@@ -538,7 +461,7 @@ INSERT INTO `trays` (`id`, `parent_id`, `lft`, `rght`, `name`, `item_type_id`, `
 	(7, 6, 16, 23, 'Resivers', 1, NULL, '1', NULL, NULL, '2012-01-31 15:49:42'),
 	(8, 6, 24, 35, 'Bolts', 1, NULL, '', NULL, NULL, '2012-01-29 22:31:35'),
 	(9, 1, 42, 45, 'Tools', 1, NULL, NULL, '000', NULL, NULL),
-	(10, 9, 43, 44, 'Crabs', 0, NULL, NULL, NULL, NULL, NULL),
+	(10, 9, 43, 44, 'Crabs', 0, NULL, NULL, '002', NULL, NULL),
 	(28, 2, 37, 38, 'Stocks', 1, NULL, '', NULL, NULL, '2012-01-29 21:47:54'),
 	(29, 8, 25, 26, 'Bolt', 2, NULL, NULL, NULL, NULL, NULL),
 	(30, 8, 27, 28, 'Bolt sleeve', 2, NULL, NULL, NULL, NULL, NULL),
@@ -577,7 +500,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `group_id`, `password`, `name`, `email`, `last_login`, `last_prj_id`, `created`, `modified`) VALUES
-	(1, NULL, '1234', 'AlexeyKondratyev', 'aa@mm.ru', '2012-07-17 06:41:37', 1, '2012-05-21 09:39:04', '2012-07-17 12:46:07'),
+	(1, NULL, '1234', 'AlexeyKondratyev', 'aa@mm.ru', '2012-07-18 01:24:52', 1, '2012-05-21 09:39:04', '2012-07-18 13:41:12'),
 	(3, NULL, '1234', 'aa2', 'aa2@mm.ru', NULL, NULL, '2012-05-21 11:12:33', '2012-05-21 11:12:33'),
 	(4, NULL, '1234', 'aa3', 'aa3@mm.ru', NULL, NULL, '2012-05-22 06:34:01', '2012-05-22 06:34:01'),
 	(5, NULL, '1234', 'worker1', '', NULL, NULL, '2012-05-24 09:17:39', '2012-05-24 09:17:39'),
