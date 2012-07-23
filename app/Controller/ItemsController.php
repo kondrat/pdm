@@ -459,7 +459,35 @@ class ItemsController extends AppController {
   
             //debug($parentTray['Tray']['id']);
             if($parentTray['Tray']['id'] == 1) {
+                
                 $rootTray = 'root';
+                
+                //getting root item, if it exists
+                $rootItems = $this->Item->find('all', array(
+                    'conditions' => array(
+                        'Item.tray_id' => array($ataId),
+                        'Item.item_type_id' => 1
+                    ),
+                    'contain' => array(
+                        'Project' => array('conditions' => array('Project.id' => $prjId)),
+                        'Itemversion'
+                    )
+                        )
+                );
+                $rootItemFroCurPrj = array();
+                //get items only for needed project             
+                foreach ($rootItem as $k => $v) {
+                    if ($v['Project'] != array()) {
+                        $rootItemFroCurPrj = $v;
+                        break;
+                    }
+                }                
+                if($rootItemFroCurPrj != array()){
+                    echo 'Uze est verhnia sborka';
+                }
+                
+                
+                
             } else {
                 $rootTray = 'notroot';
             }
