@@ -48,7 +48,11 @@
     padding: 0;
     vertical-align: middle;
 }
-
+.item-rootExists{
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 0;
+}
 
 form div.moretest{
     float: left;

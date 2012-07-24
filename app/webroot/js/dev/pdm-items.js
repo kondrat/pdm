@@ -11,62 +11,60 @@ jQuery(document).ready(function(){
         
         var mm = null;
         
-        $("#tem_to_change").css({"display":"block"});
+        
         
         $("#item-itemResp").val('mm');
 
         
         var thisTray = $(this);
-        
-        $.ajax({
-            dataType:"html",
-            url: "\/items\/getAtaCode",
-            type: "POST",
-            data: {
-                "data[ataId]":thisTray.val(),
-                "data[prjId]":$("#ItemProject").val(),
-                "data[prjLet]":$("#ItemPletter").val(),
-                "data[prjRes]":$("#ItemResponscode").val()
-            },
-            success:function (data) {               
-                //console.log(data)
-                
-                if(data) {
-                    
-                    $("#item-upperAssyWrp").empty().append(data);
-                    
-                    mm = $("#item-upperAssyList").data("at");
-                   
-                    $("#item-ataCodeTip").text(mm.ataCache);   
-                    $("#item-ataCode").val(mm.ataCache);
-                    if(mm.form == 1){
-                        $("#tem_to_change").find("select,input").prop('disabled', false);
-                        $(".item-newItemNbr").removeClass("item-newItemNbrDis");
-                    } else {
-                        $(".item-newItemNbr").addClass("item-newItemNbrDis");
-                         $("#tem_to_change").find("select,input").prop('disabled', true);
+        if(thisTray.val() != ''){
+            //if we selected tray, not "choose tray" - we display fields
+            $("#tem_to_change").css({"display":"block"});
+            
+            $.ajax({
+                dataType:"html",
+                url: "\/items\/getAtaCode",
+                type: "POST",
+                data: {
+                    "data[ataId]":thisTray.val(),
+                    "data[prjId]":$("#ItemProject").val(),
+                    "data[prjLet]":$("#ItemPletter").val(),
+                    "data[prjRes]":$("#ItemResponscode").val()
+                },
+                success:function (data) {               
+                    //console.log(data)
+
+                    if(data) {
+
+                        $("#item-upperAssyWrp").empty().append(data);
+
+                        mm = $("#item-upperAssyList").data("at");
+
+                        $("#item-ataCodeTip").text(mm.ataCache);   
+                        $("#item-ataCode").val(mm.ataCache);
+                        if(mm.form == 1){
+                            $("#tem_to_change").find("select,input").prop('disabled', false);
+                            $(".item-newItemNbr").removeClass("item-newItemNbrDis");
+                        } else {
+                            $(".item-newItemNbr").addClass("item-newItemNbrDis");
+                             $("#tem_to_change").find("select,input").prop('disabled', true);
+                        }
+
+                        $("#item-drwNbrTip").val(mm.nbr);
+
+
                     }
-                    
-                    $("#item-drwNbrTip").val(mm.nbr);
-                    //$("#tem").empty().append(data);
-                    
-                    // Countablel plugin code                   
-//                    $("#item-drwNbrTip").simplyCountable({
-//                        counter: '#item-drwNbrCounter',
-//                        maxCount: 5,
-//                        strictMax: false,
-//                        overClass: 'item-drwNbrTipOver'
-//                    });
-                                       
+
+                },
+
+                error:function(){
+                    alert('Problem with the server. Try again later.');
+
                 }
-                
-            },
-                    
-            error:function(){
-                alert('Problem with the server. Try again later.');
-                 
-            }
-        });
+            });
+        } else {
+            $("#tem_to_change").css({"display":"none"});
+        }
     });
     
 

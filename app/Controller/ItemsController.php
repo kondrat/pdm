@@ -454,10 +454,14 @@ class ItemsController extends AppController {
             //checking parent tray info
 
             $parentTray = $this->Item->Tray->getParentNode($ataId);
+            
+            //array of upper assembles
+            $itemsVerRes = array();
+            //var 
+            $rootTray = 'root';
 
-            //debug($parentTray);
-  
-            //debug($parentTray['Tray']['id']);
+            $rootItemName = NULL;
+            
             if($parentTray['Tray']['id'] == 1) {
                 
                 $rootTray = 'root';
@@ -476,28 +480,25 @@ class ItemsController extends AppController {
                 );
                 $rootItemFroCurPrj = array();
                 //get items only for needed project             
-                foreach ($rootItem as $k => $v) {
+                foreach ($rootItems as $k => $v) {
                     if ($v['Project'] != array()) {
                         $rootItemFroCurPrj = $v;
                         break;
                     }
-                }                
+                } 
                 if($rootItemFroCurPrj != array()){
-                    echo 'Uze est verhnia sborka';
+
+                    $m = $rootItemFroCurPrj;
+                    $rootItemName = $m['Item']['letter'].'-'.$m['Item']['ata'].'-'.$m['Item']['resp'].'-'. $m['Item']['drwnbr']. ' (' . $m['Item']['name'] . ')';
+                    //$this->layout = 'upperAssy';
                 }
-                
+
+                $this->set('rootItemName',$rootItemName);
                 
                 
             } else {
+                
                 $rootTray = 'notroot';
-            }
-            
-            $this->set('rootTray',$rootTray);
-  
-
-            $itemsRes = array();
-            
-            if($rootTray == 'notroot'){
 
                 $items = $this->Item->find('all', array(
 
@@ -516,17 +517,30 @@ class ItemsController extends AppController {
                     if ($v['Project'] != array()) {
 
                         foreach ($v['Itemversion'] as $k1=>$v1){
-                            $itemsRes[$v1['id']] =$v['Item']['letter'].'-'.$v['Item']['ata'].'-'.$v['Item']['resp'].'-'. $v['Item']['drwnbr'].'-'.$v1['version']. ' (' . $v['Item']['name'] . ')';
+                            $itemsVerRes[$v1['id']] =$v['Item']['letter'].'-'.$v['Item']['ata'].'-'.$v['Item']['resp'].'-'. $v['Item']['drwnbr'].'-'.$v1['version']. ' (' . $v['Item']['name'] . ')';
                         }
 
                     }
                 }
-            } 
 
-            $this->set('subItemsVers', $itemsRes);
+                
+                
+                
+            }
             
-            if($itemsRes != array() || $rootTray == 'root'){
-                $at['form'] = 1;
+            $this->set('rootTray',$rootTray);
+  
+
+            $this->set('subItemsVers', $itemsVerRes);
+            
+            if($itemsVerRes != array() || $rootTray == 'root'){
+                if($rootItemName != null){
+                    $at['form'] = 0;
+                }else{
+                    $at['form'] = 1;
+                }
+                
+                
             }
             
             

@@ -1,8 +1,11 @@
             <div id="item-upperAssyList" data-at=<?php echo $at;?>>
             <?php if($rootTray == "root"):?>
-                
-                <div class="message">Create a root assy</div>
-                
+                <?php if($rootItemName != NULL):?>
+                    <div class="message">We already have a root assy</div>
+                 <div class="item-rootExists"><?php echo $rootItemName;?></div>
+                 <?php else: ?>               
+                    <div class="message">Create a root assy</div>
+                <?php endif ?>
             <?php elseif($rootTray == 'notroot'): ?>
 
                 <?php if (isset($subItemsVers) && $subItemsVers == array()): ?>
