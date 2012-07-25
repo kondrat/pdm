@@ -1,4 +1,5 @@
 <div class="items view">
+    <?php //debug($item);?>
 <h2><?php  echo __('Item');?></h2>
 	<dl>
 		<dt><?php echo __('tray name'); ?></dt>
@@ -13,9 +14,13 @@
 		</dd>
 		<dt><?php echo __('Drawing number'); ?></dt>
 		<dd>
-			<?php echo h($item['Item']['drwnbr']); ?>
+			<?php echo h($item['Item']['full_drwname']); ?>
 			&nbsp;
 		</dd>
+                <dt><?php echo __('Drawing versions'); ?></dt>
+                <?php foreach ($item['Itemversion'] as $k=>$v):?>
+                <dd><?php echo $item['Item']['full_drwname'].' - '.$v['version'].'</br>';?></dd>
+                <?php endforeach?>
 		<dt><?php echo __('Item type'); ?></dt>
 		<dd>
 			<?php echo h($item['ItemType']['name']); ?>
