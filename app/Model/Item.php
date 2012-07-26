@@ -31,21 +31,7 @@ class Item extends AppModel {
     
     
     public $hasAndBelongsToMany = array(
-        'SubItem' => array(
-            'className' => 'Item',
-            'joinTable' => 'items_items',
-            'foreignKey' => 'item_id',
-            'associationForeignKey' => 'sub_item_id',
-            'unique' => true,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'finderQuery' => '',
-            'deleteQuery' => '',
-            'insertQuery' => ''
-        ),
+
         'Project' => array(
             'classname' => 'Project',
             'joinTable' => 'items_projects',

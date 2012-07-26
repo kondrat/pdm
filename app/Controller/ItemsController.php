@@ -82,11 +82,13 @@ class ItemsController extends AppController {
 
 
         $items = $this->Item->find('all',array(
-            'conditions' => array(),
+            'conditions' => array(
+                'Item.active' => 1
+            ),
             'contain' => array(
                 'Project' => array('conditions' => array('Project.id' => $userCurPrj['Project']['id'], 'Project.id !=' => NULL)),
-                'SubItem',
-                'Tray'
+                'Tray',
+                'Itemversion'
             )
                
         ));
@@ -128,7 +130,7 @@ class ItemsController extends AppController {
         //getting only items which belongs for choosen prj.
 
         $itemsForCurPrj = $this->Item->find('all', array(
-            //'conditions'=>array('Item.id'=>21),
+            'conditions'=>array('Item.active'=>1),
             'fields' => array('Item.id', 'Item.tray_id', 'Item.name', 'Item.drwnbr'),
             'contain' => array(
                 'SubItem' => array('fields' => array('SubItem.id', 'SubItem.tray_id', 'SubItem.name', 'SubItem.drwnbr')),
@@ -202,6 +204,7 @@ class ItemsController extends AppController {
         return $res;
     }
 
+    
     public function getItemsForPrj() {
         if ($this->request->is('ajax')) {
 
@@ -288,6 +291,8 @@ class ItemsController extends AppController {
                 'contain'=>false
             ));
             $this->request->data["Itemversion"]["version"] = $itemVersion['ItemType']['suffix']; 
+            $this->request->data["Itemissue"]["issue"] = 'A';
+            $this->request->data["Itemissue"]["number"] = 01;
 
 
             $this->Item->create();
@@ -295,7 +300,9 @@ class ItemsController extends AppController {
 
                 $this->request->data["Itemversion"]["item_id"] = $this->Item->id;
                 $this->Item->Itemversion->save($this->request->data);
-
+                
+                //SubItemsVer
+                
                 $this->Session->setFlash(__('The item has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -638,7 +645,9 @@ class ItemsController extends AppController {
         if (!$this->Item->exists()) {
             throw new NotFoundException(__('Invalid item'));
         }
-        if ($this->Item->delete()) {
+        $this->request->data['Item']['id'] = $id;
+        $this->request->data['Item']['active'] = 0;
+        if ($this->Item->save($this->request->data)) {
             $this->Session->setFlash(__('Item deleted'));
             $this->redirect(array('action' => 'index'));
         }

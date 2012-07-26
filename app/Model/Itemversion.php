@@ -41,7 +41,7 @@ class Itemversion extends AppModel {
     public $hasAndBelongsToMany = array(
         'SubItemversion' => array(
             'className' => 'Itemversion',
-            'joinTable' => 'itemversions_itemsversions',
+            'joinTable' => 'itemversion_itemversions',
             'foreignKey' => 'itemver_id',
             'associationForeignKey' => 'subitemver_id',
             'unique' => true,
