@@ -6,8 +6,9 @@
     <table cellpadding="0" cellspacing="0">
         <tr>
             <th><?php echo __('Drw number'); ?></th>
+            <th><?php echo __('Issue');?></th>
             <th><?php echo __('Name');?></th>
-
+            
             <th><?php echo __('Tray Name'); ?></th>
             <th class="actions" style="text-align: center;"><?php echo __('Actions'); ?></th>
         </tr>
@@ -17,8 +18,9 @@
             ?>
             <tr>
                 <td><?php echo h($item['Item']['full_drwname']); ?>&nbsp;</td>
+                <td><?php echo h($item['Itemissue'][0]['issue']); ?>&nbsp;</td>
                 <td><?php echo h($item['Item']['name']); ?>&nbsp;</td>
-
+                
                 <td><?php echo h($item['Tray']['name']); ?>&nbsp;</td>
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $item['Item']['id'])); ?>

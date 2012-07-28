@@ -16,6 +16,7 @@ class Itemversion extends AppModel {
      */
     public $displayField = 'item_id';
 
+    public $actsAs = array('Containable');
     //The Associations below have been created with all possible keys, those that are not needed can be removed
 
     /**
@@ -39,11 +40,11 @@ class Itemversion extends AppModel {
      * @var array
      */
     public $hasAndBelongsToMany = array(
-        'SubItemversion' => array(
+        'UpItemversion' => array(
             'className' => 'Itemversion',
             'joinTable' => 'itemversion_itemversions',
             'foreignKey' => 'itemver_id',
-            'associationForeignKey' => 'subitemver_id',
+            'associationForeignKey' => 'upperitemver_id',
             'unique' => true,
             'conditions' => '',
             'fields' => '',

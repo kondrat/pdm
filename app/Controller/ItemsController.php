@@ -88,7 +88,8 @@ class ItemsController extends AppController {
             'contain' => array(
                 'Project' => array('conditions' => array('Project.id' => $userCurPrj['Project']['id'], 'Project.id !=' => NULL)),
                 'Tray',
-                'Itemversion'
+                'Itemversion' => array('UpItemversion'),
+                'Itemissue' => array('order'=>('Itemissue.number DESC'))
             )
                
         ));
@@ -240,6 +241,12 @@ class ItemsController extends AppController {
             throw new NotFoundException(__('Invalid item'));
         }
         $this->set('item', $this->Item->read(null, $id));
+//        $iv = $this->Item->find('all',array(
+//            'contain'=>array(
+//                'Itemversion'=>array('UpItemversion')
+//            )
+//        ));
+//        $this->set('iv',$iv);
     }
 
     /**
@@ -291,8 +298,7 @@ class ItemsController extends AppController {
                 'contain'=>false
             ));
             $this->request->data["Itemversion"]["version"] = $itemVersion['ItemType']['suffix']; 
-            $this->request->data["Itemissue"]["issue"] = 'A';
-            $this->request->data["Itemissue"]["number"] = 01;
+   
 
 
             $this->Item->create();
@@ -301,7 +307,17 @@ class ItemsController extends AppController {
                 $this->request->data["Itemversion"]["item_id"] = $this->Item->id;
                 $this->Item->Itemversion->save($this->request->data);
                 
+                $this->request->data["Itemissue"]["item_id"] = $this->Item->id;
+                $this->request->data["Itemissue"]["issue"] = 'A01';
+                $this->request->data["Itemissue"]["number"] = 0;
+                $this->Item->Itemissue->save($this->request->data);
                 //SubItemsVer
+                $this->request->data["UpItemversion"]["itemver_id"] = $this->Item->Itemversion->id;
+                $this->request->data["UpItemversion"]["upperitemver_id"] = $this->request->data["SubItemsVer"];
+                //@todo add assosiation
+                $this->Item->Itemversion->UpItemversion->save($this->reqest->data);
+                
+                
                 
                 $this->Session->setFlash(__('The item has been saved'));
                 $this->redirect(array('action' => 'index'));
