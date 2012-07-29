@@ -1,9 +1,9 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.1.63-0ubuntu0.11.04.1 - (Ubuntu)
--- Server OS:                    debian-linux-gnu
+-- Server version:               5.1.40-community - MySQL Community Server (GPL)
+-- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-07-28 23:19:52
+-- Date/time:                    2012-07-29 17:41:18
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -134,20 +134,13 @@ CREATE TABLE IF NOT EXISTS `itemissues` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `item_id_issue` (`item_id`,`issue`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.itemissues: ~8 rows (approximately)
+-- Dumping data for table pdm.itemissues: ~0 rows (approximately)
 DELETE FROM `itemissues`;
 /*!40000 ALTER TABLE `itemissues` DISABLE KEYS */;
 INSERT INTO `itemissues` (`id`, `item_id`, `issue`, `number`, `type`, `created`, `modified`) VALUES
-	(1, 1, 'A01', 0, 'dev', '2012-07-27 20:46:02', '2012-07-27 20:46:10'),
-	(2, 1, 'A02', 1, 'dev', '2012-07-27 20:57:42', '2012-07-27 20:57:58'),
-	(3, 1, 'A00', 2, 'prod', '2012-07-27 20:59:53', '2012-07-27 20:59:57'),
-	(4, 1, 'B01', 3, 'dev', '2012-07-27 21:01:57', '2012-07-27 21:02:03'),
-	(5, 2, 'A01', 0, 'dev', '2012-07-27 21:48:19', '2012-07-27 21:48:19'),
-	(6, 3, 'A01', 0, 'dev', '2012-07-27 21:50:35', '2012-07-27 21:50:35'),
-	(7, 4, 'A01', 0, 'dev', '2012-07-27 22:45:21', '2012-07-27 22:45:21'),
-	(8, 5, 'A01', 0, 'dev', '2012-07-27 23:03:51', '2012-07-27 23:03:51');
+	(1, 1, 'A01', 0, 'dev', '2012-07-29 12:10:45', '2012-07-29 12:10:45');
 /*!40000 ALTER TABLE `itemissues` ENABLE KEYS */;
 
 
@@ -169,17 +162,13 @@ CREATE TABLE IF NOT EXISTS `items` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `letter_ata_resp_drwnbr` (`letter`,`ata`,`drwnbr`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pdm.items: 5 rows
+-- Dumping data for table pdm.items: 0 rows
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `tray_id`, `item_type_id`, `responscode_id`, `status_id`, `letter`, `ata`, `resp`, `drwnbr`, `name`, `active`, `created`, `modified`) VALUES
-	(1, 2, 1, 1, NULL, 'A', '000', '0', '0000', 'Root for KS-11', 1, '2012-07-27 20:39:20', '2012-07-27 20:39:20'),
-	(2, 3, 1, 1, NULL, 'A', '100', '0', '0000', 'First barrels', 1, '2012-07-27 21:48:19', '2012-07-27 21:48:19'),
-	(3, 27, 1, 1, NULL, 'A', '150', '0', '0000', 'My barrel 1', 1, '2012-07-27 21:50:35', '2012-07-27 21:50:35'),
-	(4, 3, 1, 1, NULL, 'A', '100', '0', '0010', 'more barrels', 1, '2012-07-27 22:45:21', '2012-07-27 22:45:21'),
-	(5, 3, 1, 1, NULL, 'A', '100', '0', '0020', 'more barrels', 1, '2012-07-27 23:03:51', '2012-07-27 23:03:51');
+	(1, 2, 1, 1, NULL, 'A', '000', '0', '0000', 'Root KS-11 assy', 1, '2012-07-29 12:10:45', '2012-07-29 12:10:45');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 
@@ -190,17 +179,13 @@ CREATE TABLE IF NOT EXISTS `items_projects` (
   `item_id` int(11) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table pdm.items_projects: 5 rows
+-- Dumping data for table pdm.items_projects: 0 rows
 DELETE FROM `items_projects`;
 /*!40000 ALTER TABLE `items_projects` DISABLE KEYS */;
 INSERT INTO `items_projects` (`id`, `item_id`, `project_id`) VALUES
-	(1, 1, 1),
-	(2, 2, 1),
-	(3, 3, 1),
-	(4, 4, 1),
-	(5, 5, 1);
+	(1, 1, 1);
 /*!40000 ALTER TABLE `items_projects` ENABLE KEYS */;
 
 
@@ -213,36 +198,31 @@ CREATE TABLE IF NOT EXISTS `itemversions` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dumping data for table pdm.itemversions: ~5 rows (approximately)
+-- Dumping data for table pdm.itemversions: ~0 rows (approximately)
 DELETE FROM `itemversions`;
 /*!40000 ALTER TABLE `itemversions` DISABLE KEYS */;
 INSERT INTO `itemversions` (`id`, `item_id`, `version`, `created`, `modified`) VALUES
-	(1, 1, '000', '2012-07-27 20:39:20', '2012-07-27 20:39:20'),
-	(2, 2, '000', '2012-07-27 21:48:19', '2012-07-27 21:48:19'),
-	(3, 3, '000', '2012-07-27 21:50:35', '2012-07-27 21:50:35'),
-	(4, 4, '000', '2012-07-27 22:45:21', '2012-07-27 22:45:21'),
-	(5, 5, '000', '2012-07-27 23:03:51', '2012-07-27 23:03:51');
+	(1, 1, '000', '2012-07-29 12:10:45', '2012-07-29 12:10:45');
 /*!40000 ALTER TABLE `itemversions` ENABLE KEYS */;
 
 
--- Dumping structure for table pdm.itemversion_itemversions
-DROP TABLE IF EXISTS `itemversion_itemversions`;
-CREATE TABLE IF NOT EXISTS `itemversion_itemversions` (
+-- Dumping structure for table pdm.itemversions_itemversions
+DROP TABLE IF EXISTS `itemversions_itemversions`;
+CREATE TABLE IF NOT EXISTS `itemversions_itemversions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `itemver_id` int(11) DEFAULT NULL,
-  `upperitemver_id` int(11) DEFAULT NULL,
+  `itemversion_id` int(11) DEFAULT NULL,
+  `upitemversion_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
--- Dumping data for table pdm.itemversion_itemversions: 2 rows
-DELETE FROM `itemversion_itemversions`;
-/*!40000 ALTER TABLE `itemversion_itemversions` DISABLE KEYS */;
-INSERT INTO `itemversion_itemversions` (`id`, `itemver_id`, `upperitemver_id`) VALUES
-	(1, 2, 1),
-	(2, 3, 2);
-/*!40000 ALTER TABLE `itemversion_itemversions` ENABLE KEYS */;
+-- Dumping data for table pdm.itemversions_itemversions: 0 rows
+DELETE FROM `itemversions_itemversions`;
+/*!40000 ALTER TABLE `itemversions_itemversions` DISABLE KEYS */;
+INSERT INTO `itemversions_itemversions` (`id`, `itemversion_id`, `upitemversion_id`) VALUES
+	(1, 1, NULL);
+/*!40000 ALTER TABLE `itemversions_itemversions` ENABLE KEYS */;
 
 
 -- Dumping structure for table pdm.item_types
@@ -517,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `group_id`, `password`, `name`, `email`, `last_login`, `last_prj_id`, `created`, `modified`) VALUES
-	(1, NULL, '1234', 'alexeykondratyev', 'aa@mm.ru', '2012-07-27 09:41:17', 1, '2012-05-21 09:39:04', '2012-07-27 21:45:44'),
+	(1, NULL, '1234', 'AlexeyKondratyev', 'aa@mm.ru', '2012-07-29 09:53:35', 1, '2012-05-21 09:39:04', '2012-07-29 12:01:43'),
 	(3, NULL, '1234', 'aa2', 'aa2@mm.ru', NULL, NULL, '2012-05-21 11:12:33', '2012-05-21 11:12:33'),
 	(4, NULL, '1234', 'aa3', 'aa3@mm.ru', NULL, NULL, '2012-05-22 06:34:01', '2012-05-22 06:34:01'),
 	(5, NULL, '1234', 'worker1', '', NULL, NULL, '2012-05-24 09:17:39', '2012-05-24 09:17:39'),

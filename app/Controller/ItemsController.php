@@ -255,7 +255,7 @@ class ItemsController extends AppController {
      * @return void
      */
     public function add() {
-        
+
         /**
          * checking params named
          */
@@ -311,12 +311,15 @@ class ItemsController extends AppController {
                 $this->request->data["Itemissue"]["issue"] = 'A01';
                 $this->request->data["Itemissue"]["number"] = 0;
                 $this->Item->Itemissue->save($this->request->data);
-                //SubItemsVer
-                $this->request->data["UpItemversion"]["itemver_id"] = $this->Item->Itemversion->id;
-                $this->request->data["UpItemversion"]["upperitemver_id"] = $this->request->data["SubItemsVer"];
-                //@todo add assosiation
-                $this->Item->Itemversion->UpItemversion->save($this->reqest->data);
                 
+                //to check if it root or not.
+                if(isset($this->request->data["SubItemsVer"])){
+                    $this->request->data["IvIv"]["itemversion_id"] = $this->Item->Itemversion->id;
+                    $this->request->data["IvIv"]["upitemversion_id"] = $this->request->data["SubItemsVer"];
+                    //@todo add assosiation
+                    //debug($this->request->data);
+                    $this->Item->Itemversion->IvIv->save($this->request->data);
+                }
                 
                 
                 $this->Session->setFlash(__('The item has been saved'));
