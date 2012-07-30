@@ -5,7 +5,9 @@
                  <div class="item-rootExists"><?php echo $rootItemName;?></div>
                  <?php else: ?>               
                     <div class="message">Create a root assy</div>
+                    
                 <?php endif ?>
+                <?php echo $this->Form->input('RootItem', array('value'=>1,'type'=>'hidden'));?>
             <?php elseif($rootTray == 'notroot'): ?>
 
                 <?php if (isset($subItemsVers) && $subItemsVers == array()): ?>
@@ -13,7 +15,7 @@
                 <?php else: ?>
                     <?php
                         //if(isset($parentTray) && $parentTray == FALSE){
-                            echo $this->Form->input('SubItemsVer', array(
+                            echo $this->Form->input('Item.SubItemsVer', array(
                                 'label' => 'Upper assy',
                                 'empty' => 'choose one',
                                 //'disabled' => TRUE,

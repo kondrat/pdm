@@ -279,6 +279,11 @@ class ItemsController extends AppController {
          * workign with the post datas
          */
         if ($this->request->is('post')) {
+            
+            
+//           if( !isset($this->request->data["SubItemsVer"]) || $this->request->data["SubItemsVer"] == null && !isset($this->request->data["RootItem"])){
+//               echo 'hi';
+//           }
                 
             $this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
             $this->request->data["Item"]["tray_id"] = $this->request->data['Item']['tray'];
@@ -313,13 +318,13 @@ class ItemsController extends AppController {
                 $this->Item->Itemissue->save($this->request->data);
                 
                 //to check if it root or not.
-                if(isset($this->request->data["SubItemsVer"])){
+
                     $this->request->data["IvIv"]["itemversion_id"] = $this->Item->Itemversion->id;
-                    $this->request->data["IvIv"]["upitemversion_id"] = $this->request->data["SubItemsVer"];
+                    $this->request->data["IvIv"]["upitemversion_id"] = $this->request->data["Item"]["SubItemsVer"];
                     //@todo add assosiation
                     //debug($this->request->data);
                     $this->Item->Itemversion->IvIv->save($this->request->data);
-                }
+                
                 
                 
                 $this->Session->setFlash(__('The item has been saved'));
