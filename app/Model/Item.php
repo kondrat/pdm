@@ -44,15 +44,20 @@ class Item extends AppModel {
 //            )
         ),
         'tray' => array(
-            'rule'    => array('minLength', '8'),
-            'message' => 'Minimum 8 characters long'
+            'rule'    => 'numeric',
+            'message' => 'Wrong tray code'
         ),
-//        'email' => 'email',
-//        'born' => array(
-//            'rule'       => 'date',
-//            'message'    => 'Enter a valid date',
-//            'allowEmpty' => true
-//        )
+        'name' => array(
+            'rule' => 'alphaNumeric',
+            'required' => true,
+            'message' => 'Name should not be empty'
+        ),
+        'drwnbr' => array(
+            'rule'       => 'numeric',
+            'message'    => 'Enter a valid number',
+            'required' => true,
+            'allowEmpty' => false
+        )
         
     );
     
