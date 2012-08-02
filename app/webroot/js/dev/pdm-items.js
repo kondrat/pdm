@@ -47,7 +47,7 @@ jQuery(document).ready(function(){
                             $(".item-newItemNbr").removeClass("item-newItemNbrDis");
                         } else {
                             $(".item-newItemNbr").addClass("item-newItemNbrDis");
-                             $("#tem_to_change").find("select,input").prop('disabled', true);
+                            $("#tem_to_change").find("select,input").prop('disabled', true);
                         }
 
                         $("#item-drwNbrTip").val(mm.nbr);

@@ -280,6 +280,7 @@ class ItemsController extends AppController {
          */
         if ($this->request->is('post')) {
             
+            $this->set("displFld",TRUE);
             
 //           if( !isset($this->request->data["SubItemsVer"]) || $this->request->data["SubItemsVer"] == null && !isset($this->request->data["RootItem"])){
 //               echo 'hi';

@@ -22,7 +22,13 @@
             </div>
 
         </div>
-        <div id="tem_to_change" style="display: none;">
+        <?php 
+            $displayFields = "none";
+            if(isset($displFld)){
+                $displayFields = "block";
+            }
+        ?>
+        <div id="tem_to_change" style="display: <?php echo $displayFields;?>">
 
             <div id="item-upperAssyWrp"></div>
 
