@@ -19,7 +19,7 @@ jQuery(document).ready(function(){
         var thisTray = $(this);
         if(thisTray.val() != ''){
             //if we selected tray, not "choose tray" - we display fields
-            $("#tem_to_change").css({"display":"block"});
+            //$("#tem_to_change").css({"display":"block"});
             
             $.ajax({
                 dataType:"html",
@@ -63,7 +63,7 @@ jQuery(document).ready(function(){
                 }
             });
         } else {
-            $("#tem_to_change").css({"display":"none"});
+            //$("#tem_to_change").css({"display":"none"});
         }
     });
     

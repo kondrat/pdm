@@ -78,5 +78,26 @@ form div.wrap{
 .hideNode{
     color: red;
 }
+div.item-submitDis input[type="submit"]{
+    background: #eee;
+    color: #ddd;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+div.item-submitDis input[type="submit"]:active{
+
+    background: #eee;
+    color: #ddd;
+    text-shadow: none;
+
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
 
 

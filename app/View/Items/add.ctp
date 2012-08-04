@@ -28,9 +28,20 @@
                 $displayFields = "block";
             }
         ?>
-        <div id="tem_to_change" style="display: <?php echo $displayFields;?>">
+        <div id="tem_to_change" style="display: block;">
 
-            <div id="item-upperAssyWrp"></div>
+            <div id="item-upperAssyWrp">
+                    <?php
+                   
+                            echo $this->Form->input('Item.SubItemsVer', array(
+                                'label' => 'Upper assy',
+                                'empty' => 'choose one',
+                                'disabled' => TRUE,
+                                'div'=>false
+                            ));
+                    ?>                
+                
+            </div>
 
             <div class="item-newItemNbr  item-newItemNbrDis">
                 <span id="item-pLetterTip" title="Project Letter" class="item-pletter">
@@ -83,7 +94,15 @@
 
 
 
-            <?php echo $this->Form->end(__('Submit')); ?>
+            <?php 
+            $options = array(
+                'label' => __('Submit'),
+                'disabled' => "disabled",
+                'div'=>array('class'=>'item-submitDis')
+                );
+            echo $this->Form->end( $options); 
+            ?>
+   
 
     </fieldset>
   
