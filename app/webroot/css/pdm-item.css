@@ -5,17 +5,7 @@
     Description:
         it - item classes
 */
-.item-newItemNbr{
-    background-color: #EEEEEE;
-    float: left;
-    font-size: large; 
-    position: relative;
-    margin-left: 7px;
-}
-.item-newItemNbrDis{
-    color: lightgray;
-    background-color: #eee;
-}
+
 .item-addNewItemNbr{
     font-size: smaller;
     margin: 0 10px;
@@ -78,7 +68,7 @@ form div.wrap{
 .hideNode{
     color: red;
 }
-div.item-submitDis input[type="submit"]{
+div.item-formDis input[type="submit"]{
     background: #eee;
     color: #ddd;
     -moz-box-shadow: none;
@@ -87,7 +77,7 @@ div.item-submitDis input[type="submit"]{
     -webkit-user-select: none;
     user-select: none;
 }
-div.item-submitDis input[type="submit"]:active{
+div.item-formDis input[type="submit"]:active{
 
     background: #eee;
     color: #ddd;
@@ -100,4 +90,21 @@ div.item-submitDis input[type="submit"]:active{
     user-select: none;
 }
 
+.item-formDis, .item-formDis label, .item-formDis .required label:after{
+    color: green;
+    font-weight: normal;
+}
+
+.item-newItemNbr{
+    background-color: #EEEEEE;
+    float: left;
+    font-size: large; 
+    position: relative;
+    margin-left: 7px;
+}
+
+.item-formDis .item-newItemNbr{
+    color: lightgray;
+    background-color: #eee;  
+}
 

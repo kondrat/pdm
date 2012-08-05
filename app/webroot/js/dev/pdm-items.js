@@ -6,7 +6,11 @@ jQuery(document).ready(function(){
     
     var $item_Tray = $("#item-trayListAdd");
 
-    
+
+    if(!$("#tem_to_change").hasClass("formAnb") && !$("#tem_to_change").hasClass("item-formDis")){
+        $("#tem_to_change").find("select,input").prop('disabled', false);
+    } 
+
     $item_Tray.change(function(){
         
         var mm = null;
@@ -20,7 +24,7 @@ jQuery(document).ready(function(){
         if(thisTray.val() != ''){
             //if we selected tray, not "choose tray" - we display fields
             //$("#tem_to_change").css({"display":"block"});
-            
+            $("#tem_to_change").removeClass("item-formDis");
             $.ajax({
                 dataType:"html",
                 url: "\/items\/getAtaCode",
@@ -44,13 +48,14 @@ jQuery(document).ready(function(){
                         $("#item-ataCode").val(mm.ataCache);
                         if(mm.form == 1){
                             $("#tem_to_change").find("select,input").prop('disabled', false);
-                            $(".item-newItemNbr").removeClass("item-newItemNbrDis");
+
                         } else {
-                            $(".item-newItemNbr").addClass("item-newItemNbrDis");
+
                             $("#tem_to_change").find("select,input").prop('disabled', true);
                         }
 
                         $("#item-drwNbrTip").val(mm.nbr);
+                        $("#ItemName").val("");
 
 
                     }
@@ -63,7 +68,8 @@ jQuery(document).ready(function(){
                 }
             });
         } else {
-            //$("#tem_to_change").css({"display":"none"});
+            $("#tem_to_change").addClass("item-formDis");
+            $("#tem_to_change").find("select,input").prop('disabled', true);
         }
     });
     

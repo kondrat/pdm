@@ -23,16 +23,15 @@
 
         </div>
         <?php 
-            $displayFields = "none";
-            if(isset($displFld)){
-                $displayFields = "block";
+            $disFormClass = "item-formDis";
+            if(isset($formAnb) && $formAnb == 1){
+                $disFormClass = "";
             }
         ?>
-        <div id="tem_to_change" style="display: block;">
+        <div id="tem_to_change" class="<?php echo $disFormClass;?>">
 
             <div id="item-upperAssyWrp">
-                    <?php
-                   
+                    <?php                  
                             echo $this->Form->input('Item.SubItemsVer', array(
                                 'label' => 'Upper assy',
                                 'empty' => 'choose one',
@@ -103,9 +102,9 @@
             echo $this->Form->end( $options); 
             ?>
    
-
+        </div>
     </fieldset>
-  
+
 
 </div>
  

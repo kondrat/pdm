@@ -280,7 +280,7 @@ class ItemsController extends AppController {
          */
         if ($this->request->is('post')) {
             
-            $this->set("displFld",TRUE);
+            //$this->set("displFld",TRUE);
             
 //           if( !isset($this->request->data["SubItemsVer"]) || $this->request->data["SubItemsVer"] == null && !isset($this->request->data["RootItem"])){
 //               echo 'hi';
@@ -291,6 +291,7 @@ class ItemsController extends AppController {
             $this->request->data["Project"]["id"] = $this->request->data["Item"]["project"];
             $this->request->data['Item']['letter'] = $this->request->data['Item']['Pletter'];
             $this->request->data['Item']['responscode_id'] = $this->request->data['Item']['Responscode'];
+            
             $resp = $this->Item->Responscode->find('first',array(
                 'conditions'=>array('Responscode.id'=>$this->request->data['Item']['Responscode']),
                 'contain'=>FALSE
@@ -332,8 +333,11 @@ class ItemsController extends AppController {
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('The item could not be saved. Please, try again.'));
+                $this->set("formAnb",1);
             }
         }
+        
+
 
         /**
          * setting needed data for view
@@ -376,9 +380,9 @@ class ItemsController extends AppController {
                 //'conditions'=>array('Itemversion.id'=>111)
                 ));
         $subItemsVers = array();
-        foreach ($subItems as $k => $v) {
-            $subItemsVers[$k] = $v['Item']['drwnbr'] . ' - ' . $v['Itemversion']['version'] . ' (' . $v['Item']['name'] . ')';
-        }
+//        foreach ($subItems as $k => $v) {
+//            $subItemsVers[$k] = $v['Item']['full_drwname'] . ' - ' . $v['Itemversion']['version'] . ' (' . $v['Item']['name'] . ')';
+//        }
 
         $this->set('subItemsVers', $subItemsVers);
 
@@ -521,7 +525,7 @@ class ItemsController extends AppController {
                 if($rootItemFroCurPrj != array()){
 
                     $m = $rootItemFroCurPrj;
-                    $rootItemName = $m['Item']['letter'].'-'.$m['Item']['ata'].'-'.$m['Item']['resp'].'-'. $m['Item']['drwnbr']. ' (' . $m['Item']['name'] . ')';
+                    $rootItemName = $m['Item']['full_drwname'].' (' . $m['Item']['name'] . ')';
                     //$this->layout = 'upperAssy';
                 }
 
@@ -549,7 +553,7 @@ class ItemsController extends AppController {
                     if ($v['Project'] != array()) {
 
                         foreach ($v['Itemversion'] as $k1=>$v1){
-                            $itemsVerRes[$v1['id']] =$v['Item']['letter'].'-'.$v['Item']['ata'].'-'.$v['Item']['resp'].'-'. $v['Item']['drwnbr'].'-'.$v1['version']. ' (' . $v['Item']['name'] . ')';
+                            $itemsVerRes[$v1['id']] =$v['Item']['full_drwname'].'-'.$v1['version']. ' (' . $v['Item']['name'] . ')';
                         }
 
                     }
