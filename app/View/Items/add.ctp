@@ -38,8 +38,7 @@
                                 'disabled' => TRUE,
                                 'div'=>false
                             ));
-                    ?>                
-                
+                    ?>                                
             </div>
 
             <div class="item-newItemNbr  item-newItemNbrDis">

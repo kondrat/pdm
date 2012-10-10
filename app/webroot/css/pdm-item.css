@@ -107,4 +107,19 @@ div.item-formDis input[type="submit"]:active{
     color: lightgray;
     background-color: #eee;  
 }
-
+.item-drwNumberWidth{
+    width: 170px;
+}
+.actions div.item-otherPrj a{
+    background: none repeat scroll 0 0 transparent;
+    border: none;
+    border-bottom: 1px dashed;
+    box-shadow: none;
+    color: black;
+    font-size: small;
+    padding: 1px;
+    border-radius: 0;
+    margin-right: 5px;
+    
+    
+}

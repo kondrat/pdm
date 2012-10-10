@@ -259,7 +259,7 @@ class ItemsController extends AppController {
         /**
          * checking params named
          */
-        $prjId = $this->params['named']['prj'];
+        $prjId = $this->request->params['named']['prj'];
         $this->Item->Project->id = $prjId;
 
         if (!$this->Item->Project->exists()) {
@@ -285,13 +285,16 @@ class ItemsController extends AppController {
 //           if( !isset($this->request->data["SubItemsVer"]) || $this->request->data["SubItemsVer"] == null && !isset($this->request->data["RootItem"])){
 //               echo 'hi';
 //           }
-                
+//           
+            // parametrs data preparation:
+            
             $this->request->data["ItemType"]["id"] = $this->request->data['Item']['ItemType'];
             $this->request->data["Item"]["tray_id"] = $this->request->data['Item']['tray'];
             $this->request->data["Project"]["id"] = $this->request->data["Item"]["project"];
             $this->request->data['Item']['letter'] = $this->request->data['Item']['Pletter'];
             $this->request->data['Item']['responscode_id'] = $this->request->data['Item']['Responscode'];
             
+            // responsibility code. Who responsible for the drawing creation.
             $resp = $this->Item->Responscode->find('first',array(
                 'conditions'=>array('Responscode.id'=>$this->request->data['Item']['Responscode']),
                 'contain'=>FALSE

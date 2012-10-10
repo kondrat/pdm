@@ -13,13 +13,13 @@
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Drawing number'); ?></dt>
-		<dd>
-			<?php echo h($item['Item']['full_drwname']); ?>
+		<dd style="color: blue">
+			<?php echo h($item['Item']['full_drwname']).' - '.h($item['Itemissue'][0]['issue']); ?>
 			&nbsp;
 		</dd>
                 <dt><?php echo __('Drawing versions'); ?></dt>
                 <?php foreach ($item['Itemversion'] as $k=>$v):?>
-                <dd><?php echo $item['Item']['full_drwname'].' - '.$v['version'].'</br>';?></dd>
+                    <dd style="color:green"><?php echo $item['Item']['full_drwname'].' - '.$v['version'].'</br>';?></dd>
                 <?php endforeach?>
 		<dt><?php echo __('Item type'); ?></dt>
 		<dd>
