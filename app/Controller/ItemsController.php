@@ -345,6 +345,7 @@ class ItemsController extends AppController {
         /**
          * setting needed data for view
          */
+        
         /**
          * setting params named for project
          */
@@ -379,16 +380,14 @@ class ItemsController extends AppController {
         /**
          * setting params named for ItemVersions (upper assy for item to be added
          */
-        $subItems = $this->Item->Itemversion->find('all', array(
-                //'conditions'=>array('Itemversion.id'=>111)
-                ));
+
         $subItemsVers = array();
-//        foreach ($subItems as $k => $v) {
-//            $subItemsVers[$k] = $v['Item']['full_drwname'] . ' - ' . $v['Itemversion']['version'] . ' (' . $v['Item']['name'] . ')';
-//        }
+
 
         $this->set('subItemsVers', $subItemsVers);
 
+
+        
         /**
          * setting params named for project letter
          */
@@ -443,6 +442,11 @@ class ItemsController extends AppController {
         $itemSuffixes = $this->Item->ItemType->find('list', array('fields' => array('ItemType.id', 'ItemType.suffix')));
         $itemSuffixes = json_encode($itemSuffixes);
         $this->set('itemSuffixes', $itemSuffixes);
+
+        
+// I'm here working
+        $this->render('add_root_item');
+        
     }
 
     /**
