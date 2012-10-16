@@ -1,6 +1,5 @@
 <div class="items form">
     
-    <div style="border:1px solid red;margin-bottom: 20px; float: left;"><-- To del --></div>
 
     <?php echo $this->Form->create('Item'); ?>
     <fieldset>
@@ -17,7 +16,7 @@
                 echo $this->Form->input('tray', array(
                     'type' => 'hidden',
                     'div' => FALSE,
-                    'empty'=>'choose one'
+                    'value' => $trayId
                 ));
                 ?>
 
@@ -28,13 +27,13 @@
         <div id="tem_to_change" class="<?php echo $disFormClass;?>">
 
 
-                    <?php                  
+<!--                    <?php                  
                             echo $this->Form->input('Item.SubItemsVer', array(
                                 'type'=> 'hidden',
                                 'disabled' => TRUE,
                                 'div'=>false
                             ));
-                    ?>                                
+                    ?>                                -->
 
 
             <div class="item-newItemNbr  item-newItemNbrDis">
@@ -68,7 +67,15 @@
                 <span id="item-drwNbrCounter" class="item-drwNumberCounter">5</span>
             </div>
 
-
+            
+                <?php
+                echo $this->Form->input('ItemType', array(
+                    'value' => $itemType,
+                    'type'=>'hidden'
+                ));
+                ?>
+            
+            
             <?php echo $this->Form->input('name', array(
                 "class" => "item-addNewItemName",
                 'disabled'=>TRUE

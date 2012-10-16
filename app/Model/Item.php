@@ -35,7 +35,7 @@ class Item extends AppModel {
         'SubItemsVer' => array(
             'alphaNumeric' => array(
                 'rule'     => 'alphaNumeric',
-                'required' => true,
+                'required' => false,
                 'message'  => 'Alphabets and numbers only'
             ),
 //            'between' => array(
@@ -48,9 +48,9 @@ class Item extends AppModel {
             'message' => 'Wrong tray code'
         ),
         'name' => array(
-            'rule' => 'alphaNumeric',
-            'required' => true,
-            'message' => 'Name should not be empty'
+//            'rule' => 'alphaNumeric',
+//            'required' => true,
+//            'message' => 'Name should not be empty'
         ),
         'drwnbr' => array(
             'rule'       => 'numeric',

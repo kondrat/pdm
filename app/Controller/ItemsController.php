@@ -30,7 +30,7 @@ class ItemsController extends AppController {
      */
     public function index() {
         //set current project for logged in User:
-        if(isset($this->request->params['named']['prj']) && $this->request->params['named']['prj'] != $this->Session->read('Auth.User.User')){
+        if(isset($this->request->params['named']['prj']) && $this->request->params['named']['prj'] != $this->Session->read('Auth.User.User.curprj')){
             $this->Session->write('Auth.User.User.curprj',$this->request->params['named']['prj']);
             $this->loadModel('User');
             $this->request->data['User']['id'] = 1;
@@ -303,6 +303,8 @@ class ItemsController extends AppController {
             $this->request->data['Item']['resp'] = $resp['Responscode']['name'];
             $this->request->data['Item']['item_type_id'] = $this->request->data['Item']['ItemType'];
             
+            
+            
             $itemVersion = $this->Item->ItemType->find('first',array(
                 'conditions'=>array('ItemType.id'=>$this->request->data['Item']['ItemType']),
                 'contain'=>false
@@ -352,11 +354,19 @@ class ItemsController extends AppController {
         $project = $this->Item->Project->find('first', array(
             'conditions' => array('Project.id' => $this->params['named']['prj']),
             'fields' => array('Project.id', 'Project.name'),
-            'contain' => false
+            'contain' => array('Item')
                 ));
         $this->set('projectName', $project['Project']['name']);
         $this->set('projectId', $this->params['named']['prj']);
 
+        
+        /*
+         * checking if this project has an items or not
+         */
+        
+
+
+        
         /**
          * setting params named for tray
          */
@@ -365,8 +375,8 @@ class ItemsController extends AppController {
 
         $traysData = $this->Item->Tray->find('first', array(
             'conditions' => array('Tray.id' => $trayId),
-            'fields' => array('Tray.lft', 'Tray.rght', 'Tray.name'),
-            'contain' => false)
+            //'fields' => array('Tray.lft', 'Tray.rght', 'Tray.name'),
+            'contain' => array('ItemType'))
         );
 
         if ($traysData != array()) {
@@ -377,6 +387,12 @@ class ItemsController extends AppController {
         $this->set(compact('trays'));
         $this->set('trayName', $trayName);
 
+        
+        $this->set('ataCache', $traysData['Tray']['ata_cache']);
+        $this->set('itemType', $traysData['ItemType']['suffix']);
+        $this->set('trayId',$traysData['Tray']['id']);
+        
+        
         /**
          * setting params named for ItemVersions (upper assy for item to be added
          */
@@ -415,24 +431,24 @@ class ItemsController extends AppController {
         /**
          * setting params named for ata code
          */
-        $ataData = array();
-        $ataId = null;
-
-        $ataId = $this->request->params['named']['trd'];
-
-        if ($ataId != null) {
-
-            $ataData = $this->Item->Tray->find('first', array(
-                'conditions' => array('Tray.id' => $ataId)
-                    ));
-
-            //debug($ataData);
-        } else {
-            return;
-        }
-
-        $this->set('ataCache', $ataData['Tray']['ata_cache']);
-        $this->set('itemType', $ataData['ItemType']['suffix']);
+//        $ataData = array();
+//        $ataId = null;
+//
+//        $ataId = $this->request->params['named']['trd'];
+//
+//        if ($ataId != null) {
+//
+//            $ataData = $this->Item->Tray->find('first', array(
+//                'conditions' => array('Tray.id' => $ataId)
+//                    ));
+//
+//            //debug($ataData);
+//        } else {
+//            return;
+//        }
+//
+//        $this->set('ataCache', $ataData['Tray']['ata_cache']);
+//        $this->set('itemType', $ataData['ItemType']['suffix']);
 
         /**
          * setting params named item suffix
@@ -444,13 +460,22 @@ class ItemsController extends AppController {
         $this->set('itemSuffixes', $itemSuffixes);
 
         
-// I'm here working
-        $this->render('add_root_item');
+        if($project['Item'] == array()){
+            
+            $suggestedNbr = $this->giveDrwNbr('A',"000");
+            $this->request->data['Item']['drwnbr'] = $suggestedNbr;
+            $this->request->data['Item']['name'] = 'Root '.$project['Project']['name'];
+            
+            $this->render('add_root_item');
+            
+            
+        }
+        
         
     }
 
     /**
-     * providing ata code to drw number creating
+     * providing ata code for drw number creation
      */
     public function getAtaCode() {
 
@@ -602,6 +627,8 @@ class ItemsController extends AppController {
 
     /**
      * providing the sugesstion for the number
+     * @param $letter
+     * @param $ata
      */
     private function giveDrwNbr($letter=null,$ata=null) {
         
