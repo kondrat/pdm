@@ -325,12 +325,13 @@ class ItemsController extends AppController {
                 $this->Item->Itemissue->save($this->request->data);
                 
                 //to check if it root or not.
-
+                if(isset ($this->request->data["Item"]["SubItemsVer"]) && $this->request->data["Item"]["SubItemsVer"] != NULL){
                     $this->request->data["IvIv"]["itemversion_id"] = $this->Item->Itemversion->id;
                     $this->request->data["IvIv"]["upitemversion_id"] = $this->request->data["Item"]["SubItemsVer"];
                     //@todo add assosiation
                     //debug($this->request->data);
                     $this->Item->Itemversion->IvIv->save($this->request->data);
+                }
                 
                 
                 
