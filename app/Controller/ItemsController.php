@@ -385,6 +385,8 @@ class ItemsController extends AppController {
             $trays = $this->Item->Tray->generateTreeList(
                     array('Tray.lft >=' => $traysData['Tray']['lft'], 'Tray.rght <=' => $traysData['Tray']['rght']), null, null, '----');
         }
+        
+        
         $this->set(compact('trays'));
         $this->set('trayName', $trayName);
 
@@ -523,6 +525,7 @@ class ItemsController extends AppController {
             //checking parent tray info
 
             $parentTray = $this->Item->Tray->getParentNode($ataId);
+            //debug($parentTray);
             
             //array of upper assembles
             $itemsVerRes = array();
